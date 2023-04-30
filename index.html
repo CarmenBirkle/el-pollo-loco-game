@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="fonts.css">
-
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="fonts.css" />
+    <link rel="icon" type="image/x-icon" href="img/favicon.png" />
+    -
     <script src="classes/drawable-object.class.js"></script>
     <script src="classes/movable-object.class.js"></script>
     <script src="classes/throwable-object.class.js"></script>
@@ -27,79 +28,115 @@
     <script src="classes/endboss.class.js"></script>
     <script src="levels/level1.js"></script>
     <script src="js/game.js"></script>
-    <title>EL POLLO LOCO</title>
-    <link rel="icon" type="image/x-icon" href="img/favicon.ico">
-  
-</head>
+    <title>El Pollo Loco</title>
+  </head>
 
-<body>
-        <div id="start" class="startscreen">
-            <button class="btn" onclick="startGame()">Start Game</button>
-            <img class="startimg" src="img/9.Intro _ Outro Image/Start Screen/Opcion2.png">
-            <span>Jump and run game. You can collect coins and bottles. Jump on the chicken enemies without letting them hurt you. Throw the collected bottles on the big chicken. The target is to kill it without getting hurt by the enemies.</span>
-            <div class="keyboard hide-mobile">
-                <div class="key">
-                    <span>Move right:</span>
-                    <img class="key-img" src="img/keyboard/right.png">
-                </div>
-                <div class="key">
-                    <span>Move left:</span>
-                    <img class="key-img" src="img/keyboard/left.png">
-                </div>
-                <div class="key">
-                    <span>Throw bottle:</span>
-                    <button class="btn-d">D</button>
-                </div>
-                <div class="key">
-                    <span>Jump:</span>
-                    <img class="space-img"  src="img/keyboard/space.png">
-                </div>
-            </div>
+  <body>
+    <div id="start" class="startscreen">
+      <button class="btn" onclick="startGame()">Start your Game</button>
+      <img
+        class="startimg"
+        src="img/9.Intro _ Outro Image/Start Screen/Opcion2.png"
+      />
+      <span
+        >The game is a jump and run game where you can collect coins and
+        bottles. Jump on chicks and the chickens without hurting yourself. With
+        the collected bottles you can defeat the final boss, the giant monster
+        chicken. Kill the end boss that is your goal and you win.
+      </span>
+      <div class="keyboard hide-mobile">
+        <div class="key">
+          <span>Move right:</span>
+          <img class="key-img" src="img/keyboard/right.png" />
         </div>
+        <div class="key">
+          <span>Move left:</span>
+          <img class="key-img" src="img/keyboard/left.png" />
+        </div>
+        <div class="key">
+          <span>Throw bottle:</span>
+          <button class="btn-d">D</button>
+        </div>
+        <div class="key">
+          <span>Jump:</span>
+          <img class="space-img" src="img/keyboard/space.png" />
+        </div>
+      </div>
+    </div>
 
-        <div id="win" class="startscreen d-none">
-            <img class="startimg" src="img/9.Intro _ Outro Image/_Game over_ screen/3.Game over.png">
-            <h1>Congratulations, you won!</h1>
-            <button class="btn" onclick="restart()">New Game</button>
-        </div>
+    <div id="win" class="startscreen d-none">
+      <img
+        class="startimg"
+        src="img/9.Intro _ Outro Image/_Game over_ screen/3.Game over.png"
+      />
+      <h1>Congratulations, you won!</h1>
+      <button class="btn" onclick="restart()">New Game</button>
+    </div>
 
-        <div id="gameOver" class="startscreen d-none">
-            <img class="startimg" src="img/9.Intro _ Outro Image/_Game over_ screen/1.you lost.png">
-            <button class="btn" onclick="restart()">New Game</button>
+    <div id="gameOver" class="startscreen d-none">
+      <img
+        class="startimg"
+        src="img/9.Intro _ Outro Image/_Game over_ screen/1.you lost.png"
+      />
+      <button class="btn" onclick="restart()">New Game</button>
+    </div>
+    <div id="game" class="game d-none">
+      <div class="controls">
+        <img
+          title="full screen"
+          class="fullscreen"
+          onclick="fullscreen()"
+          src="img/icon/full-screen-48.png"
+        />
+        <img
+          title="back"
+          class="undobtn"
+          onclick="restart()"
+          src="img/icon/undo.png"
+        />
+        <img
+          title="sound"
+          class="mute"
+          id="mute"
+          onclick="stopMusic()"
+          src="img/icon/music.png"
+        />
+      </div>
+      <canvas id="canvas" width="720" height="480"></canvas>
+      <div class="btn-rightSide mobile-hide">
+        <img src="img/keyboard/up.png" id="up-btn" class="btn-mobile" />
+        <img src="img/keyboard/throw.png" id="throw-btn" class="btn-mobile" />
+      </div>
+      <div class="btn-leftSide mobile-hide">
+        <img
+          src="img/keyboard/left-mobile.png"
+          id="left-btn"
+          class="btn-mobile"
+        />
+        <img
+          src="img/keyboard/right-mobile.png"
+          id="right-btn"
+          class="btn-mobile"
+        />
+      </div>
+      <div class="keyboard hide-mobile">
+        <div class="key">
+          <span>Move right:</span>
+          <img class="key-img" src="img/keyboard/right.png" />
         </div>
-        <div id="game" class="game d-none">
-            <div class="controls">
-                <img title="full screen" class="fullscreen" onclick="fullscreen()" src="img/icon/full-screen-48.png">
-                <img title="back" class="undobtn" onclick="restart()" src="img/icon/undo.png">
-                <img title="sound" class="mute" id="mute" onclick="stopMusic()" src="img/icon/music.png">
-            </div>
-            <canvas id="canvas" width="720" height="480"></canvas>
-            <div class="btn-rightSide mobile-hide">
-                <img src="img/keyboard/up.png" id="up-btn" class="btn-mobile">
-                <img src="img/keyboard/throw.png" id="throw-btn" class="btn-mobile">
-              </div>
-              <div class="btn-leftSide mobile-hide">
-                <img src="img/keyboard/left-mobile.png" id="left-btn" class="btn-mobile">
-                <img src="img/keyboard/right-mobile.png" id="right-btn" class="btn-mobile">
-              </div>
-            <div class="keyboard hide-mobile">
-                <div class="key">
-                    <span>Move right:</span>
-                    <img class="key-img" src="img/keyboard/right.png">
-                </div>
-                <div class="key">
-                    <span>Move left:</span>
-                    <img class="key-img" src="img/keyboard/left.png">
-                </div>
-                <div class="key">
-                    <span>Throw bottle:</span>
-                    <button class="btn-d">D</button>
-                </div>
-                <div class="key">
-                    <span>Jump:</span>
-                    <img class="space-img"  src="img/keyboard/space.png">
-                </div>
-            </div>
+        <div class="key">
+          <span>Move left:</span>
+          <img class="key-img" src="img/keyboard/left.png" />
         </div>
-</body>
+        <div class="key">
+          <span>Throw bottle:</span>
+          <button class="btn-d">D</button>
+        </div>
+        <div class="key">
+          <span>Jump:</span>
+          <img class="space-img" src="img/keyboard/space.png" />
+        </div>
+      </div>
+    </div>
+  </body>
 </html>
