@@ -23,6 +23,8 @@ canvas {
 }
 h1 {
   font-family: 'zabars', Arial, Helvetica, sans-serif;
+  font-size: 66px;
+  letter-spacing: 3px;
 }
 
 .d-none {
@@ -40,10 +42,9 @@ h1 {
   position: relative;
 }
 
-.startscreen h1 {
+/* .startscreen h1 {
   color: rgb(51, 50, 50);
-  font-size: 36px;
-}
+} */
 
 .startscreen span {
   font-size: 16px;
@@ -62,13 +63,24 @@ h1 {
   justify-content: center;
   align-items: center;
 }
+.head-info {
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+  align-items: center;
+}
 
 .info-icon {
-  position: absolute;
-  right: 20px;
-  bottom: 0px;
   height: 30px;
   width: 30px;
+  margin: 10px;
+  padding: 10px;
+
+  border-radius: 28%;
+}
+.info-icon:hover {
+  background-color: #fac91e;
+  cursor: pointer;
 }
 
 .btn-d {
@@ -191,7 +203,7 @@ h1 {
 }
 
 .btn:hover {
-  background-color: rgb(175, 134, 58);
+  background-color: #fac91e;
   cursor: pointer;
 }
 
@@ -202,7 +214,7 @@ h1 {
 button {
   font-size: large;
   font-weight: 700;
-  letter-spacing: 6px;
+  letter-spacing: 3px;
   font-family: 'Roboto', Arial, Helvetica, sans-serif;
   border-radius: 100%;
   padding: 6px 6px;
@@ -352,4 +364,14 @@ button {
   .mobile-hide {
     display: unset;
   }
+}
+
+@media screen and (max-width: 768px) and (orientation: landscape) {
+  /* Hier kommen die CSS-Regeln für das Querformat auf Mobilgeräten rein */
+
+  /* // -50 btn left side */
+}
+
+@media screen and (max-width: 768px) and (orientation: portrait) {
+  /* Hier kommen die CSS-Regeln für das Hochformat auf Mobilgeräten rein */
 }
