@@ -1,85 +1,93 @@
+/**
+ *  Endboss class - generates the endboss with its properties and methods for
+ *  dead, hurt, walking, angry and alert.
+ * */
+
 class Endboss extends MovableObject {
+  height = 400;
+  width = 250;
+  y = 50;
+  x = 2500;
+  world;
+  energy = 25;
+  endboss_dead = false;
 
-    height = 400;
-    width = 250;
-    y = 50;
-    x = 2500;
-    world;
-    energy = 25;
-    endboss_dead = false;
+  IMAGES_WALKING = [
+    'img/4_enemie_boss_chicken/1_walk/G1.png',
+    'img/4_enemie_boss_chicken/1_walk/G2.png',
+    'img/4_enemie_boss_chicken/1_walk/G3.png',
+    'img/4_enemie_boss_chicken/1_walk/G4.png',
+  ];
 
-    IMAGES_WALKING = [
-        'img/4.Secuencias_Enemy_giganton-Dona_Gallinota-/2.Atecion-ataque/1.Alerta/G5.png',
-        'img/4.Secuencias_Enemy_giganton-Dona_Gallinota-/2.Atecion-ataque/1.Alerta/G6.png',
-        'img/4.Secuencias_Enemy_giganton-Dona_Gallinota-/2.Atecion-ataque/1.Alerta/G7.png',
-        'img/4.Secuencias_Enemy_giganton-Dona_Gallinota-/2.Atecion-ataque/1.Alerta/G8.png',
-        'img/4.Secuencias_Enemy_giganton-Dona_Gallinota-/2.Atecion-ataque/1.Alerta/G9.png',
-        'img/4.Secuencias_Enemy_giganton-Dona_Gallinota-/2.Atecion-ataque/1.Alerta/G10.png',
-        'img/4.Secuencias_Enemy_giganton-Dona_Gallinota-/2.Atecion-ataque/1.Alerta/G11.png',
-        'img/4.Secuencias_Enemy_giganton-Dona_Gallinota-/2.Atecion-ataque/1.Alerta/G12.png',
-    ];
+  IMAGES_HURT = [
+    'img/4_enemie_boss_chicken/4_hurt/G21.png',
+    'img/4_enemie_boss_chicken/4_hurt/G22.png',
+    'img/4_enemie_boss_chicken/4_hurt/G23.png',
+  ];
 
-    IMAGES_HURT = [
-        'img/4.Secuencias_Enemy_giganton-Dona_Gallinota-/3.Herida/G21.png',
-        'img/4.Secuencias_Enemy_giganton-Dona_Gallinota-/3.Herida/G22.png',
-        'img/4.Secuencias_Enemy_giganton-Dona_Gallinota-/3.Herida/G23.png'
-    ]
+  IMAGES_DEAD = [
+    'img/4_enemie_boss_chicken/5_dead/G24.png',
+    'img/4_enemie_boss_chicken/5_dead/G25.png',
+    'img/4_enemie_boss_chicken/5_dead/G26.png',
+  ];
 
-    IMAGES_DEAD = [
-        'img/4.Secuencias_Enemy_giganton-Dona_Gallinota-/4.Muerte/G24.png',
-        'img/4.Secuencias_Enemy_giganton-Dona_Gallinota-/4.Muerte/G25.png',
-        'img/4.Secuencias_Enemy_giganton-Dona_Gallinota-/4.Muerte/G26.png'
-    ]
+  IMAGES_ANGRY = [
+    'img/4_enemie_boss_chicken/3_attack/G13.png',
+    'img/4_enemie_boss_chicken/3_attack/G14.png',
+    'img/4_enemie_boss_chicken/3_attack/G15.png',
+    'img/4_enemie_boss_chicken/3_attack/G16.png',
+    'img/4_enemie_boss_chicken/3_attack/G17.png',
+    'img/4_enemie_boss_chicken/3_attack/G18.png',
+    'img/4_enemie_boss_chicken/3_attack/G19.png',
+    'img/4_enemie_boss_chicken/3_attack/G20.png',
+  ];
 
-    IMAGES_ANGRY = [
-        'img/4.Secuencias_Enemy_giganton-Dona_Gallinota-/2.Atecion-ataque/2.Ataque/G13.png',
-        'img/4.Secuencias_Enemy_giganton-Dona_Gallinota-/2.Atecion-ataque/2.Ataque/G14.png',
-        'img/4.Secuencias_Enemy_giganton-Dona_Gallinota-/2.Atecion-ataque/2.Ataque/G15.png',
-        'img/4.Secuencias_Enemy_giganton-Dona_Gallinota-/2.Atecion-ataque/2.Ataque/G16.png',
-        'img/4.Secuencias_Enemy_giganton-Dona_Gallinota-/2.Atecion-ataque/2.Ataque/G17.png',
-        'img/4.Secuencias_Enemy_giganton-Dona_Gallinota-/2.Atecion-ataque/2.Ataque/G18.png',
-        'img/4.Secuencias_Enemy_giganton-Dona_Gallinota-/2.Atecion-ataque/2.Ataque/G19.png',
-        'img/4.Secuencias_Enemy_giganton-Dona_Gallinota-/2.Atecion-ataque/2.Ataque/G20.png',
+  IMAGE_ALERT = [
+    'img/4_enemie_boss_chicken/2_alert/G5.png',
+    'img/4_enemie_boss_chicken/2_alert/G6.png',
+    'img/4_enemie_boss_chicken/2_alert/G7.png',
+    'img/4_enemie_boss_chicken/2_alert/G8.png',
+    'img/4_enemie_boss_chicken/2_alert/G9.png',
+    'img/4_enemie_boss_chicken/2_alert/G10.png',
+    'img/4_enemie_boss_chicken/2_alert/G11.png',
+    'img/4_enemie_boss_chicken/2_alert/G12.png',
+  ];
 
-    ];
+  constructor() {
+    super().loadImage('img/4_enemie_boss_chicken/3_attack/G13.png');
+    this.loadImages(this.IMAGES_WALKING);
+    this.loadImages(this.IMAGES_HURT);
+    this.loadImages(this.IMAGES_DEAD);
+    this.loadImages(this.IMAGES_ANGRY);
+    this.animate();
+  }
 
-    constructor() {
-        super().loadImage('img/7.Marcadores/Marcadorvida_enemy/Naranja.png');
-        this.loadImages(this.IMAGES_WALKING);
-        this.loadImages(this.IMAGES_HURT);
-        this.loadImages(this.IMAGES_DEAD);
-        this.loadImages(this.IMAGES_ANGRY);
-        this.animate();
-    }
-
-    /**
-     * change endboss images according to its actions or physical state
-     * 
-     */
-    animate() {
-        setInterval(() => {
-            if (this.isHurt()) {
-                this.playAnimation(this.IMAGES_HURT);
-            } else
-                if (this.isDead()) {
-                    setTimeout(() => {
-                        this.speed = 50;
-                        this.moveRight();
-                        this.playAnimation(this.IMAGES_DEAD);
-                    }, 500);
-                    setTimeout(() => {
-                        win();
-                    }, 1000);
-                }
-                else {
-                    if (this.energy > 20) {
-                        this.playAnimation(this.IMAGES_ANGRY);
-                    } if (this.energy <=  20) {
-                        this.speed = 5;
-                        this.moveLeft();
-                        this.playAnimation(this.IMAGES_WALKING);
-                    }
-                }
-        }, 1000 / 5); 
-    }
+  /**
+   * Adjust the end boss images according to its actions or live-state.
+   *
+   */
+  animate() {
+    setInterval(() => {
+      if (this.isHurt()) {
+        this.playAnimation(this.IMAGES_HURT);
+      } else if (this.isDead()) {
+        setTimeout(() => {
+          this.speed = 50;
+          this.moveRight();
+          this.playAnimation(this.IMAGES_DEAD);
+        }, 500);
+        setTimeout(() => {
+          win();
+        }, 1000);
+      } else {
+        if (this.energy > 20) {
+          this.playAnimation(this.IMAGES_ANGRY);
+        } else if (this.energy <= 20) {
+          this.speed = 5;
+          this.moveLeft();
+          this.playAnimation(this.IMAGES_WALKING);
+        }
+      }
+    }, 1000 / 5);
+  }
 }

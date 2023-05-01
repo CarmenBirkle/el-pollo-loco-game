@@ -1,16 +1,26 @@
-class Bottle extends DrawableObject {
+class Bottle extends MovableObject {
+  height = 80;
+  width = 60;
 
-    height = 80;
-    width = 60;
+  IMAGE_BOTTLE = [
+    'img/6_salsa_bottle/2_salsa_bottle_on_ground.png',
+    'img/6_salsa_bottle/1_salsa_bottle_on_ground.png',
+  ];
 
-    IMAGE_BOTTLE = [
-        'img/6.botella/2.Botella_enterrada2.png',
-    ];
+  constructor() {
+    super().loadImage('img/6_salsa_bottle/2_salsa_bottle_on_ground.png');
+    this.loadImages(this.IMAGE_BOTTLE);
+    this.x = 200 + Math.random() * 3000;
+    this.y = 360;
+    this.animate();
+  }
 
-    constructor() {
-        super().loadImage(this.IMAGE_BOTTLE); 
-        this.x = 200 + Math.random() * 3000;
-        this.y = 360;
-
-    }
+  /**
+   * animate the bottle on the ground
+   */
+  animate() {
+    setInterval(() => {
+      this.playAnimation(this.IMAGE_BOTTLE);
+    }, 500);
+  }
 }

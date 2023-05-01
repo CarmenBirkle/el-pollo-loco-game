@@ -1,12 +1,13 @@
-class BackgroundObject extends MovableObject { 
+/**
+ * BackgroundObject - class for background objects with a fixed position
+ */
+class BackgroundObject extends MovableObject {
+  width = 720;
+  height = 480;
 
-    width = 720;
-    height = 480;
-
-    constructor(path, x) {
-       super().loadImage(path);
-       this.x = x;
-       this.y = 480 - this.height;
-   }
-
+  constructor(path, x) {
+    super().loadImage(path);
+    this.x = x;
+    this.y = 480 - this.height;
+  }
 }
