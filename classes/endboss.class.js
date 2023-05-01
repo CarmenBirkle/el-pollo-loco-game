@@ -1,6 +1,13 @@
 /**
- *  Endboss class - generates the endboss with its properties and methods for
+ * @class Endboss - generates the endboss with its properties and methods for
  *  dead, hurt, walking, angry and alert.
+ * @extends MovableObject
+ * @property {number} height - height of the endboss
+ * @property {number} width - width of the endboss
+ * @property {number} y - y position of the endboss
+ * @property {number} x - x position of the endboss
+ * @property {number} energy - energy of the endboss
+ * @property {boolean} endboss_dead - boolean to check if endboss is dead
  * */
 
 class Endboss extends MovableObject {

@@ -1,13 +1,28 @@
+/**
+ * @class Character - represents the main character of the game
+ * @extends MovableObject
+ * @property {number} y - y position of the character
+ * @property {number} height - height of the character
+ * @property {number} offset - offset of the character
+ * @property {number} world - world of the character
+ * @property {number} speed - speed of the character
+ * @property {Audio} walkingSound - sound of the character walking
+ * @property {Audio} jumpSound - sound of the character jumping
+ */
 class Character extends MovableObject {
-  y = 170; // originalwert ohne height und y unten ausskommentert
-  //   height = 260;
-  //   y = 180; // war 180
+  y = 170;
+
   offset = {
     top: 110,
     right: 30,
     bottom: 5,
     left: 15,
   };
+  world;
+  speed = 10;
+  walkingSound = new Audio('audio/running.mp3');
+  jumpSound = new Audio('audio/jump.mp3');
+
   IMAGES_WALKING = [
     'img/2_character_pepe/2_walk/W-21.png',
     'img/2_character_pepe/2_walk/W-22.png',
@@ -68,11 +83,6 @@ class Character extends MovableObject {
     'img/2_character_pepe/1_idle/long_idle/I-20.png',
   ];
 
-  world;
-  speed = 10;
-  walkingSound = new Audio('audio/running.mp3');
-  jumpSound = new Audio('audio/jump.mp3');
-
   constructor() {
     super().loadImage('img/2_character_pepe/2_walk/W-21.png');
     this.loadImages(this.IMAGES_WALKING);
@@ -83,7 +93,6 @@ class Character extends MovableObject {
     this.volumeOfSoundsCaracter();
     this.applyGravity();
     this.animate();
-    //this.energy = 100;
   }
 
   /**

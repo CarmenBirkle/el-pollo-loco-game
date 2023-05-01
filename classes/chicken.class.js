@@ -1,5 +1,5 @@
 /**
- * Chicken class to create chicken objects with moving animation and random position
+ * @class Chicken - to create chicken objects with moving animation and random position
  */
 class Chicken extends MovableObject {
   y = 350; // 360

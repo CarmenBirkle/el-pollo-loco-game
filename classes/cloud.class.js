@@ -1,5 +1,5 @@
 /**
- * Class to create clouds with moving animation and random position
+ * @class Cloud to create clouds with moving animation and random position
  *
  */
 class Cloud extends MovableObject {
@@ -15,7 +15,6 @@ class Cloud extends MovableObject {
 
   /**
    * Function to animate moving clouds
-   *
    */
   animate() {
     setInterval(() => {

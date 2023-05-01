@@ -1,5 +1,6 @@
 /**
- * Coin bar class - represents the coin bar
+ * @class CoinBar
+ * - represents the coin bar
  */
 class CoinBar extends DrawableObject {
   amountOfCoin = 0;

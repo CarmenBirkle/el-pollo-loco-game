@@ -1,19 +1,33 @@
+/**
+ * @class World - creates the world with all objects and enemies
+ * @param {Object} character - character object - contains all information about the character
+ * @param {Object} level - level object - contains all objects of a level
+ * @param {Object} canvas - canvas object - for drawing
+ * @param {Object} ctx - canvas context object - for drawing
+ * @param {Object} keyboard - keyboard object - for pressed buttons
+ * @param {Integer} camera_x - camera position in x direction
+ * @param {Object} statusBar - status bar object - for character life-status
+ * @param {Object} bottleBar - bottle bar object - for collected bottles status
+ * @param {Object} coinBar - coin bar object - for collected coins status
+ * @param {Object} endbossBar - endboss bar object - for endboss life-status
+ * @param {Object} bottle - bottle object
+ * @param {Object} coin - coin object
+ * @param {Array} throwableObjects - array of collected bottles to push collected bottles
+ */
 class World {
-  character = new Character(); /* creates Character */
-  level = level1; /* calls other Objects besides Character */
-  canvas; /* calls canvas from constructor for use in other functions */
-  ctx; /* calls canvas context from constructor for use in other functions */
-  keyboard; /* calls keyboard for use in other functions */
-  camera_x = 0; /* Variable to set World to be shifted as Character moves */
+  character = new Character();
+  level = level1;
+  canvas;
+  ctx;
+  keyboard;
+  camera_x = 0;
   statusBar = new StatusBar();
   bottleBar = new BottleBar();
   coinBar = new CoinBar();
   endbossBar = new EndbossBar();
   bottle = new Bottle();
   coin = new Coin();
-  throwableObjects =
-    []; /* array to push collected bottles; array from which bottles are subtracted when thrown at endboss */
-
+  throwableObjects = [];
   endboss = this.level.endboss[0];
 
   coinSound = new Audio('audio/coin.mp3');
@@ -21,8 +35,6 @@ class World {
   chickenSound = new Audio('audio/chicken-dead.mp3');
   hurtSound = new Audio('audio/hurt.mp3');
   throwSound = new Audio('audio/throw.mp3');
-
-  //TODO ganz viele console log noch raus!
 
   constructor(canvas, keyboard) {
     this.volumeOfSounds();
@@ -43,19 +55,19 @@ class World {
   }
 
   /**
-   * defines volume of game sounds
-   *
+   * sound volume of all sounds
    */
   volumeOfSounds() {
-    this.coinSound.volume = 0.1;
     this.bottleSound.volume = 0.5;
     this.chickenSound.volume = 0.1;
+    this.coinSound.volume = 0.1;
     this.hurtSound.volume = 0.1;
   }
 
   /**
-   * sets interval to call the functions that check collisions between character, enemies and other objects
-   *
+   * in the interval of 100 ms the functions to check for collisions are called
+   * it contains the functions to check for collisions between character, enemies and other objects
+   * interval is set to 100 milliseconds
    */
   run() {
     setInterval(() => {
@@ -72,6 +84,11 @@ class World {
     }, 100);
   }
 
+  /**
+   * Iterates over all the coins in this level, checks if the character is colliding with a coin, and collects it if so.
+   * Removes the collected coin from the level's list of coins, updates the number of collected coins and the coin bar display.
+   * Plays a coin sound effect.
+   */
   checkCollisionsCoin() {
     this.level.coins.forEach((coin, index) => {
       if (this.character.isColliding(coin)) {
@@ -83,6 +100,10 @@ class World {
     });
   }
 
+  /**
+   * Iterates over all the bottles in this level, checks if the character is colliding with a bottle, and collects it if so, but only if the character has less than 5 bottles.
+   * Removes the collected bottle from the level's list of bottles, updates the bottle bar display and plays a bottle sound effect.
+   */
   checkCollisionsBottle() {
     this.level.bottles.forEach((bottleX, index) => {
       if (
@@ -93,11 +114,14 @@ class World {
         this.bottleBar.updateBottleBar();
         this.level.bottles.splice(index, 1);
         this.bottleSound.play();
-        console.log('amountOfBottles ', this.bottleBar.amountOfBottles);
+        // console.log('amountOfBottles ', this.bottleBar.amountOfBottles);
       }
     });
   }
 
+  /**
+   *Increases the number of collected bottles by 1, but limits the number of bottles to a maximum of 5.
+   */
   collectBottles() {
     this.bottleBar.amountOfBottles += 1;
     if (this.bottleBar.amountOfBottles > 5) {
@@ -105,6 +129,11 @@ class World {
     }
   }
 
+  /**
+   * Iterates over all the chickens in this level, checks if the character is colliding with a chicken, and damages the character if so.
+   * If the chicken is already dead or the character is above the ground, no damage is dealt.
+   * Updates the character's energy level and plays a hurt sound effect.
+   */
   checkCollisionsChicken() {
     this.level.chickens.forEach((enemy) => {
       if (
@@ -119,6 +148,11 @@ class World {
     });
   }
 
+  /**
+   * Iterates over all the baby chickens in this level, checks if the character is colliding with a baby chicken, and damages the character if so.
+   * If the baby chicken is already dead or the character is above the ground, no damage is dealt.
+   * Updates the character's energy level and plays a hurt sound effect.
+   */
   checkCollisionsBabyChicken() {
     this.level.babyChickens.forEach((enemy) => {
       if (
@@ -133,6 +167,10 @@ class World {
     });
   }
 
+  /**
+   * Iterates over all the chickens in this level and all throwable objects, checks if a throwable object collides with a chicken, and removes the chicken if so.
+   * Plays a chicken sound effect when a chicken is hit by a throwable object.
+   */
   checkCollisionsHit() {
     this.level.chickens.forEach((enemy, index) => {
       this.throwableObjects.forEach((throwObject) => {
@@ -144,6 +182,10 @@ class World {
     });
   }
 
+  /**
+   * Iterates over all the throwable objects in this level, checks if a throwable object collides with the endboss, and damages the endboss if so.
+   * Updates the endboss's energy level and the endboss bar display.
+   */
   checkCollisionsEndbossHit() {
     this.throwableObjects.forEach((throwBottle) => {
       if (throwBottle.isColliding(this.endboss)) {
@@ -153,7 +195,10 @@ class World {
       }
     });
   }
-
+  /**
+   * Checks if the character is colliding with the endboss and damages the character if so.
+   * Updates the character's energy level and plays a hurt sound effect.
+   */
   checkCollisionsEndboss() {
     if (this.character.isColliding(this.endboss)) {
       this.character.hit();
@@ -162,7 +207,11 @@ class World {
       this.hurtSound.play();
     }
   }
-
+  /**
+   * Checks if the 'D' key is pressed and if the character has any bottles left.
+   * If so, creates a new throwable object at the character's position and adds it to the list of throwable objects.
+   * Decrements the amount of bottles in the bottle bar and updates the bottle bar display.
+   */
   checkThrowObject() {
     if (this.keyboard.D && this.bottleBar.amountOfBottles > 0) {
       let bottle = new ThrowableOject(
@@ -171,11 +220,15 @@ class World {
       );
       this.throwableObjects.push(bottle);
       this.bottleBar.amountOfBottles -= 1;
-      console.log('amount', this.bottleBar.amountOfBottles);
       this.bottleBar.updateBottleBar();
     }
   }
 
+  /**
+   *Checks if the character is colliding with a chicken while jumping above it.
+   * If so, makes the character perform a jump and sets the chicken's 'chickenDead' flag to true.
+   * Also plays a chicken sound effect.
+   */
   collisionCharacterAboveChickens() {
     this.level.chickens.forEach((enemy) => {
       if (
@@ -189,7 +242,10 @@ class World {
       }
     });
   }
-
+  /**
+   * Checks if the character collides with any baby chickens while being above them, and triggers the character to jump and the chicken sound to play if so.
+   * Also marks the baby chicken as dead to prevent further collisions.
+   */
   collisionCharacterAboveBabyChickens() {
     this.level.babyChickens.forEach((enemy) => {
       if (
@@ -253,8 +309,8 @@ class World {
   }
 
   /**
-   * add more then one object to map - use forEach loop
-   *
+   * Adds an array of objects to the game map.
+   * @param {Array} objects - The array of objects to be added to the map.
    */
   AddObjectsToMap(objects) {
     objects.forEach((objects) => {
@@ -278,8 +334,9 @@ class World {
   }
 
   /**
-   * flip characters image when moves to different direction
-   *
+   * Flips the image of the object horizontally.
+   *  If the object's 'otherDirection' property is true, flips the image
+   * If 'otherDirection' is true, flips the image back to its original
    */
   flipImage(object) {
     this.ctx.save(); /* save properties of context */
@@ -289,11 +346,11 @@ class World {
   }
 
   /**
-   * flip back characters image
-   *
+   * flip the the image back horizontally for the character by negating its x-coordinate and restoring the
+   * context's properties that were previously saved.
    */
   flipImageBack(object) {
     object.x = object.x * -1;
-    this.ctx.restore(); /* restore properties od context previously saved; necessary as the other objects were not mirrored, only Character */
+    this.ctx.restore();
   }
 }

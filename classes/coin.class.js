@@ -1,3 +1,7 @@
+/**
+ * @class Coin - creates a coin object that can be collected by the player, with a random position and
+ * animation
+ */
 class Coin extends MovableObject {
   height = 100;
   width = 100;
@@ -9,10 +13,10 @@ class Coin extends MovableObject {
     left: 25,
   };
 
-  COIN_ANIM = ['img/8.Coin/Moneda1.png', 'img/8.Coin/Moneda2.png'];
+  COIN_ANIM = ['img/8.Coin/coin_1.png', 'img/8.Coin/coin_2.png'];
 
   constructor() {
-    super().loadImage('img/8.Coin/Moneda1.png');
+    super().loadImage('img/8.Coin/coin_1.png');
     this.loadImages(this.COIN_ANIM);
     this.x = 200 + Math.random() * 2500;
     this.y = 50 + Math.random() * 300;
@@ -20,8 +24,7 @@ class Coin extends MovableObject {
   }
 
   /**
-   * calls each image in array
-   *
+   * display the coin animation
    */
   animate() {
     setInterval(() => {

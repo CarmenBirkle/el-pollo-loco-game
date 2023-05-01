@@ -1,5 +1,5 @@
 /**
- * class EndbossBar - represents the endboss health bar
+ * @class EndbossBar - represents the endboss health bar
  */
 class EndbossBar extends DrawableObject {
   energy = 25;

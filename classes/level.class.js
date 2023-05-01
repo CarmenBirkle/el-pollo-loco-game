@@ -1,3 +1,7 @@
+/**
+ * @class Level - contains all objects of a level.
+ *  @param {Integer} level_end_x  - contains the x position where the level ends in pixel
+ */
 class Level {
   endboss;
   coins;
@@ -6,7 +10,7 @@ class Level {
   babychickens;
   clouds;
   backgroundObjects;
-  level_end_x = 3500; // x position where the level ends in px
+  level_end_x = 3500;
 
   constructor(
     chickens,
