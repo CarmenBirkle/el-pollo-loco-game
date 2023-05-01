@@ -1,5 +1,5 @@
 /**
- * BabyChicken Class to create the baby chickens with random speed and position
+ * @class BabyChicken - create the baby chickens with random speed and position
  */
 class BabyChicken extends MovableObject {
   y = 380;
@@ -22,7 +22,9 @@ class BabyChicken extends MovableObject {
     this.speed = 0.15 + Math.random() * 0.25;
     this.animate();
   }
-
+  /**
+   * @method moveLeft - move the baby chicken to the left
+   */
   animate() {
     setInterval(() => {
       this.moveLeft();

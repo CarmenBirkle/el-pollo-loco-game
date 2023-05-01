@@ -1,5 +1,6 @@
 /**
- * BackgroundObject - class for background objects with a fixed position
+ * @class BackgroundObject - class for background objects with a fixed position
+ * without animation
  */
 class BackgroundObject extends MovableObject {
   width = 720;

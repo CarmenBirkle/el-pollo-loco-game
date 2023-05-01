@@ -1,3 +1,6 @@
+/**
+ * @class Bottle - represents the bottle on the ground with animation
+ */
 class Bottle extends MovableObject {
   height = 80;
   width = 60;
