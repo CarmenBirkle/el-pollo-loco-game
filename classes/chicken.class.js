@@ -2,10 +2,16 @@
  * Chicken class to create chicken objects with moving animation and random position
  */
 class Chicken extends MovableObject {
-  y = 350;
-  height = 80;
-  width = 50;
+  y = 350; // 360
+  height = 80; // 60
+  width = 50; // 70
   chickenDead = false;
+  offset = {
+    top: 10,
+    right: 10,
+    bottom: 10,
+    left: 10,
+  };
 
   IMAGES_WALKING = [
     'img/3_enemies_chicken/chicken_normal/1_walk/1_w.png',

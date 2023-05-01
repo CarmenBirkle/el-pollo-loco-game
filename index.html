@@ -38,6 +38,15 @@
         class="startimg"
         src="img/9.Intro _ Outro Image/Start Screen/Opcion2.png"
       />
+
+      <img
+        id="info"
+        style="height: 40px"
+        class="info-icon"
+        src="./img/icon/info.png"
+        alt="info"
+      />
+
       <span
         >The game is a jump and run game where you can collect coins and
         bottles. Jump on chicks and the chickens without hurting yourself. With
@@ -46,24 +55,38 @@
       </span>
       <div class="keyboard hide-mobile">
         <div class="key">
-          <span>Move right:</span>
-          <img class="key-img" src="img/keyboard/right.png" />
+          <span>Move right and left with Arrow Keys <br /> </span>
+          <img
+            style="height: 150px"
+            class="arrowkeys"
+            src="./img/icon/arrowkeys.svg"
+            alt="keys"
+          />
         </div>
+        <!-- <div class="key"> -->
+        <!-- <img class="key-img" src="img/keyboard/left.png" /> -->
+        <!-- </div> -->
         <div class="key">
-          <span>Move left:</span>
-          <img class="key-img" src="img/keyboard/left.png" />
+          <div class="key-row">
+            <span>Throw bottle and defeat the monster chicken</span>
+            <img class="key-d" src="./img/icon/d.png" alt="D" />
+          </div>
+          <div class="key-row">
+            <span>Jump with Arrow Key UP or Space</span>
+            <div>
+              <img class="key-d" src="./img/icon/up-arrow.png" alt="D" />
+              <img class="key-d" src="./img/icon/space.png" alt="SPACE" />
+            </div>
+          </div>
+          <!-- <button class="btn-d">D</button> -->
         </div>
-        <div class="key">
-          <span>Throw bottle:</span>
-          <button class="btn-d">D</button>
-        </div>
-        <div class="key">
+        <!-- <div class="key">
           <span>Jump:</span>
           <img class="space-img" src="img/keyboard/space.png" />
-        </div>
+        </div> -->
       </div>
     </div>
-
+    <!-- Overlay Game Won -->
     <div id="win" class="startscreen d-none">
       <img
         class="startimg"
@@ -72,7 +95,7 @@
       <h1>Congratulations, you won!</h1>
       <button class="btn" onclick="restart()">New Game</button>
     </div>
-
+    <!-- Overlay Game Lost  -->
     <div id="gameOver" class="startscreen d-none">
       <img
         class="startimg"

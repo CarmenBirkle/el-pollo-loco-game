@@ -1,11 +1,19 @@
 class Character extends MovableObject {
-  y = 230;
+  y = 170; // originalwert ohne height und y unten ausskommentert
+  //   height = 260;
+  //   y = 180; // war 180
+  offset = {
+    top: 110,
+    right: 30,
+    bottom: 5,
+    left: 15,
+  };
   IMAGES_WALKING = [
     'img/2_character_pepe/2_walk/W-21.png',
     'img/2_character_pepe/2_walk/W-22.png',
     'img/2_character_pepe/2_walk/W-23.png',
-    'img/2_character_pepe/2_walk/W-24.png',
     'img/2_character_pepe/2_walk/W-25.png',
+    'img/2_character_pepe/2_walk/W-24.png',
     'img/2_character_pepe/2_walk/W-26.png',
   ];
 

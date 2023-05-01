@@ -37,6 +37,7 @@ h1 {
   align-items: center;
   flex-direction: column;
   font-size: 30px;
+  position: relative;
 }
 
 .startscreen h1 {
@@ -60,6 +61,14 @@ h1 {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.info-icon {
+  position: absolute;
+  right: 20px;
+  bottom: 0px;
+  height: 30px;
+  width: 30px;
 }
 
 .btn-d {
@@ -100,16 +109,27 @@ h1 {
   padding: 10px;
 }
 
+.key-d {
+  height: 40px;
+  width: 40px;
+}
+
 .space-img {
   margin-left: 8px;
   height: 50px;
   padding: 10px;
 }
+.key-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
 
 .keyboard {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: start;
   margin-top: 20px;
 }
 
@@ -221,6 +241,10 @@ button {
     font-size: 14px;
   }
 
+  .arrowkeys {
+    height: 150px !important;
+  }
+
   .btn {
     font-size: 16px;
   }
@@ -239,11 +263,6 @@ button {
 
   .btn {
     height: 55px;
-  }
-
-  .key-img {
-    height: 30px;
-    width: 30px;
   }
 
   .space-img {
