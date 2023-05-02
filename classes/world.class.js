@@ -18,6 +18,7 @@ class World {
   character = new Character();
   level = level1;
   canvas;
+  otherDirection = false;
   ctx;
   keyboard;
   camera_x = 0;

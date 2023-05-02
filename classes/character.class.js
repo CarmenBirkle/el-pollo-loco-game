@@ -109,8 +109,8 @@ class Character extends MovableObject {
   }
 
   /**
-   * change character images, positions and sounds according to its actions or physical state
-   *
+   * animate the character with two intervals of time
+   * one for the movement and the other for the animation
    */
   animate() {
     setInterval(() => {
