@@ -190,8 +190,12 @@ class World {
     this.throwableObjects.forEach((throwBottle) => {
       if (throwBottle.isColliding(this.endboss)) {
         this.endboss.hit();
+        //        TODO  log raus
         console.log('Endboss HP: ', this.endboss.energy);
         this.endbossBar.updateEndbossBar(this.endboss.energy);
+        //TODO Testen
+
+        // throwBottle.playAnimation(throwBottle.IMAGES_BOTTLES_SPLASH);
       }
     });
   }
@@ -202,6 +206,7 @@ class World {
   checkCollisionsEndboss() {
     if (this.character.isColliding(this.endboss)) {
       this.character.hit();
+      // Todo log raus
       console.log('Collision with Character energy', this.character.energy);
       this.statusBar.setPercentage(this.character.energy);
       this.hurtSound.play();

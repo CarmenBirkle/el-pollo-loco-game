@@ -30,6 +30,7 @@ function restart() {
  *
  */
 function win() {
+  clearAllIntervals();
   document.getElementById('game').classList.add('d-none');
   document.getElementById('win').classList.remove('d-none');
   gameAudio.pause();
@@ -40,10 +41,15 @@ function win() {
  *
  */
 function gameOver() {
+  clearAllIntervals();
   document.getElementById('game').classList.add('d-none');
   document.getElementById('gameOver').classList.remove('d-none');
   document.getElementById('win').classList.add('d-none');
   gameAudio.pause();
+}
+
+function clearAllIntervals() {
+  for (let i = 1; i < 9999; i++) window.clearInterval(i);
 }
 
 /**
