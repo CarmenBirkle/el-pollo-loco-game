@@ -55,6 +55,7 @@
         src="img/9_intro_outro_screens/start/startscreen_1.png"
       />
 
+      <!-- Info keyuse -->
       <div id="info" class="keyboard hide-mobile d-none">
         <div class="key">
           <span>Move right and left with Arrow Keys <br /> </span>
@@ -88,6 +89,7 @@
         </div> -->
       </div>
     </div>
+
     <!-- Overlay Game Won -->
     <div id="win" class="startscreen d-none">
       <img
@@ -97,6 +99,7 @@
       <h1>Congratulations, you won!</h1>
       <button class="btn" onclick="restart()">New Game</button>
     </div>
+
     <!-- Overlay Game Lost  -->
     <div id="gameOver" class="startscreen d-none">
       <img
@@ -105,19 +108,21 @@
       />
       <button class="btn" onclick="restart()">New Game</button>
     </div>
+
+    <!-- Game Controll Buttons in canvas-->
     <div id="game" class="game d-none">
       <div class="controls">
         <img
           title="Full Screen"
           class="fullscreen"
           onclick="fullscreen()"
-          src="img/icon/full-screen-48.png"
+          src="img/icon/fullscreen.png"
         />
         <img
           title="Restart Game"
-          class="undobtn"
+          class="refresh-btn"
           onclick="restart()"
-          src="img/icon/undo.png"
+          src="img/icon/refresh.png"
         />
         <img
           title="Toggle Sound"
@@ -127,22 +132,22 @@
           src="img/icon/music.png"
         />
       </div>
+
+      <!-- Canvas  -->
+
       <canvas id="canvas" width="720" height="480"></canvas>
+
       <div class="btn-rightSide mobile-hide">
         <img src="img/keyboard/up.png" id="up-btn" class="btn-mobile" />
-        <img src="img/keyboard/throw.png" id="throw-btn" class="btn-mobile" />
+        <img
+          src="img/keyboard/bottle.png"
+          id="throw-btn"
+          class="btn-mobile rotate"
+        />
       </div>
       <div class="btn-leftSide mobile-hide">
-        <img
-          src="img/keyboard/left-mobile.png"
-          id="left-btn"
-          class="btn-mobile"
-        />
-        <img
-          src="img/keyboard/right-mobile.png"
-          id="right-btn"
-          class="btn-mobile"
-        />
+        <img src="img/keyboard/left.png" id="left-btn" class="btn-mobile" />
+        <img src="img/keyboard/right.png" id="right-btn" class="btn-mobile" />
       </div>
       <div class="keyboard hide-mobile">
         <img
@@ -151,7 +156,7 @@
           alt="info"
           onclick="showKeyboardInfo()"
         />
-        <div id="keyboard-info" class="key d-none">
+        <div id="keyboard-info" class="key-play d-none">
           <div class="key">
             <span>Move right and left with Arrow Keys <br /> </span>
             <img

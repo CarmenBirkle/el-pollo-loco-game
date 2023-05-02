@@ -42,9 +42,9 @@ h1 {
   position: relative;
 }
 
-/* .startscreen h1 {
-  color: rgb(51, 50, 50);
-} */
+.rotate {
+  transform: rotate(45deg);
+}
 
 .startscreen span {
   font-size: 16px;
@@ -114,6 +114,13 @@ h1 {
   color: rgb(51, 50, 50);
 }
 
+.key-play {
+  margin-right: 5px;
+  display: flex;
+  /* align-items: center; */
+  color: rgb(51, 50, 50);
+}
+
 .key-img {
   margin-left: 8px;
   height: 50px;
@@ -163,18 +170,18 @@ h1 {
   width: 30%;
 }
 
-.undobtn {
-  height: 50px;
+.refresh-btn {
+  height: 45px;
   cursor: pointer;
 }
 
 .mute {
-  height: 50px;
+  height: 45 px;
   cursor: pointer;
 }
 
 .fullscreen {
-  height: 50px;
+  height: 40px;
   cursor: pointer;
 }
 
@@ -191,7 +198,7 @@ h1 {
 .btn {
   border-radius: 10px;
   margin: 24px;
-  height: 75px;
+  /* height: 75px; */
   font-size: 30px;
   font-weight: bold;
   border: 5px solid rgb(51, 50, 50);
@@ -230,7 +237,7 @@ button {
     width: 100%;
   }
 
-  .undobtn {
+  .refresh-btn {
     height: 30px;
   }
 
@@ -274,7 +281,7 @@ button {
   }
 
   .btn {
-    height: 55px;
+    min-height: 55px;
   }
 
   .space-img {
@@ -282,7 +289,7 @@ button {
     width: 50px;
   }
 
-  .undobtn {
+  .refresh-btn {
     height: 20px;
   }
 
@@ -318,12 +325,14 @@ button {
 }
 
 .btn-mobile {
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 40px;
   object-fit: cover;
   border-radius: 100%;
-  border: 3px solid black;
+  border: 1px solid black;
   padding: 1px;
+  padding: 5px;
+  box-sizing: border-box;
 }
 
 .canvas-div {
@@ -368,7 +377,13 @@ button {
 
 @media screen and (max-width: 768px) and (orientation: landscape) {
   /* Hier kommen die CSS-Regeln für das Querformat auf Mobilgeräten rein */
-
+  h1 {
+    margin-bottom: 0;
+    font-size: 32px;
+  }
+  span {
+    font-size: 10px;
+  }
   /* // -50 btn left side */
 }
 

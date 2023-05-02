@@ -10,3 +10,16 @@ key up<div> Icons made by <a href="https://www.flaticon.com/authors/pixel-perfec
 
 space: 
 <div> Icons made by <a href="https://www.flaticon.com/authors/bharat-icons" title="Bharat Icons"> Bharat Icons </a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com'</a></div>
+
+fullscreen: 
+<div> Icons made by <a href="https://www.flaticon.com/authors/those-icons" title="Those Icons"> Those Icons </a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com'</a></div>
+
+reload: <div> Icons made by <a href="https://www.flaticon.com/authors/royyan-wijaya" title="Royyan Wijaya"> Royyan Wijaya </a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com'</a></div>
+
+music:
+<div> Icons made by <a href="https://www.freepik.com" title="Freepik"> Freepik </a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com'</a></div>
+
+bottle:
+<div> Icons made by <a href="https://www.flaticon.com/authors/mark1987" title="Mark1987"> Mark1987 </a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com'</a></div>
+arrow mobile (left, right up):
+<div> Icons made by <a href="https://www.freepik.com" title="Freepik"> Freepik </a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com'</a></div>
