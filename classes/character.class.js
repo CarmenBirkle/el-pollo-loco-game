@@ -22,6 +22,7 @@ class Character extends MovableObject {
   speed = 10;
   walkingSound = new Audio('audio/running.mp3');
   jumpSound = new Audio('audio/jump.mp3');
+  movementTimer = 0;
 
   IMAGES_WALKING = [
     'img/2_character_pepe/2_walk/W-21.png',
@@ -71,6 +72,9 @@ class Character extends MovableObject {
     'img/2_character_pepe/1_idle/idle/I-8.png',
     'img/2_character_pepe/1_idle/idle/I-9.png',
     'img/2_character_pepe/1_idle/idle/I-10.png',
+  ];
+
+  IMAGES_LONG_IDLE = [
     'img/2_character_pepe/1_idle/long_idle/I-11.png',
     'img/2_character_pepe/1_idle/long_idle/I-12.png',
     'img/2_character_pepe/1_idle/long_idle/I-13.png',
@@ -90,6 +94,7 @@ class Character extends MovableObject {
     this.loadImages(this.IMAGES_DEAD);
     this.loadImages(this.IMAGES_HURT);
     this.loadImages(this.IMAGES_IDLE);
+    this.loadImages(this.IMAGES_LONG_IDLE);
     this.volumeOfSoundsCaracter();
     this.applyGravity();
     this.animate();
@@ -109,48 +114,72 @@ class Character extends MovableObject {
    */
   animate() {
     setInterval(() => {
-      this.walkingSound.pause();
-
-      if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
-        this.moveRight();
-        this.walkingSound.play();
-        this.otherDirection = false;
-      }
-
-      if (this.world.keyboard.LEFT && this.x > 100) {
-        this.moveLeft();
-        this.walkingSound.play();
-        this.otherDirection = true;
-      }
-      this.world.camera_x =
-        -this.x +
-        100; /* every time character is updated, camera/scenario moves in opposite direction */
-
-      if (
-        (this.world.keyboard.SPACE || this.world.keyboard.UP) &&
-        !this.isAboveGround()
-      ) {
-        this.jump();
-        this.jumpSound.play();
-      }
+      this.moveCharacter();
     }, 1000 / 60);
 
     setInterval(() => {
-      this.playAnimation(this.IMAGES_IDLE);
-      if (this.isDead()) {
-        this.playAnimation(this.IMAGES_DEAD);
-        setTimeout(() => {
-          gameOver();
-        }, 2000);
-      } else if (this.isHurt()) {
-        this.playAnimation(this.IMAGES_HURT);
-      } else if (this.isAboveGround()) {
-        this.playAnimation(this.IMAGES_JUMPING);
-      } else {
-        if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-          this.playAnimation(this.IMAGES_WALKING);
-        }
-      }
+      this.playAnimations();
     }, 1000 / 10);
+  }
+
+  playAnimations() {
+    if (this.isDead()) {
+      this.playAnimation(this.IMAGES_DEAD);
+      setTimeout(() => {
+        gameOver();
+      }, 2000);
+    } else if (this.isHurt()) {
+      this.playAnimation(this.IMAGES_HURT);
+    } else if (this.isAboveGround()) {
+      this.playAnimation(this.IMAGES_JUMPING);
+    } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+      this.playAnimation(this.IMAGES_WALKING);
+    } else if (this.checkMovementTimer()) {
+      this.playAnimation(this.IMAGES_LONG_IDLE);
+    } else {
+      this.playAnimation(this.IMAGES_IDLE);
+    }
+  }
+
+  /**
+   * controlls the variable movementTimer and returns true
+   * if the character is not move for 4 sec.
+   *    * @returns true
+   */
+  checkMovementTimer() {
+    if (this.movementTimer > 400) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  moveCharacter() {
+    this.walkingSound.pause();
+    this.movementTimer += 1;
+    if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
+      this.moveRight();
+      this.movementTimer = 0;
+      this.walkingSound.play();
+      this.otherDirection = false;
+    }
+    if (this.world.keyboard.LEFT && this.x > 100) {
+      this.moveLeft();
+      this.movementTimer = 0;
+      this.walkingSound.play();
+      this.otherDirection = true;
+    }
+    this.world.camera_x =
+      -this.x +
+      100; /* every time character is updated, camera/scenario moves in opposite direction */
+
+    if (
+      (this.world.keyboard.SPACE || this.world.keyboard.UP) &&
+      !this.isAboveGround()
+    ) {
+      this.jump();
+      this.movementTimer = 0;
+      this.jumpSound.play();
+    }
   }
 }
