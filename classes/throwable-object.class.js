@@ -43,14 +43,6 @@ class ThrowableOject extends MovableObject {
       }
     }, 40);
   }
-  // hat funktioniert aber nur eine Richtung
-  // throw() {
-  //   this.speedY = 10; // Höhe des Wurfs 30
-  //   this.applyGravity();
-  //   setInterval(() => {
-  //     this.x += 20; // Weite des Wurfs  8
-  //   }, 40);
-  // }
 
   animate() {
     setInterval(() => {
