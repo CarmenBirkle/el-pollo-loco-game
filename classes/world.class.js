@@ -222,7 +222,8 @@ class World {
     if (this.keyboard.D && this.bottleBar.amountOfBottles > 0) {
       let bottle = new ThrowableOject(
         this.character.x + 100,
-        this.character.y + 100
+        this.character.y + 100,
+        this.character.otherDirection
       );
       this.throwableObjects.push(bottle);
       this.bottleBar.amountOfBottles -= 1;

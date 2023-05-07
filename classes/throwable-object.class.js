@@ -1,4 +1,5 @@
 class ThrowableOject extends MovableObject {
+  otherDirection;
   THROW_BOTTLE = [
     'img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png',
     'img/6_salsa_bottle/bottle_rotation/2_bottle_rotation.png',
@@ -14,7 +15,7 @@ class ThrowableOject extends MovableObject {
     'img/6_salsa_bottle/bottle_rotation/bottle_splash/6_bottle_splash.png',
   ];
 
-  constructor(x, y) {
+  constructor(x, y, otherDirection) {
     super().loadImage(
       'img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png'
     );
@@ -22,6 +23,7 @@ class ThrowableOject extends MovableObject {
     this.loadImages(this.IMAGES_BOTTLES_SPLASH);
     this.x = x;
     this.y = y;
+    this.otherDirection = otherDirection;
     this.height = 70;
     this.width = 50;
     this.throw();
@@ -32,9 +34,23 @@ class ThrowableOject extends MovableObject {
     this.speedY = 10; // Höhe des Wurfs 30
     this.applyGravity();
     setInterval(() => {
-      this.x += 20; // Weite des Wurfs  8
+      if (this.otherDirection === true) {
+        this.x -= 20;
+        console.log('true', this.otherDirection);
+      } else {
+        this.x += 20;
+        console.log('false', this.otherDirection);
+      }
     }, 40);
   }
+  // hat funktioniert aber nur eine Richtung
+  // throw() {
+  //   this.speedY = 10; // Höhe des Wurfs 30
+  //   this.applyGravity();
+  //   setInterval(() => {
+  //     this.x += 20; // Weite des Wurfs  8
+  //   }, 40);
+  // }
 
   animate() {
     setInterval(() => {

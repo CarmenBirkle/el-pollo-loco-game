@@ -53,7 +53,20 @@ h1 {
 
 .startimg {
   margin-bottom: 16px;
-  width: 75%;
+  width: 100%;
+}
+
+.startscreen-img {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-start {
+  position: absolute;
+  top: 0px;
+  right: 0px;
 }
 
 .game {
