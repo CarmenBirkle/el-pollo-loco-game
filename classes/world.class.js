@@ -83,6 +83,10 @@ class World {
       this.collisionCharacterAboveChickens();
       this.collisionCharacterAboveBabyChickens();
     }, 100);
+    setInterval(() => {
+      this.deleteDeadBabyChicken();
+      this.deleteDeadChicken();
+    }, 2000);
   }
 
   /**
@@ -118,6 +122,30 @@ class World {
         // console.log('amountOfBottles ', this.bottleBar.amountOfBottles);
       }
     });
+  }
+
+  deleteDeadBabyChicken() {
+    const deadChickenIndexes = [];
+    this.level.babyChickens.forEach((babyChicken, index) => {
+      if (babyChicken.babyChickenDead) {
+        deadChickenIndexes.push(index);
+      }
+    });
+    for (let i = deadChickenIndexes.length - 1; i >= 0; i--) {
+      this.level.babyChickens.splice(deadChickenIndexes[i], 1);
+    }
+  }
+
+  deleteDeadChicken() {
+    const deadChickenIndexes = [];
+    this.level.chickens.forEach((chicken, index) => {
+      if (chicken.chickenDead) {
+        deadChickenIndexes.push(index);
+      }
+    });
+    for (let i = deadChickenIndexes.length - 1; i >= 0; i--) {
+      this.level.chickens.splice(deadChickenIndexes[i], 1);
+    }
   }
 
   /**
@@ -177,7 +205,6 @@ class World {
       this.throwableObjects.forEach((throwObject) => {
         if (throwObject.isColliding(enemy) && !enemy.chickenDead) {
           this.chickenSound.play();
-          this.level.chickens.splice(index, 1);
         }
       });
     });
@@ -193,6 +220,7 @@ class World {
         this.endboss.hit();
         //        TODO  log raus
         console.log('Endboss HP: ', this.endboss.energy);
+        throwBottle.bottleHit = true;
         this.endbossBar.updateEndbossBar(this.endboss.energy);
         //TODO Testen
 

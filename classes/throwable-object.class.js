@@ -1,5 +1,6 @@
 class ThrowableOject extends MovableObject {
   otherDirection;
+  bottleHit = false;
   THROW_BOTTLE = [
     'img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png',
     'img/6_salsa_bottle/bottle_rotation/2_bottle_rotation.png',
@@ -36,18 +37,33 @@ class ThrowableOject extends MovableObject {
     setInterval(() => {
       if (this.otherDirection === true) {
         this.x -= 20;
-        console.log('true', this.otherDirection);
+        // console.log('true', this.otherDirection);
       } else {
         this.x += 20;
-        console.log('false', this.otherDirection);
+        // console.log('false', this.otherDirection);
       }
     }, 40);
   }
 
+  // orgiinal - hat funktioniert
+  // animate() {
+  //   setInterval(() => {
+  //     this.playAnimation(this.THROW_BOTTLE);
+  //   }, 100);
+  // }
+
   animate() {
     setInterval(() => {
-      this.playAnimation(this.THROW_BOTTLE);
+      if (this.bottleSplash()) {
+        this.playAnimation(this.IMAGES_BOTTLES_SPLASH);
+      } else {
+        this.playAnimation(this.THROW_BOTTLE);
+      }
     }, 100);
+  }
+
+  bottleSplash() {
+    return this.posY > 260 || this.bottleHit;
   }
 
   //   animate() {
