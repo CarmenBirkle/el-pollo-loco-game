@@ -79,6 +79,7 @@ function startGame() {
 function playMusic() {
   gameAudio.loop = true;
   gameAudio.play();
+  world.character.volumeOfSoundsCharacter();
   gameAudio.volume = 0.1;
   audioOn = true;
   document.getElementById('mute').classList.remove('opacity');
@@ -89,10 +90,16 @@ function playMusic() {
  *
  */
 function stopMusic() {
+  gameAudio.pause();
+  document.getElementById('mute').classList.add('opacity');
+  world.muteSounds();
+  world.character.muteVolumeOfSoundsCharacter();
+  audioOn = false;
+}
+
+function toggleMusic() {
   if (audioOn) {
-    gameAudio.pause();
-    document.getElementById('mute').classList.add('opacity');
-    audioOn = false;
+    stopMusic();
   } else {
     playMusic();
   }

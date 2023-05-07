@@ -65,6 +65,13 @@ class World {
     this.hurtSound.volume = 0.1;
   }
 
+  muteSounds() {
+    this.bottleSound.volume = 0.0;
+    this.chickenSound.volume = 0.0;
+    this.coinSound.volume = 0.0;
+    this.hurtSound.volume = 0.0;
+  }
+
   /**
    * in the interval of 100 ms the functions to check for collisions are called
    * it contains the functions to check for collisions between character, enemies and other objects
@@ -249,7 +256,7 @@ class World {
   checkThrowObject() {
     if (this.keyboard.D && this.bottleBar.amountOfBottles > 0) {
       let bottle = new ThrowableOject(
-        this.character.x + 100,
+        this.character.x + 20,
         this.character.y + 100,
         this.character.otherDirection
       );

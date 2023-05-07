@@ -95,7 +95,7 @@ class Character extends MovableObject {
     this.loadImages(this.IMAGES_HURT);
     this.loadImages(this.IMAGES_IDLE);
     this.loadImages(this.IMAGES_LONG_IDLE);
-    this.volumeOfSoundsCaracter();
+    this.volumeOfSoundsCharacter();
     this.applyGravity();
     this.animate();
   }
@@ -104,8 +104,14 @@ class Character extends MovableObject {
    * adjust volume of sounds
    *
    */
-  volumeOfSoundsCaracter() {
+  volumeOfSoundsCharacter() {
     this.jumpSound.volume = 0.3;
+    this.walkingSound.volume = 1;
+  }
+
+  muteVolumeOfSoundsCharacter() {
+    this.jumpSound.volume = 0;
+    this.walkingSound.volume = 0;
   }
 
   /**
