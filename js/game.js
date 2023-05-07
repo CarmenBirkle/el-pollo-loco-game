@@ -2,7 +2,7 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 let audioOn = false;
-let showInfo = false;
+
 let keyboardInfo = false;
 
 gameAudio = new Audio('audio/music.mp3');
@@ -22,7 +22,13 @@ function init() {
  *
  */
 function restart() {
-  location.reload();
+  clearAllIntervals();
+  gameAudio.pause();
+
+  // location.reload();
+  document.getElementById('win').classList.add('d-none');
+  document.getElementById('gameOver').classList.add('d-none');
+  startGame();
 }
 
 /**
@@ -61,6 +67,7 @@ function startGame() {
   init(); // creates world with canvas
   playMusic();
   document.getElementById('start').classList.add('d-none');
+  document.getElementById('welcome-screen').classList.add('d-none');
   document.getElementById('game').classList.remove('d-none');
   document.getElementById('win').classList.add('d-none');
 }
@@ -212,21 +219,18 @@ function rightButton() {
 }
 
 function showPlayInfo() {
-  if (!showInfo) {
-    document.getElementById('infomation').classList.remove('d-none');
-    document.getElementById('welcome-screen').classList.add('d-none');
-    showInfo = true;
-  } else {
-    document.getElementById('infomation').classList.add('d-none');
-    document.getElementById('welcome-screen').classList.remove('d-none');
-    showInfo = false;
-  }
+  document.getElementById('start').classList.remove('d-none');
+  document.getElementById('information').classList.remove('d-none');
+  document.getElementById('welcome-screen').classList.add('d-none');
+  document.getElementById('win').classList.add('d-none');
+  document.getElementById('gameOver').classList.add('d-none');
+  // showInfo = true;
 }
 
 function closeInformation() {
-  document.getElementById('infomation').classList.add('d-none');
+  document.getElementById('information').classList.add('d-none');
   document.getElementById('welcome-screen').classList.remove('d-none');
-  showInfo = false;
+  // showInfo = false;
 }
 
 function showKeyboardInfo() {
