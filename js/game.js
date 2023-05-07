@@ -2,8 +2,9 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 let audioOn = false;
-
 let keyboardInfo = false;
+let pause = false;
+let runningIntervals = [];
 
 gameAudio = new Audio('audio/music.mp3');
 
@@ -17,18 +18,64 @@ function init() {
   mobileKeyboard();
 }
 
+function setRunningIntervals(fn, time) {
+  let interval = {
+    fn: fn,
+    time: time,
+    id: setInterval(fn, time),
+  };
+  runningIntervals.push(interval);
+}
+
 /**
- * restarts the game by refreshing the current documents
+ * restarts the game for a new Game
  *
  */
 function restart() {
   clearAllIntervals();
+  // runningIntervals = [];
   gameAudio.pause();
-
-  // location.reload();
   document.getElementById('win').classList.add('d-none');
   document.getElementById('gameOver').classList.add('d-none');
+  document.getElementById('pause').classList.remove('opacity');
+  // location.reload();
   startGame();
+}
+
+function pauseGame() {
+  // hideContainer('pause-button');
+  // showContainer('start-after-pause-button');
+  document.getElementById('pause').classList.add('opacity');
+  pauseIntervals();
+  stopMusic();
+}
+
+function pauseIntervals() {
+  runningIntervals.forEach((interval) => clearInterval(interval.id));
+}
+
+function continueGame() {
+  document.getElementById('pause').classList.remove('opacity');
+  // showContainer('pause-button');
+  // hideContainer('start-after-pause-button');
+  playIntervals();
+  playMusic();
+}
+
+function playIntervals() {
+  runningIntervals.forEach(
+    (interval) => (interval.id = setInterval(interval.fn, interval.time))
+  );
+}
+
+function toggleGame() {
+  if (pause) {
+    continueGame();
+    pause = false;
+  } else {
+    pauseGame();
+    pause = true;
+  }
 }
 
 /**
@@ -55,6 +102,8 @@ function gameOver() {
 }
 
 function clearAllIntervals() {
+  pauseGame();
+  runningIntervals = [];
   for (let i = 1; i < 9999; i++) window.clearInterval(i);
 }
 

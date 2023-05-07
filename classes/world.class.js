@@ -47,7 +47,7 @@ class World {
     this.keyboard = keyboard;
     this.draw();
     this.setWorld(); /* pass pressed buttons on to character; this functions connects the character to the world */
-    this.run();
+    this.runAllIntervals();
   }
 
   setWorld() {
@@ -77,10 +77,31 @@ class World {
    * it contains the functions to check for collisions between character, enemies and other objects
    * interval is set to 100 milliseconds
    */
-  run() {
-    setInterval(() => {
+  // run() {
+  //   setInterval(() => {
+  //     this.checkCollisionsCoin();
+  //     this.checkCollisionsBottle();
+
+  //     this.checkCollisionsChicken();
+  //     this.checkCollisionsBabyChicken();
+  //     this.checkCollisionsHit();
+  //     this.checkCollisionsEndbossHit();
+  //     this.checkCollisionsEndboss();
+  //     this.checkThrowObject();
+  //     this.collisionCharacterAboveChickens();
+  //     this.collisionCharacterAboveBabyChickens();
+  //   }, 100);
+  //   setInterval(() => {
+  //     this.deleteDeadBabyChicken();
+  //     this.deleteDeadChicken();
+  //   }, 2000);
+  // }
+
+  runAllIntervals() {
+    setRunningIntervals(() => {
       this.checkCollisionsCoin();
       this.checkCollisionsBottle();
+
       this.checkCollisionsChicken();
       this.checkCollisionsBabyChicken();
       this.checkCollisionsHit();
@@ -90,7 +111,7 @@ class World {
       this.collisionCharacterAboveChickens();
       this.collisionCharacterAboveBabyChickens();
     }, 100);
-    setInterval(() => {
+    setRunningIntervals(() => {
       this.deleteDeadBabyChicken();
       this.deleteDeadChicken();
     }, 2000);

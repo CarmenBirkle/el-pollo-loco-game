@@ -73,8 +73,34 @@ class Endboss extends MovableObject {
    * Adjust the end boss images according to its actions or live-state.
    *
    */
+  //   animate() {
+  //     setInterval(() => {
+  //       if (this.isHurt()) {
+  //         this.playAnimation(this.IMAGES_HURT);
+  //       } else if (this.isDead()) {
+  //         setTimeout(() => {
+  //           this.speed = 50;
+  //           this.moveRight();
+  //           this.playAnimation(this.IMAGES_DEAD);
+  //         }, 500);
+  //         setTimeout(() => {
+  //           win();
+  //         }, 1000);
+  //       } else {
+  //         if (this.energy > 20) {
+  //           this.playAnimation(this.IMAGES_ANGRY);
+  //         } else if (this.energy <= 20) {
+  //           this.speed = 5;
+  //           this.moveLeft();
+  //           this.playAnimation(this.IMAGES_WALKING);
+  //         }
+  //       }
+  //     }, 1000 / 5);
+  //   }
+  // }
+
   animate() {
-    setInterval(() => {
+    setRunningIntervals(() => {
       if (this.isHurt()) {
         this.playAnimation(this.IMAGES_HURT);
       } else if (this.isDead()) {
@@ -85,7 +111,7 @@ class Endboss extends MovableObject {
         }, 500);
         setTimeout(() => {
           win();
-        }, 1000);
+        }, 500);
       } else {
         if (this.energy > 20) {
           this.playAnimation(this.IMAGES_ANGRY);

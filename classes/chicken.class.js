@@ -36,12 +36,28 @@ class Chicken extends MovableObject {
    * Update the images and speed of the chickens based on their actions or live-state.
    *
    */
+  //   animate() {
+  //     setInterval(() => {
+  //       this.moveLeft();
+  //     }, 1000 / 60);
+
+  //     setInterval(() => {
+  //       if (this.chickenDead) {
+  //         this.loadImage(this.IMAGES_DEAD);
+  //         this.speed = 0;
+  //       } else {
+  //         this.playAnimation(this.IMAGES_WALKING);
+  //       }
+  //     }, 1000 / 10);
+  //   }
+  // }
+
   animate() {
-    setInterval(() => {
+    setRunningIntervals(() => {
       this.moveLeft();
     }, 1000 / 60);
 
-    setInterval(() => {
+    setRunningIntervals(() => {
       if (this.chickenDead) {
         this.loadImage(this.IMAGES_DEAD);
         this.speed = 0;
