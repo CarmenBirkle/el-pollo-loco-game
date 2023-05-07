@@ -1,11 +1,11 @@
 body {
   margin: 0;
-  min-height: 100vh;
-  min-width: 100vw;
+  height: 100vh;
+  width: 100vw;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: #f5d7b5;
   background-image: url('img/background.jpg');
   background-repeat: no-repeat;
   background-position: center;
@@ -32,70 +32,124 @@ h1 {
 }
 
 .startscreen {
-  height: 75vh;
-  width: 75vw;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  font-size: 30px;
+  text-align: center;
   position: relative;
+}
+/* Regel für Desktop-Geräte */
+.start-container {
+  position: relative;
+}
+
+.start-img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
 }
 
 .rotate {
   transform: rotate(45deg);
 }
 
-.startscreen span {
+/* .startscreen span {
   font-size: 16px;
   color: rgb(51, 50, 50);
-}
+} */
 
+/* TODO entfernen  */
 .startimg {
   margin-bottom: 16px;
   width: 100%;
 }
-
+.mobile-portrait {
+  display: none;
+  margin: 10px;
+}
+/* 
 .startscreen-img {
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-}
+} */
 
-.btn-start {
+/* .btn-start {
   position: absolute;
   top: 0px;
   right: 0px;
-}
+} */
 
-.game {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-.head-info {
+/* .head-info {
   display: flex;
   justify-content: space-between;
   gap: 30px;
   align-items: center;
-}
+} */
 
-.info-icon {
+/* .info-icon {
   height: 30px;
   width: 30px;
   margin: 10px;
   padding: 10px;
 
   border-radius: 28%;
-}
-.info-icon:hover {
+} */
+
+/* TODO schöner machen */
+.info:hover {
   background-color: #fac91e;
   cursor: pointer;
 }
 
+.information-overlay {
+  margin: 10px;
+}
+
+.close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  height: 30px;
+  width: 30px;
+  cursor: pointer;
+}
+.info-text {
+}
+.key {
+  margin-right: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: rgb(51, 50, 50);
+}
+
+.key-row {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+.key-beside {
+  display: flex;
+  gap: 20px;
+}
+.arrowkeys {
+  height: 130px !important;
+}
+.key-d {
+  height: 40px;
+  width: 40px;
+}
+
+/* Bis herier */
+/* TODO hover schatten über x  */
 .btn-d {
   width: 50px;
   height: 50px;
@@ -119,12 +173,12 @@ h1 {
   text-align: center;
 }
 
-.key {
-  margin-right: 5px;
+.game {
+  position: relative;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
-  color: rgb(51, 50, 50);
 }
 
 .key-play {
@@ -141,21 +195,10 @@ h1 {
   padding: 10px;
 }
 
-.key-d {
-  height: 40px;
-  width: 40px;
-}
-
 .space-img {
   margin-left: 8px;
   height: 50px;
   padding: 10px;
-}
-.key-row {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
 }
 
 .keyboard {
@@ -198,7 +241,7 @@ h1 {
   cursor: pointer;
 }
 
-.pause {
+/* .pause {
   height: 50px;
   margin: 8px;
   position: absolute;
@@ -206,7 +249,7 @@ h1 {
   top: 0px;
   cursor: pointer;
   z-index: 999;
-}
+} */
 
 .btn {
   border-radius: 10px;
@@ -214,17 +257,28 @@ h1 {
   /* height: 75px; */
   font-size: 30px;
   font-weight: bold;
-  border: 5px solid rgb(51, 50, 50);
-  background-color: transparent;
+  border: 2px solid rgb(51, 50, 50);
+  background-color: rgba(250, 201, 30, 0.6);
   transition-duration: 0.4s;
   cursor: pointer;
   font-family: 'Zabars', Arial, Helvetica, sans-serif;
   color: rgb(51, 50, 50);
+  position: absolute;
+  top: 20px;
+  left: 20px;
 }
 
 .btn:hover {
   background-color: #fac91e;
   cursor: pointer;
+}
+
+.info {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  height: 40px;
+  width: 40px;
 }
 
 .opacity {
@@ -269,21 +323,12 @@ button {
     align-items: flex-start;
   }
 
-  .startscreen span {
+  /* .startscreen span {
     font-size: 14px;
-  }
-
-  .arrowkeys {
-    height: 150px !important;
-  }
+  } */
 
   .btn {
     font-size: 16px;
-  }
-
-  .key {
-    justify-content: space-between !important;
-    flex-direction: unset;
   }
 
   .btn-d {

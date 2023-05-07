@@ -213,12 +213,20 @@ function rightButton() {
 
 function showPlayInfo() {
   if (!showInfo) {
-    document.getElementById('info').classList.remove('d-none');
+    document.getElementById('infomation').classList.remove('d-none');
+    document.getElementById('welcome-screen').classList.add('d-none');
     showInfo = true;
   } else {
-    document.getElementById('info').classList.add('d-none');
+    document.getElementById('infomation').classList.add('d-none');
+    document.getElementById('welcome-screen').classList.remove('d-none');
     showInfo = false;
   }
+}
+
+function closeInformation() {
+  document.getElementById('infomation').classList.add('d-none');
+  document.getElementById('welcome-screen').classList.remove('d-none');
+  showInfo = false;
 }
 
 function showKeyboardInfo() {
