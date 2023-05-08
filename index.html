@@ -135,6 +135,7 @@
     <div id="game" class="game d-none">
       <div class="controls">
         <img
+          id="btn-fullscreen"
           title="Full Screen"
           class="fullscreen"
           onclick="fullscreen()"
@@ -166,7 +167,7 @@
 
       <canvas id="canvas" width="720" height="480"></canvas>
 
-      <div class="btn-rightSide mobile-hide">
+      <div  id="mobile-btn-right" class="btn-rightSide d-none ">
         <img src="img/keyboard/up.png" id="up-btn" class="btn-mobile" />
         <img
           src="img/keyboard/bottle.png"
@@ -174,7 +175,7 @@
           class="btn-mobile rotate"
         />
       </div>
-      <div class="btn-leftSide mobile-hide">
+      <div id="mobile-btn-left" class="btn-leftSide d-none">
         <img src="img/keyboard/left.png" id="left-btn" class="btn-mobile" />
         <img src="img/keyboard/right.png" id="right-btn" class="btn-mobile" />
       </div>
