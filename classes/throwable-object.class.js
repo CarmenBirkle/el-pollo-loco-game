@@ -37,20 +37,11 @@ class ThrowableOject extends MovableObject {
     setInterval(() => {
       if (this.otherDirection === true) {
         this.x -= 20;
-        // console.log('true', this.otherDirection);
       } else {
         this.x += 20;
-        // console.log('false', this.otherDirection);
       }
     }, 40);
   }
-
-  // orgiinal - hat funktioniert
-  // animate() {
-  //   setInterval(() => {
-  //     this.playAnimation(this.THROW_BOTTLE);
-  //   }, 100);
-  // }
 
   animate() {
     setInterval(() => {
@@ -65,15 +56,4 @@ class ThrowableOject extends MovableObject {
   bottleSplash() {
     return this.posY > 260 || this.bottleHit;
   }
-
-  //   animate() {
-  //     setInterval(() => {
-  //       if (this.y > 250 || this.hurtEndboss()) {
-  //         this.playAnimation(this.IMAGES_BOTTLES_SPLASH);
-  //         this.x += 5;
-  //       } else {
-  //         this.playAnimation(this.IMAGES_BOTTLES_ROTATION);
-  //       }
-  //     }, 80);
-  //   }
 }

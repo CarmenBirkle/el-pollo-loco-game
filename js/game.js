@@ -109,10 +109,15 @@ function toggleGame() {
  * Displays the winning screen, stops all running intervals, and pauses the game audio.
  */
 function win() {
-  clearAllIntervals();
-  document.getElementById('game').classList.add('d-none');
-  document.getElementById('win').classList.remove('d-none');
-  gameAudio.pause();
+  setTimeout(() => {
+    pauseGame();
+    runningIntervals = [];
+    clearAllIntervals();
+    document.getElementById('game').classList.add('d-none');
+    document.getElementById('win').classList.remove('d-none');
+    // gameAudio.pause()
+    stopMusic();
+  }, 2000);
 }
 
 /**
@@ -389,11 +394,9 @@ function showKeyboardInfo() {
 function checkMobile() {
   if (isMobileDevice()) {
     showMobileButton();
-    console.log('mobile');
     // phoneRotateMessage();
   } else {
     // phoneRotateMessage();
-    console.log('not mobile');
     hideMobileButton();
   }
 }

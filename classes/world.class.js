@@ -77,44 +77,26 @@ class World {
    * it contains the functions to check for collisions between character, enemies and other objects
    * interval is set to 100 milliseconds
    */
-  // run() {
-  //   setInterval(() => {
-  //     this.checkCollisionsCoin();
-  //     this.checkCollisionsBottle();
-
-  //     this.checkCollisionsChicken();
-  //     this.checkCollisionsBabyChicken();
-  //     this.checkCollisionsHit();
-  //     this.checkCollisionsEndbossHit();
-  //     this.checkCollisionsEndboss();
-  //     this.checkThrowObject();
-  //     this.collisionCharacterAboveChickens();
-  //     this.collisionCharacterAboveBabyChickens();
-  //   }, 100);
-  //   setInterval(() => {
-  //     this.deleteDeadBabyChicken();
-  //     this.deleteDeadChicken();
-  //   }, 2000);
-  // }
-
   runAllIntervals() {
     setRunningIntervals(() => {
-      this.checkCollisionsCoin();
-      this.checkCollisionsBottle();
-
-      this.checkCollisionsChicken();
-      this.checkCollisionsBabyChicken();
-      this.checkCollisionsHit();
-      this.checkCollisionsEndbossHit();
-      this.checkCollisionsEndboss();
+      this.checkAllCollisions();
       this.checkThrowObject();
       this.collisionCharacterAboveChickens();
       this.collisionCharacterAboveBabyChickens();
     }, 100);
     setRunningIntervals(() => {
-      this.deleteDeadBabyChicken();
-      this.deleteDeadChicken();
+      this.deleteAllChickens();
     }, 2000);
+  }
+
+  checkAllCollisions() {
+    this.checkCollisionsCoin();
+    this.checkCollisionsBottle();
+    this.checkCollisionsChicken();
+    this.checkCollisionsBabyChicken();
+    this.checkCollisionsHit();
+    this.checkCollisionsEndbossHit();
+    this.checkCollisionsEndboss();
   }
 
   /**
@@ -152,6 +134,11 @@ class World {
     });
   }
 
+  deleteAllChickens() {
+    this.deleteDeadBabyChicken();
+    this.deleteDeadChicken();
+  }
+
   deleteDeadBabyChicken() {
     const deadChickenIndexes = [];
     this.level.babyChickens.forEach((babyChicken, index) => {
@@ -161,18 +148,6 @@ class World {
     });
     for (let i = deadChickenIndexes.length - 1; i >= 0; i--) {
       this.level.babyChickens.splice(deadChickenIndexes[i], 1);
-    }
-  }
-
-  deleteDeadChicken() {
-    const deadChickenIndexes = [];
-    this.level.chickens.forEach((chicken, index) => {
-      if (chicken.chickenDead) {
-        deadChickenIndexes.push(index);
-      }
-    });
-    for (let i = deadChickenIndexes.length - 1; i >= 0; i--) {
-      this.level.chickens.splice(deadChickenIndexes[i], 1);
     }
   }
 
@@ -233,6 +208,7 @@ class World {
       this.throwableObjects.forEach((throwObject) => {
         if (throwObject.isColliding(enemy) && !enemy.chickenDead) {
           this.chickenSound.play();
+          enemy.chickenDead = true;
         }
       });
     });
@@ -246,16 +222,12 @@ class World {
     this.throwableObjects.forEach((throwBottle) => {
       if (throwBottle.isColliding(this.endboss)) {
         this.endboss.hit();
-        //        TODO  log raus
-        console.log('Endboss HP: ', this.endboss.energy);
         throwBottle.bottleHit = true;
         this.endbossBar.updateEndbossBar(this.endboss.energy);
-        //TODO Testen
-
-        // throwBottle.playAnimation(throwBottle.IMAGES_BOTTLES_SPLASH);
       }
     });
   }
+
   /**
    * Checks if the character is colliding with the endboss and damages the character if so.
    * Updates the character's energy level and plays a hurt sound effect.
@@ -263,12 +235,11 @@ class World {
   checkCollisionsEndboss() {
     if (this.character.isColliding(this.endboss)) {
       this.character.hit();
-      // Todo log raus
-      console.log('Collision with Character energy', this.character.energy);
       this.statusBar.setPercentage(this.character.energy);
       this.hurtSound.play();
     }
   }
+
   /**
    * Checks if the 'D' key is pressed and if the character has any bottles left.
    * If so, creates a new throwable object at the character's position and adds it to the list of throwable objects.
@@ -323,20 +294,25 @@ class World {
     });
   }
 
+  deleteDeadChicken() {
+    const deadChickenIndexes = [];
+    this.level.chickens.forEach((chicken, index) => {
+      if (chicken.chickenDead) {
+        deadChickenIndexes.push(index);
+      }
+    });
+    for (let i = deadChickenIndexes.length - 1; i >= 0; i--) {
+      this.level.chickens.splice(deadChickenIndexes[i], 1);
+    }
+  }
+
   /**
    * creates drawings; move entire world (translate, x-axis) and back after drawing to avoid continuous shifting; Camera and Character move in opposite directions
    *
    */
   draw() {
-    this.ctx.clearRect(
-      0,
-      0,
-      this.canvas.width,
-      this.canvas.height
-    ); /* clear canvas for redrawing */
-
-    this.ctx.translate(this.camera_x, 0); /* move in x-axis */
-
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    this.ctx.translate(this.camera_x, 0);
     this.AddObjectsToMap(this.level.backgroundObjects);
     this.AddToMap(this.character);
     this.AddObjectsToMap(this.level.clouds);

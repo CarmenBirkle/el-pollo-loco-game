@@ -18,6 +18,7 @@ class Endboss extends MovableObject {
   world;
   energy = 25;
   endboss_dead = false;
+  speed = 7;
 
   IMAGES_WALKING = [
     'img/4_enemie_boss_chicken/1_walk/G1.png',
@@ -73,54 +74,59 @@ class Endboss extends MovableObject {
    * Adjust the end boss images according to its actions or live-state.
    *
    */
-  //   animate() {
-  //     setInterval(() => {
-  //       if (this.isHurt()) {
-  //         this.playAnimation(this.IMAGES_HURT);
-  //       } else if (this.isDead()) {
-  //         setTimeout(() => {
-  //           this.speed = 50;
-  //           this.moveRight();
-  //           this.playAnimation(this.IMAGES_DEAD);
-  //         }, 500);
-  //         setTimeout(() => {
-  //           win();
-  //         }, 1000);
-  //       } else {
-  //         if (this.energy > 20) {
-  //           this.playAnimation(this.IMAGES_ANGRY);
-  //         } else if (this.energy <= 20) {
-  //           this.speed = 5;
-  //           this.moveLeft();
-  //           this.playAnimation(this.IMAGES_WALKING);
-  //         }
-  //       }
-  //     }, 1000 / 5);
-  //   }
-  // }
-
   animate() {
     setRunningIntervals(() => {
       if (this.isHurt()) {
         this.playAnimation(this.IMAGES_HURT);
       } else if (this.isDead()) {
-        setTimeout(() => {
-          this.speed = 50;
-          this.moveRight();
-          this.playAnimation(this.IMAGES_DEAD);
-        }, 500);
-        setTimeout(() => {
-          win();
-        }, 500);
+        this.letEndbossDie();
       } else {
         if (this.energy > 20) {
           this.playAnimation(this.IMAGES_ANGRY);
         } else if (this.energy <= 20) {
-          this.speed = 5;
-          this.moveLeft();
-          this.playAnimation(this.IMAGES_WALKING);
+          this.move();
         }
       }
     }, 1000 / 5);
+  }
+
+  move() {
+    this.playAnimation(this.IMAGES_WALKING);
+    if (this.canWalkRight()) {
+      this.moveRight();
+      this.otherDirection = true;
+    } else if (this.canWalkLeft()) {
+      this.moveLeft();
+      this.otherDirection = false;
+    }
+  }
+
+  letEndbossDie() {
+    setTimeout(() => {
+      this.speed = 50;
+      this.moveRight();
+      this.playAnimation(this.IMAGES_DEAD);
+    }, 500);
+    win();
+  }
+
+  canWalkRight() {
+    return (
+      this.distanceInBetween() > -700 &&
+      this.distanceInBetween() < -200 &&
+      !this.isDead()
+    );
+  }
+
+  canWalkLeft() {
+    return (
+      this.distanceInBetween() < 500 &&
+      this.distanceInBetween() > 25 &&
+      !this.isDead()
+    );
+  }
+
+  distanceInBetween() {
+    return this.x - world.character.x;
   }
 }
