@@ -128,12 +128,14 @@ function win() {
  * Clears all Intervalls and stop the game audio
  */
 function gameOver() {
-  clearAllIntervals();
-  document.getElementById('game').classList.add('d-none');
-  document.getElementById('gameOver').classList.remove('d-none');
-  document.getElementById('win').classList.add('d-none');
-  gameAudio.pause();
+  stopMusic();
   gameLost.play();
+  setTimeout(() => {
+    clearAllIntervals();
+    document.getElementById('game').classList.add('d-none');
+    document.getElementById('gameOver').classList.remove('d-none');
+    document.getElementById('win').classList.add('d-none');
+  }, 2000);
 }
 
 /**

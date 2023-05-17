@@ -131,9 +131,7 @@ class Character extends MovableObject {
   playAnimations() {
     if (this.isDead()) {
       this.playAnimation(this.IMAGES_DEAD);
-      setTimeout(() => {
-        gameOver();
-      }, 2000);
+      gameOver();
     } else if (this.isHurt()) {
       this.playAnimation(this.IMAGES_HURT);
     } else if (this.isAboveGround()) {
@@ -148,7 +146,7 @@ class Character extends MovableObject {
   }
 
   /**
-   * controlls the variable movementTimer and returns true
+   * controls the variable movementTimer and returns true
    * if the character is not move for 4 sec.
    *    * @returns true
    */
