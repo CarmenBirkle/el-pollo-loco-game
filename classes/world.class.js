@@ -132,10 +132,11 @@ class World {
     this.level.bottles.forEach((bottleX, index) => {
       if (
         this.character.isColliding(bottleX) &&
-        this.bottleBar.amountOfBottles < 5
+        this.bottleBar.percentage < 100
       ) {
         this.collectBottles();
-        this.bottleBar.updateBottleBar();
+        // this.bottleBar.updateBottleBar();
+        this.bottleBar.setPercentage(this.bottleBar.percentage);
         this.level.bottles.splice(index, 1);
         this.bottleSound.play();
         // console.log('amountOfBottles ', this.bottleBar.amountOfBottles);
@@ -176,9 +177,9 @@ class World {
    *Increases the number of collected bottles by 1, but limits the number of bottles to a maximum of 5.
    */
   collectBottles() {
-    this.bottleBar.amountOfBottles += 1;
-    if (this.bottleBar.amountOfBottles > 5) {
-      this.bottleBar.amountOfBottles = 5;
+    this.bottleBar.percentage += 20;
+    if (this.bottleBar.percentage > 100) {
+      this.bottleBar.percentage = 100;
     }
   }
 
@@ -273,16 +274,29 @@ class World {
    * If so, creates a new throwable object at the character's position and adds it to the list of throwable objects.
    * Decrements the amount of bottles in the bottle bar and updates the bottle bar display.
    */
+  // checkThrowObject() {
+  //   if (this.keyboard.D && this.bottleBar.amountOfBottles > 0) {
+  //     let bottle = new ThrowableOject(
+  //       this.character.x + 20,
+  //       this.character.y + 100,
+  //       this.character.otherDirection
+  //     );
+  //     this.throwableObjects.push(bottle);
+  //     this.bottleBar.amountOfBottles -= 1;
+  //     this.bottleBar.updateBottleBar();
+  //   }
+  // }
+
   checkThrowObject() {
-    if (this.keyboard.D && this.bottleBar.amountOfBottles > 0) {
+    if (this.keyboard.D && this.bottleBar.percentage > 0) {
       let bottle = new ThrowableOject(
         this.character.x + 20,
         this.character.y + 100,
         this.character.otherDirection
       );
       this.throwableObjects.push(bottle);
-      this.bottleBar.amountOfBottles -= 1;
-      this.bottleBar.updateBottleBar();
+      this.bottleBar.percentage -= 20;
+      this.bottleBar.setPercentage(this.bottleBar.percentage);
     }
   }
 
