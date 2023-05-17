@@ -92,8 +92,9 @@ class World {
   checkAllCollisions() {
     this.checkCollisionsCoin();
     this.checkCollisionsBottle();
-    this.checkCollisionsChicken();
-    this.checkCollisionsBabyChicken();
+    this.checkCollisionsChicken(this.level.chickens);
+    this.checkCollisionsChicken(this.level.babyChickens);
+    // this.checkCollisionsBabyChicken();
     this.checkCollisionsHit();
     this.checkCollisionsEndbossHit();
     this.checkCollisionsEndboss();
@@ -151,6 +152,18 @@ class World {
     }
   }
 
+  deleteDeadChicken() {
+    const deadChickenIndexes = [];
+    this.level.chickens.forEach((chicken, index) => {
+      if (chicken.chickenDead) {
+        deadChickenIndexes.push(index);
+      }
+    });
+    for (let i = deadChickenIndexes.length - 1; i >= 0; i--) {
+      this.level.chickens.splice(deadChickenIndexes[i], 1);
+    }
+  }
+
   /**
    *Increases the number of collected bottles by 1, but limits the number of bottles to a maximum of 5.
    */
@@ -166,8 +179,8 @@ class World {
    * If the chicken is already dead or the character is above the ground, no damage is dealt.
    * Updates the character's energy level and plays a hurt sound effect.
    */
-  checkCollisionsChicken() {
-    this.level.chickens.forEach((enemy) => {
+  checkCollisionsChicken(enemietype) {
+    enemietype.forEach((enemy) => {
       if (
         this.character.isColliding(enemy) &&
         !enemy.chickenDead &&
@@ -185,19 +198,19 @@ class World {
    * If the baby chicken is already dead or the character is above the ground, no damage is dealt.
    * Updates the character's energy level and plays a hurt sound effect.
    */
-  checkCollisionsBabyChicken() {
-    this.level.babyChickens.forEach((enemy) => {
-      if (
-        this.character.isColliding(enemy) &&
-        !enemy.babyChickenDead &&
-        !this.character.isAboveGround()
-      ) {
-        this.character.hit();
-        this.statusBar.setPercentage(this.character.energy);
-        this.hurtSound.play();
-      }
-    });
-  }
+  // checkCollisionsBabyChicken() {
+  //   this.level.babyChickens.forEach((enemy) => {
+  //     if (
+  //       this.character.isColliding(enemy) &&
+  //       !enemy.babyChickenDead &&
+  //       !this.character.isAboveGround()
+  //     ) {
+  //       this.character.hit();
+  //       this.statusBar.setPercentage(this.character.energy);
+  //       this.hurtSound.play();
+  //     }
+  //   });
+  // }
 
   /**
    * Iterates over all the chickens in this level and all throwable objects, checks if a throwable object collides with a chicken, and removes the chicken if so.
@@ -292,18 +305,6 @@ class World {
         enemy.babyChickenDead = true;
       }
     });
-  }
-
-  deleteDeadChicken() {
-    const deadChickenIndexes = [];
-    this.level.chickens.forEach((chicken, index) => {
-      if (chicken.chickenDead) {
-        deadChickenIndexes.push(index);
-      }
-    });
-    for (let i = deadChickenIndexes.length - 1; i >= 0; i--) {
-      this.level.chickens.splice(deadChickenIndexes[i], 1);
-    }
   }
 
   /**
