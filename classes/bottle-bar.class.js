@@ -1,8 +1,10 @@
 /**
  * @class BottleBar - class for bottle bar to display the statusbar of bottles collected
  */
-class BottleBar extends DrawableObject {
+class BottleBar extends StatusBar {
   amountOfBottles = 0;
+  x = 40;
+  y = 40;
   BOTTLE = [
     'img/7_statusbars/1_statusbar/3_statusbar_bottle/orange/0.png',
     'img/7_statusbars/1_statusbar/3_statusbar_bottle/orange/20.png',
@@ -13,12 +15,12 @@ class BottleBar extends DrawableObject {
   ];
 
   constructor() {
-    super();
-    this.loadImages(this.BOTTLE);
-    this.x = 40;
-    this.y = 40;
-    this.width = 180;
-    this.height = 50;
+    super().loadImages(this.BOTTLE);
+    // this.x = 40;
+    // this.y = 40;
+    // this.width = 180;
+    // this.height = 50;
+    // this.setPercentage(0);
     this.updateBottleBar();
   }
 

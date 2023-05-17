@@ -2,9 +2,11 @@
  * @class CoinBar
  * - represents the coin bar
  */
-class CoinBar extends DrawableObject {
+class CoinBar extends StatusBar {
   amountOfCoin = 0;
-  COIN = [
+  x = 40;
+  y = 80;
+  IMAGES = [
     'img/7_statusbars/1_statusbar/1_statusbar_coin/blue/0.png',
     'img/7_statusbars/1_statusbar/1_statusbar_coin/blue/20.png',
     'img/7_statusbars/1_statusbar/1_statusbar_coin/blue/40.png',
@@ -14,12 +16,10 @@ class CoinBar extends DrawableObject {
   ];
 
   constructor() {
-    super();
-    this.loadImages(this.COIN);
-    this.x = 40;
-    this.y = 80;
-    this.width = 180;
-    this.height = 50;
+    super().loadImages(this.IMAGES);
+
+    // this.width = 180;
+    // this.height = 50;
     this.updateCoinBar();
   }
 
@@ -35,7 +35,7 @@ class CoinBar extends DrawableObject {
    * cache and collecting coins
    */
   updateCoinBar() {
-    let path = this.COIN[this.resolveImageIndex()];
+    let path = this.IMAGES[this.resolveImageIndex()];
     this.img = this.imageCache[path];
   }
 
