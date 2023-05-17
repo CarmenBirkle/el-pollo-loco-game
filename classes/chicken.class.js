@@ -2,9 +2,9 @@
  * @class Chicken - to create chicken objects with moving animation and random position
  */
 class Chicken extends MovableObject {
-  y = 350; // 360
-  height = 80; // 60
-  width = 50; // 70
+  y = 350;
+  height = 80;
+  width = 50;
   chickenDead = false;
   offset = {
     top: 10,
@@ -37,11 +37,11 @@ class Chicken extends MovableObject {
    *
    */
   animate() {
-    setInterval(() => {
+    setRunningIntervals(() => {
       this.moveLeft();
     }, 1000 / 60);
 
-    setInterval(() => {
+    setRunningIntervals(() => {
       if (this.chickenDead) {
         this.loadImage(this.IMAGES_DEAD);
         this.speed = 0;

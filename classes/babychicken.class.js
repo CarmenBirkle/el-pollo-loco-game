@@ -25,12 +25,29 @@ class BabyChicken extends MovableObject {
   /**
    * @method moveLeft - move the baby chicken to the left
    */
+
+  //   animate() {
+  //     setInterval(() => {
+  //       this.moveLeft();
+  //     }, 1000 / 60);
+
+  //     setInterval(() => {
+  //       if (this.babyChickenDead) {
+  //         this.loadImage(this.IMAGES_DEAD);
+  //         this.speed = 0;
+  //       } else {
+  //         this.playAnimation(this.IMAGES_WALKING);
+  //       }
+  //     }, 1000 / 10);
+  //   }
+  // }
+
   animate() {
-    setInterval(() => {
+    setRunningIntervals(() => {
       this.moveLeft();
     }, 1000 / 60);
 
-    setInterval(() => {
+    setRunningIntervals(() => {
       if (this.babyChickenDead) {
         this.loadImage(this.IMAGES_DEAD);
         this.speed = 0;

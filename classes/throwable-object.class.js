@@ -1,5 +1,6 @@
 class ThrowableOject extends MovableObject {
   otherDirection;
+  bottleHit = false;
   THROW_BOTTLE = [
     'img/6_salsa_bottle/bottle_rotation/1_bottle_rotation.png',
     'img/6_salsa_bottle/bottle_rotation/2_bottle_rotation.png',
@@ -36,36 +37,23 @@ class ThrowableOject extends MovableObject {
     setInterval(() => {
       if (this.otherDirection === true) {
         this.x -= 20;
-        console.log('true', this.otherDirection);
       } else {
         this.x += 20;
-        console.log('false', this.otherDirection);
       }
     }, 40);
   }
-  // hat funktioniert aber nur eine Richtung
-  // throw() {
-  //   this.speedY = 10; // Höhe des Wurfs 30
-  //   this.applyGravity();
-  //   setInterval(() => {
-  //     this.x += 20; // Weite des Wurfs  8
-  //   }, 40);
-  // }
 
   animate() {
     setInterval(() => {
-      this.playAnimation(this.THROW_BOTTLE);
+      if (this.bottleSplash()) {
+        this.playAnimation(this.IMAGES_BOTTLES_SPLASH);
+      } else {
+        this.playAnimation(this.THROW_BOTTLE);
+      }
     }, 100);
   }
 
-  //   animate() {
-  //     setInterval(() => {
-  //       if (this.y > 250 || this.hurtEndboss()) {
-  //         this.playAnimation(this.IMAGES_BOTTLES_SPLASH);
-  //         this.x += 5;
-  //       } else {
-  //         this.playAnimation(this.IMAGES_BOTTLES_ROTATION);
-  //       }
-  //     }, 80);
-  //   }
+  bottleSplash() {
+    return this.posY > 260 || this.bottleHit;
+  }
 }

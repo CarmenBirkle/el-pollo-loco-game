@@ -7,7 +7,7 @@ class Level {
   coins;
   bottles;
   chickens;
-  babychickens;
+  babyChickens;
   clouds;
   backgroundObjects;
   level_end_x = 3500;

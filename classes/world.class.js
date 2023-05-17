@@ -47,7 +47,7 @@ class World {
     this.keyboard = keyboard;
     this.draw();
     this.setWorld(); /* pass pressed buttons on to character; this functions connects the character to the world */
-    this.run();
+    this.runAllIntervals();
   }
 
   setWorld() {
@@ -65,24 +65,39 @@ class World {
     this.hurtSound.volume = 0.1;
   }
 
+  muteSounds() {
+    this.bottleSound.volume = 0.0;
+    this.chickenSound.volume = 0.0;
+    this.coinSound.volume = 0.0;
+    this.hurtSound.volume = 0.0;
+  }
+
   /**
    * in the interval of 100 ms the functions to check for collisions are called
    * it contains the functions to check for collisions between character, enemies and other objects
    * interval is set to 100 milliseconds
    */
-  run() {
-    setInterval(() => {
-      this.checkCollisionsCoin();
-      this.checkCollisionsBottle();
-      this.checkCollisionsChicken();
-      this.checkCollisionsBabyChicken();
-      this.checkCollisionsHit();
-      this.checkCollisionsEndbossHit();
-      this.checkCollisionsEndboss();
+  runAllIntervals() {
+    setRunningIntervals(() => {
+      this.checkAllCollisions();
       this.checkThrowObject();
       this.collisionCharacterAboveChickens();
       this.collisionCharacterAboveBabyChickens();
     }, 100);
+    setRunningIntervals(() => {
+      this.deleteAllChickens();
+    }, 2000);
+  }
+
+  checkAllCollisions() {
+    this.checkCollisionsCoin();
+    this.checkCollisionsBottle();
+    this.checkCollisionsChicken(this.level.chickens);
+    this.checkCollisionsChicken(this.level.babyChickens);
+    // this.checkCollisionsBabyChicken();
+    this.checkCollisionsHit();
+    this.checkCollisionsEndbossHit();
+    this.checkCollisionsEndboss();
   }
 
   /**
@@ -120,6 +135,35 @@ class World {
     });
   }
 
+  deleteAllChickens() {
+    this.deleteDeadBabyChicken();
+    this.deleteDeadChicken();
+  }
+
+  deleteDeadBabyChicken() {
+    const deadChickenIndexes = [];
+    this.level.babyChickens.forEach((babyChicken, index) => {
+      if (babyChicken.babyChickenDead) {
+        deadChickenIndexes.push(index);
+      }
+    });
+    for (let i = deadChickenIndexes.length - 1; i >= 0; i--) {
+      this.level.babyChickens.splice(deadChickenIndexes[i], 1);
+    }
+  }
+
+  deleteDeadChicken() {
+    const deadChickenIndexes = [];
+    this.level.chickens.forEach((chicken, index) => {
+      if (chicken.chickenDead) {
+        deadChickenIndexes.push(index);
+      }
+    });
+    for (let i = deadChickenIndexes.length - 1; i >= 0; i--) {
+      this.level.chickens.splice(deadChickenIndexes[i], 1);
+    }
+  }
+
   /**
    *Increases the number of collected bottles by 1, but limits the number of bottles to a maximum of 5.
    */
@@ -135,8 +179,8 @@ class World {
    * If the chicken is already dead or the character is above the ground, no damage is dealt.
    * Updates the character's energy level and plays a hurt sound effect.
    */
-  checkCollisionsChicken() {
-    this.level.chickens.forEach((enemy) => {
+  checkCollisionsChicken(enemietype) {
+    enemietype.forEach((enemy) => {
       if (
         this.character.isColliding(enemy) &&
         !enemy.chickenDead &&
@@ -154,19 +198,19 @@ class World {
    * If the baby chicken is already dead or the character is above the ground, no damage is dealt.
    * Updates the character's energy level and plays a hurt sound effect.
    */
-  checkCollisionsBabyChicken() {
-    this.level.babyChickens.forEach((enemy) => {
-      if (
-        this.character.isColliding(enemy) &&
-        !enemy.babyChickenDead &&
-        !this.character.isAboveGround()
-      ) {
-        this.character.hit();
-        this.statusBar.setPercentage(this.character.energy);
-        this.hurtSound.play();
-      }
-    });
-  }
+  // checkCollisionsBabyChicken() {
+  //   this.level.babyChickens.forEach((enemy) => {
+  //     if (
+  //       this.character.isColliding(enemy) &&
+  //       !enemy.babyChickenDead &&
+  //       !this.character.isAboveGround()
+  //     ) {
+  //       this.character.hit();
+  //       this.statusBar.setPercentage(this.character.energy);
+  //       this.hurtSound.play();
+  //     }
+  //   });
+  // }
 
   /**
    * Iterates over all the chickens in this level and all throwable objects, checks if a throwable object collides with a chicken, and removes the chicken if so.
@@ -177,7 +221,7 @@ class World {
       this.throwableObjects.forEach((throwObject) => {
         if (throwObject.isColliding(enemy) && !enemy.chickenDead) {
           this.chickenSound.play();
-          this.level.chickens.splice(index, 1);
+          enemy.chickenDead = true;
         }
       });
     });
@@ -191,15 +235,12 @@ class World {
     this.throwableObjects.forEach((throwBottle) => {
       if (throwBottle.isColliding(this.endboss)) {
         this.endboss.hit();
-        //        TODO  log raus
-        console.log('Endboss HP: ', this.endboss.energy);
+        throwBottle.bottleHit = true;
         this.endbossBar.updateEndbossBar(this.endboss.energy);
-        //TODO Testen
-
-        // throwBottle.playAnimation(throwBottle.IMAGES_BOTTLES_SPLASH);
       }
     });
   }
+
   /**
    * Checks if the character is colliding with the endboss and damages the character if so.
    * Updates the character's energy level and plays a hurt sound effect.
@@ -207,12 +248,11 @@ class World {
   checkCollisionsEndboss() {
     if (this.character.isColliding(this.endboss)) {
       this.character.hit();
-      // Todo log raus
-      console.log('Collision with Character energy', this.character.energy);
       this.statusBar.setPercentage(this.character.energy);
       this.hurtSound.play();
     }
   }
+
   /**
    * Checks if the 'D' key is pressed and if the character has any bottles left.
    * If so, creates a new throwable object at the character's position and adds it to the list of throwable objects.
@@ -221,7 +261,7 @@ class World {
   checkThrowObject() {
     if (this.keyboard.D && this.bottleBar.amountOfBottles > 0) {
       let bottle = new ThrowableOject(
-        this.character.x + 100,
+        this.character.x + 20,
         this.character.y + 100,
         this.character.otherDirection
       );
@@ -272,15 +312,8 @@ class World {
    *
    */
   draw() {
-    this.ctx.clearRect(
-      0,
-      0,
-      this.canvas.width,
-      this.canvas.height
-    ); /* clear canvas for redrawing */
-
-    this.ctx.translate(this.camera_x, 0); /* move in x-axis */
-
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    this.ctx.translate(this.camera_x, 0);
     this.AddObjectsToMap(this.level.backgroundObjects);
     this.AddToMap(this.character);
     this.AddObjectsToMap(this.level.clouds);
