@@ -7,6 +7,8 @@ let pause = false;
 let runningIntervals = [];
 
 gameAudio = new Audio('audio/music.mp3');
+gameLost = new Audio('audio/lost.mp3');
+gameWon = new Audio('audio/victory.mp3');
 
 /**
  * defines variable canvas and creates new instance of World with parameters canvas and keyboard
@@ -109,6 +111,7 @@ function toggleGame() {
  * Displays the winning screen, stops all running intervals, and pauses the game audio.
  */
 function win() {
+  gameWon.play();
   setTimeout(() => {
     pauseGame();
     runningIntervals = [];
@@ -130,6 +133,7 @@ function gameOver() {
   document.getElementById('gameOver').classList.remove('d-none');
   document.getElementById('win').classList.add('d-none');
   gameAudio.pause();
+  gameLost.play();
 }
 
 /**
