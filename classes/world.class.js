@@ -6,7 +6,7 @@
  * @param {Object} ctx - canvas context object - for drawing
  * @param {Object} keyboard - keyboard object - for pressed buttons
  * @param {Integer} camera_x - camera position in x direction
- * @param {Object} statusBar - status bar object - for character life-status
+ * @param {Object} healthBar - health bar object - for character life-status
  * @param {Object} bottleBar - bottle bar object - for collected bottles status
  * @param {Object} coinBar - coin bar object - for collected coins status
  * @param {Object} endbossBar - endboss bar object - for endboss life-status
@@ -22,7 +22,7 @@ class World {
   ctx;
   keyboard;
   camera_x = 0;
-  statusBar = new StatusBar();
+  healthBar = new HealthBar();
   bottleBar = new BottleBar();
   coinBar = new CoinBar();
   endbossBar = new EndbossBar();
@@ -187,7 +187,7 @@ class World {
         !this.character.isAboveGround()
       ) {
         this.character.hit();
-        this.statusBar.setPercentage(this.character.energy);
+        this.healthBar.setPercentage(this.character.energy);
         this.hurtSound.play();
       }
     });
@@ -248,7 +248,7 @@ class World {
   checkCollisionsEndboss() {
     if (this.character.isColliding(this.endboss)) {
       this.character.hit();
-      this.statusBar.setPercentage(this.character.energy);
+      this.healthBar.setPercentage(this.character.energy);
       this.hurtSound.play();
     }
   }
@@ -320,7 +320,7 @@ class World {
 
     this.ctx.translate(-this.camera_x, 0); /* move back after drawing */
     /* ------ Space for fixed objects ------ */
-    this.AddToMap(this.statusBar);
+    this.AddToMap(this.healthBar);
     this.AddToMap(this.bottleBar);
     this.AddToMap(this.coinBar);
 
