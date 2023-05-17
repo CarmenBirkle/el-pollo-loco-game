@@ -108,13 +108,21 @@ class World {
   checkCollisionsCoin() {
     this.level.coins.forEach((coin, index) => {
       if (this.character.isColliding(coin)) {
-        this.coinBar.collectCoins();
+        this.collectCoins();
         this.level.coins.splice(index, 1);
-        this.coinBar.updateCoinBar();
+        // this.coinBar.updateCoinBar();
+        this.coinBar.setPercentage(this.coinBar.percentage);
         this.coinSound.play();
       }
     });
   }
+
+  // increasePercentage() {
+  //   this.percentage +=20;
+  //      if (this.percentage > 100) {
+  //        this.percentage = 100;
+  //      }
+  // }
 
   /**
    * Iterates over all the bottles in this level, checks if the character is colliding with a bottle, and collects it if so, but only if the character has less than 5 bottles.
@@ -171,6 +179,13 @@ class World {
     this.bottleBar.amountOfBottles += 1;
     if (this.bottleBar.amountOfBottles > 5) {
       this.bottleBar.amountOfBottles = 5;
+    }
+  }
+
+  collectCoins() {
+    this.coinBar.percentage += 20;
+    if (this.coinBar.percentage > 100) {
+      this.coinBar.percentage = 100;
     }
   }
 
