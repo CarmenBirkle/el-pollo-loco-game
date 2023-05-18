@@ -43,10 +43,9 @@ function setRunningIntervals(fn, time) {
 function restart() {
   clearAllIntervals();
   gameAudio.pause();
-  document.getElementById('win').classList.add('d-none');
-  document.getElementById('gameOver').classList.add('d-none');
-  document.getElementById('pause').classList.remove('opacity');
-  // location.reload();
+  removeOpacity('pause');
+  hideContainer('win');
+  hideContainer('gameOver');
   startGame();
 }
 
@@ -56,7 +55,6 @@ function restart() {
  */
 function pauseGame() {
   addOpacity('pause');
-  // document.getElementById('pause').classList.add('opacity');
   pauseIntervals();
   stopMusic();
 }
@@ -75,9 +73,6 @@ function pauseIntervals() {
  */
 function continueGame() {
   removeOpacity('pause');
-  // document.getElementById('pause').classList.remove('opacity');
-  // showContainer('pause-button');
-  // hideContainer('start-after-pause-button');
   playIntervals();
   playMusic();
 }
@@ -116,9 +111,6 @@ function win() {
     clearAllIntervals();
     hideContainer('game');
     showContainer('win');
-    // document.getElementById('game').classList.add('d-none');
-    // document.getElementById('win').classList.remove('d-none');
-    // gameAudio.pause()
     stopMusic();
   }, 2000);
 }
@@ -176,7 +168,6 @@ function playMusic() {
   gameAudio.volume = 0.1;
   audioOn = true;
   removeOpacity('mute');
-  // document.getElementById('mute').classList.remove('opacity');
 }
 
 /**
@@ -186,7 +177,6 @@ function playMusic() {
 function stopMusic() {
   gameAudio.pause();
   addOpacity('mute');
-  // document.getElementById('mute').classList.add('opacity');
   world.muteSounds();
   world.character.muteVolumeOfSoundsCharacter();
   audioOn = false;
@@ -338,34 +328,25 @@ function showPlayInfo() {
   hideContainer('welcome-screen');
   hideContainer('win');
   hideContainer('gameOver');
-
-  // document.getElementById('start').classList.remove('d-none');
-  // document.getElementById('information').classList.remove('d-none');
-  // document.getElementById('welcome-screen').classList.add('d-none');
-  // document.getElementById('win').classList.add('d-none');
-  // document.getElementById('gameOver').classList.add('d-none');
 }
+
 /**
  * Shows the information on the welcome screen.
  */
 function closeInformation() {
   hideContainer('information');
   showContainer('welcome-screen');
-
-  // document.getElementById('information').classList.add('d-none');
-  // document.getElementById('welcome-screen').classList.remove('d-none');
 }
+
 /**
  *  Shows the keyboard information on the welcome screen.
  */
 function showKeyboardInfo() {
   if (!keyboardInfo) {
     showContainer('keyboard-info');
-    // document.getElementById('keyboard-info').classList.remove('d-none');
     keyboardInfo = true;
   } else {
     hideContainer('keyboard-info');
-    // document.getElementById('keyboard-info').classList.add('d-none');
     keyboardInfo = false;
   }
 }
@@ -448,21 +429,4 @@ function addOpacity(id) {
 }
 function removeOpacity(id) {
   document.getElementById(`${id}`).classList.remove('opacity');
-}
-
-function showFullscreenSize(id) {
-  document.getElementById(`${id}`).classList.add('fullscreen-size');
-}
-
-function hideFullscreenSize(id) {
-  document.getElementById(`${id}`).classList.remove('fullscreen-size');
-}
-
-// .fullscreen-size {
-//   height: 67vh !important;
-//   width: 100% !important;
-// }
-
-function hideLoader() {
-  document.getElementById('loader').classList.add('loader-hidden');
 }
