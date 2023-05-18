@@ -40,13 +40,42 @@ function setRunningIntervals(fn, time) {
  * Clears all active intervals, pauses the game audio, hides the win and game over messages, and
  * removes the opacity from the pause button. Then starts the game again by calling the startGame function.
  */
+// function restart() {
+//   clearAllIntervals();
+//   gameAudio.pause();
+//   removeOpacity('pause');
+//   hideContainer('win');
+//   hideContainer('gameOver');
+//   showContainer('countdown');
+//   document.getElementById('countdown').innerHTML = '3';
+//   startGame();
+// }
+
 function restart() {
   clearAllIntervals();
   gameAudio.pause();
   removeOpacity('pause');
   hideContainer('win');
   hideContainer('gameOver');
-  startGame();
+  showContainer('countdown');
+
+  let countdownElement = document.getElementById('countdown');
+  let count = 3;
+
+  let countdownInterval = setInterval(() => {
+    countdownElement.innerHTML = count;
+    count--;
+
+    if (count < 0) {
+      clearInterval(countdownInterval);
+      countdownElement.innerHTML = 'Go!';
+      setTimeout(() => {
+        hideContainer('countdown');
+        startGame();
+        countdownElement.innerHTML = '';
+      }, 500);
+    }
+  }, 500);
 }
 
 /**

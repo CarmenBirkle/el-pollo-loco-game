@@ -197,6 +197,13 @@ h1 {
   cursor: pointer;
 }
 
+.countdown {
+  position: absolute;
+  font-family: 'zabars', Arial, Helvetica, sans-serif;
+  font-size: 50px;
+  letter-spacing: 3px;
+}
+
 .pause {
   height: 45px;
   cursor: pointer;
