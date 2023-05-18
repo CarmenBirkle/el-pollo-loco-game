@@ -12,16 +12,16 @@ gameWon = new Audio('audio/victory.mp3');
 
 /**
  * defines variable canvas and creates new instance of World with parameters canvas and keyboard
- *
+ * returns an Element object representing the element whose id property matches with id
  */
 function init() {
-  canvas = document.getElementById('canvas'); // returns an Element object representing the element whose id property matches the specified string
+  canvas = document.getElementById('canvas');
   world = new World(canvas, keyboard);
   mobileKeyboard();
 }
 
 /**
- * Adds a new function to the active intervals that will be executed at regular intervals.
+ * Adds a function to the active intervals that will be executed at regular intervals.
  *
  * @param {Function} fn - The function to be executed.
  * @param {number} time - The time interval in milliseconds after which the function should repeat.
@@ -39,7 +39,6 @@ function setRunningIntervals(fn, time) {
 /**
  * Clears all active intervals, pauses the game audio, hides the win and game over messages, and
  * removes the opacity from the pause button. Then starts the game again by calling the startGame function.
- *
  */
 function restart() {
   clearAllIntervals();
@@ -54,12 +53,10 @@ function restart() {
 /**
  * Adds the 'opacity' class to the 'pause' button to make it semi-transparent, pauses all active intervals
  * using the pauseIntervals function, and stops the game music using the stopMusic function.
- *
  */
 function pauseGame() {
-  // hideContainer('pause-button');
-  // showContainer('start-after-pause-button');
-  document.getElementById('pause').classList.add('opacity');
+  addOpacity('pause');
+  // document.getElementById('pause').classList.add('opacity');
   pauseIntervals();
   stopMusic();
 }
@@ -77,7 +74,8 @@ function pauseIntervals() {
  * the `playIntervals` and `playMusic` functions to resume the intervals and audio.
  */
 function continueGame() {
-  document.getElementById('pause').classList.remove('opacity');
+  removeOpacity('pause');
+  // document.getElementById('pause').classList.remove('opacity');
   // showContainer('pause-button');
   // hideContainer('start-after-pause-button');
   playIntervals();
@@ -137,9 +135,6 @@ function gameOver() {
     hideContainer('game');
     showContainer('gameOver');
     hideContainer('win');
-    // document.getElementById('game').classList.add('d-none');
-    // document.getElementById('gameOver').classList.remove('d-none');
-    // document.getElementById('win').classList.add('d-none');
   }, 2000);
 }
 
@@ -167,11 +162,6 @@ function startGame() {
   hideContainer('start');
   hideContainer('win');
   showContainer('game');
-
-  // document.getElementById('start').classList.add('d-none');
-  // document.getElementById('welcome-screen').classList.add('d-none');
-  // document.getElementById('game').classList.remove('d-none');
-  // document.getElementById('win').classList.add('d-none');
 }
 
 /**
@@ -185,7 +175,8 @@ function playMusic() {
   world.character.volumeOfSoundsCharacter();
   gameAudio.volume = 0.1;
   audioOn = true;
-  document.getElementById('mute').classList.remove('opacity');
+  removeOpacity('mute');
+  // document.getElementById('mute').classList.remove('opacity');
 }
 
 /**
@@ -194,7 +185,8 @@ function playMusic() {
  */
 function stopMusic() {
   gameAudio.pause();
-  document.getElementById('mute').classList.add('opacity');
+  addOpacity('mute');
+  // document.getElementById('mute').classList.add('opacity');
   world.muteSounds();
   world.character.muteVolumeOfSoundsCharacter();
   audioOn = false;
@@ -449,6 +441,13 @@ function showContainer(id) {
 
 function hideContainer(id) {
   document.getElementById(`${id}`).classList.add('d-none');
+}
+
+function addOpacity(id) {
+  document.getElementById(`${id}`).classList.add('opacity');
+}
+function removeOpacity(id) {
+  document.getElementById(`${id}`).classList.remove('opacity');
 }
 
 function showFullscreenSize(id) {
