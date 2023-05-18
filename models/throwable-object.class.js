@@ -30,9 +30,11 @@ class ThrowableOject extends MovableObject {
     this.throw();
     this.animate();
   }
-
+  /**
+   * Throws the object and initiates its movement.
+   */
   throw() {
-    this.speedY = 10; // Höhe des Wurfs 30
+    this.speedY = 10;
     this.applyGravity();
     setInterval(() => {
       if (this.otherDirection === true) {
@@ -52,7 +54,10 @@ class ThrowableOject extends MovableObject {
       }
     }, 100);
   }
-
+  /**
+   * Checks if bottle should be splashed. With bottle is above ground or hit something.
+   * @returns true if bottle should splashed
+   */
   bottleSplash() {
     return this.posY > 260 || this.bottleHit;
   }

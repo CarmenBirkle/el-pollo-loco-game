@@ -116,8 +116,10 @@ function win() {
     pauseGame();
     runningIntervals = [];
     clearAllIntervals();
-    document.getElementById('game').classList.add('d-none');
-    document.getElementById('win').classList.remove('d-none');
+    hideContainer('game');
+    showContainer('win');
+    // document.getElementById('game').classList.add('d-none');
+    // document.getElementById('win').classList.remove('d-none');
     // gameAudio.pause()
     stopMusic();
   }, 2000);
@@ -132,9 +134,12 @@ function gameOver() {
   gameLost.play();
   setTimeout(() => {
     clearAllIntervals();
-    document.getElementById('game').classList.add('d-none');
-    document.getElementById('gameOver').classList.remove('d-none');
-    document.getElementById('win').classList.add('d-none');
+    hideContainer('game');
+    showContainer('gameOver');
+    hideContainer('win');
+    // document.getElementById('game').classList.add('d-none');
+    // document.getElementById('gameOver').classList.remove('d-none');
+    // document.getElementById('win').classList.add('d-none');
   }, 2000);
 }
 
@@ -158,10 +163,15 @@ function startGame() {
   initLevel();
   init();
   playMusic();
-  document.getElementById('start').classList.add('d-none');
-  document.getElementById('welcome-screen').classList.add('d-none');
-  document.getElementById('game').classList.remove('d-none');
-  document.getElementById('win').classList.add('d-none');
+  hideContainer('welcome-screen');
+  hideContainer('start');
+  hideContainer('win');
+  showContainer('game');
+
+  // document.getElementById('start').classList.add('d-none');
+  // document.getElementById('welcome-screen').classList.add('d-none');
+  // document.getElementById('game').classList.remove('d-none');
+  // document.getElementById('win').classList.add('d-none');
 }
 
 /**
@@ -208,41 +218,6 @@ function toggleMusic() {
 function fullscreen() {
   canvas.requestFullscreen();
 }
-
-// function fullscreen(element) {
-//   if (element.requestFullscreen) {
-//     element.requestFullscreen();
-//   } else if (element.msRequestFullscreen) {
-//     // for IE11 (remove June 15, 2022)
-//     element.msRequestFullscreen();
-//   } else if (element.webkitRequestFullscreen) {
-//     // iOS Safari
-//     element.webkitRequestFullscreen();
-//   }
-// }
-
-// function exitFullscreen() {
-//   if (
-//     document.fullscreenElement ||
-//     document.webkitFullscreenElement ||
-//     document.msFullscreenElement
-//   ) {
-//     if (document.exitFullscreen) {
-//       document.exitFullscreen();
-//     } else if (document.webkitExitFullscreen) {
-//       document.webkitExitFullscreen();
-//     } else if (document.msExitFullscreen) {
-//       document.msExitFullscreen();
-//     }
-//   }
-// }
-
-//  document.addEventListener('fullscreenchange', function () {
-//    if (document.fullscreenElement === null) {
-//      isFullscreenActive = true;
-//      fullscreenOpenAndClose();
-//    }
-//  });
 
 /**
  * Listens to keyboard events and updates the keyboard object with the corresponding boolean values.
@@ -366,28 +341,39 @@ function rightButton() {
  * Removes the 'd-none' class from the 'start' and 'information' elements and adds it to 'welcome-screen', 'win' and 'gameOver' elements.
  */
 function showPlayInfo() {
-  document.getElementById('start').classList.remove('d-none');
-  document.getElementById('information').classList.remove('d-none');
-  document.getElementById('welcome-screen').classList.add('d-none');
-  document.getElementById('win').classList.add('d-none');
-  document.getElementById('gameOver').classList.add('d-none');
+  showContainer('start');
+  showContainer('information');
+  hideContainer('welcome-screen');
+  hideContainer('win');
+  hideContainer('gameOver');
+
+  // document.getElementById('start').classList.remove('d-none');
+  // document.getElementById('information').classList.remove('d-none');
+  // document.getElementById('welcome-screen').classList.add('d-none');
+  // document.getElementById('win').classList.add('d-none');
+  // document.getElementById('gameOver').classList.add('d-none');
 }
 /**
  * Shows the information on the welcome screen.
  */
 function closeInformation() {
-  document.getElementById('information').classList.add('d-none');
-  document.getElementById('welcome-screen').classList.remove('d-none');
+  hideContainer('information');
+  showContainer('welcome-screen');
+
+  // document.getElementById('information').classList.add('d-none');
+  // document.getElementById('welcome-screen').classList.remove('d-none');
 }
 /**
  *  Shows the keyboard information on the welcome screen.
  */
 function showKeyboardInfo() {
   if (!keyboardInfo) {
-    document.getElementById('keyboard-info').classList.remove('d-none');
+    showContainer('keyboard-info');
+    // document.getElementById('keyboard-info').classList.remove('d-none');
     keyboardInfo = true;
   } else {
-    document.getElementById('keyboard-info').classList.add('d-none');
+    hideContainer('keyboard-info');
+    // document.getElementById('keyboard-info').classList.add('d-none');
     keyboardInfo = false;
   }
 }
@@ -400,9 +386,7 @@ function showKeyboardInfo() {
 function checkMobile() {
   if (isMobileDevice()) {
     showMobileButton();
-    // phoneRotateMessage();
   } else {
-    // phoneRotateMessage();
     hideMobileButton();
   }
 }
@@ -433,19 +417,6 @@ function phoneRotateMessage() {
  * Check if the device is a mobile-device.
  * @returns {boolean} - true = is mobile
  */
-// function isMobileDevice() {
-//   return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-//     navigator.userAgent
-//   );
-// }
-
-// function isMobileDevice() {
-//   return (
-//     typeof window.orientation !== 'undefined' ||
-//     navigator.userAgent.indexOf('IEMobile') !== -1
-//   );
-// }
-
 function isMobileDevice() {
   const userAgent = navigator.userAgent;
   const isMobileByOrientation = typeof window.orientation !== 'undefined';
