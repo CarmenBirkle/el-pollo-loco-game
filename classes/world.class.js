@@ -39,20 +39,16 @@ class World {
 
   constructor(canvas, keyboard) {
     this.volumeOfSounds();
-    this.ctx =
-      canvas.getContext(
-        '2d'
-      ); /* get access to the canvas tags 2D drawing functions; canvas context is an object with properties and methods that you can use to render graphics inside the canvas element. */
+    this.ctx = canvas.getContext('2d');
     this.canvas = canvas;
     this.keyboard = keyboard;
     this.draw();
-    this.setWorld(); /* pass pressed buttons on to character; this functions connects the character to the world */
+    this.setWorld();
     this.runAllIntervals();
   }
 
   setWorld() {
-    this.character.world =
-      this; /* with "this" all variables can be passed to the character */
+    this.character.world = this;
   }
 
   /**
@@ -81,8 +77,6 @@ class World {
     setRunningIntervals(() => {
       this.checkAllCollisions();
       this.checkThrowObject();
-      // this.collisionCharacterAboveChickens();
-      // this.collisionCharacterAboveBabyChickens();
       this.collisionCharacterAboveEnemies(this.level.chickens);
       this.collisionCharacterAboveEnemies(this.level.babyChickens);
     }, 100);
@@ -100,7 +94,11 @@ class World {
     this.checkCollisionsEndbossHit();
     this.checkCollisionsEndboss();
   }
+
   //<------- Collision Functions with Items (coins and bottles) ------->
+  /**
+   * Checks for collisions with items based on the collection type and handles the collisions by updating the progress bar and performing the necessary actions.
+   */
   checkCollisionsItem(collectionType, progressBar, sound) {
     let collectionArray = this.handleCollectionType(collectionType);
     collectionArray.forEach((item, index) => {
@@ -112,7 +110,9 @@ class World {
       }
     });
   }
-
+  /**
+   * Handles the collision of an item by increasing the progress bar percentage, updating the progress bar display, removing the item from the collection array, and playing a sound.
+   */
   handleItemCollision(progressBar, collectionArray, index, sound) {
     this.increasePercentage(progressBar);
     progressBar.setPercentage(progressBar.percentage);
@@ -120,6 +120,9 @@ class World {
     sound.play();
   }
 
+  /**
+   *  * Checks if the collection type is 'bottle', the progress bar percentage is less than 100, and there is a collision between the character and the item.
+   */
   bottlePercentUnder100(collectionType, progressBar, item) {
     return (
       collectionType === 'bottle' &&
@@ -128,13 +131,20 @@ class World {
     );
   }
 
+  /**
+   *  * Checks if the item belongs to a collection type other than 'bottle' and if the character is colliding with it.
+   */
   colletOtherItems(collectionType, progressBar, item) {
     return collectionType !== 'bottle' && this.character.isColliding(item);
   }
 
+  /**
+   * Handles the collection type and returns the corresponding collection array.
+   * @param {string} collectionType - The type of collection ('coin' or 'bottle').
+   * @returns {Array} The collection array based on the collection type.
+   */
   handleCollectionType(collectionType) {
     let collectionArray;
-
     if (collectionType === 'coin') {
       collectionArray = this.level.coins;
     } else if (collectionType === 'bottle') {
@@ -143,12 +153,17 @@ class World {
     return collectionArray;
   }
 
-  //<------- Delete Dead Enemys Functions  ------->
+  //<------- Delete Dead Enemies Functions  ------->
 
   deleteAllChickens() {
     this.deleteDeadEntities(this.level.babyChickens);
     this.deleteDeadEntities(this.level.chickens);
   }
+
+  /**
+   * Deletes the dead entities from the given array of entities.
+   * @param {Array} entities - The array of entities to check and delete dead entities from.
+   */
 
   deleteDeadEntities(entities) {
     const deadEntityIndexes = [];
@@ -161,24 +176,12 @@ class World {
       entities.splice(deadEntityIndexes[i], 1);
     }
   }
-
+  //<------- Collision Enemies Functions with percentage and health logic ------->
   /**
-   *Increases the number of collected bottles by 1, but limits the number of bottles to a maximum of 5.
+   * Increases the percentage value of the given object type by 20. If the resulting percentage exceeds 100,
+   * it is capped at 100.
+   * @param {Object} objectType - The object type whose percentage value should be increased.
    */
-  // collectBottles() {
-  //   this.bottleBar.percentage += 20;
-  //   if (this.bottleBar.percentage > 100) {
-  //     this.bottleBar.percentage = 100;
-  //   }
-  // }
-
-  // collectCoins() {
-  //   this.coinBar.percentage += 20;
-  //   if (this.coinBar.percentage > 100) {
-  //     this.coinBar.percentage = 100;
-  //   }
-  // }
-
   increasePercentage(objectType) {
     objectType.percentage += 20;
     if (objectType.percentage > 100) {
@@ -222,7 +225,7 @@ class World {
 
   /**
    * Iterates over all the throwable objects in this level, checks if a throwable object collides with the endboss, and damages the endboss if so.
-   * Updates the endboss's energy level and the endboss bar display.
+   * Updates the endboss energy level and the endboss bar display.
    */
   checkCollisionsEndbossHit() {
     this.throwableObjects.forEach((throwBottle) => {
@@ -251,7 +254,6 @@ class World {
    * If so, creates a new throwable object at the character's position and adds it to the list of throwable objects.
    * Decrements the amount of bottles in the bottle bar and updates the bottle bar display.
    */
-
   checkThrowObject() {
     if (this.keyboard.D && this.bottleBar.percentage > 0) {
       let bottle = new ThrowableOject(
@@ -266,41 +268,10 @@ class World {
   }
 
   /**
-   *Checks if the character is colliding with a chicken while jumping above it.
-   * If so, makes the character perform a jump and sets the chicken's 'chickenDead' flag to true.
-   * Also plays a chicken sound effect.
+   *Checks if the character is colliding with  enemies while jumping above it.
+   * If so, makes the character perform a jump and sets the 'chickenDead' flag to true.
+   * Also plays a sound effect.
    */
-  // collisionCharacterAboveChickens() {
-  //   this.level.chickens.forEach((enemy) => {
-  //     if (
-  //       this.character.isColliding(enemy) &&
-  //       this.character.isAboveGround() &&
-  //       !enemy.chickenDead
-  //     ) {
-  //       this.character.jump();
-  //       this.chickenSound.play();
-  //       enemy.chickenDead = true;
-  //     }
-  //   });
-  // }
-  /**
-   * Checks if the character collides with any baby chickens while being above them, and triggers the character to jump and the chicken sound to play if so.
-   * Also marks the baby chicken as dead to prevent further collisions.
-   */
-  // collisionCharacterAboveBabyChickens() {
-  //   this.level.babyChickens.forEach((enemy) => {
-  //     if (
-  //       this.character.isColliding(enemy) &&
-  //       this.character.isAboveGround() &&
-  //       !enemy.chickenDead
-  //     ) {
-  //       this.character.jump();
-  //       this.chickenSound.play();
-  //       enemy.chickenDead = true;
-  //     }
-  //   });
-  // }
-
   collisionCharacterAboveEnemies(enemies) {
     enemies.forEach((enemy) => {
       if (
@@ -314,15 +285,7 @@ class World {
       }
     });
   }
-
-  // collisionCharacterAboveChickens() {
-  //   this.collisionCharacterAboveEnemies(this.level.chickens);
-  // }
-
-  // collisionCharacterAboveBabyChickens() {
-  //   this.collisionCharacterAboveEnemies(this.level.babyChickens);
-  // }
-
+  //<------- Draw functions for canvas with flip logic  ------->
   /**
    * creates drawings; move entire world (translate, x-axis) and back after drawing to avoid continuous shifting; Camera and Character move in opposite directions
    *
@@ -375,8 +338,9 @@ class World {
   }
 
   /**
-   * add one object to map; character and bars
-   *
+   * Adds an object to the map and performs additional operations, such as flipping the image if necessary,
+   * drawing the object on the canvas, and flipping the image back if applicable.
+   * @param {Object} object - The object to be added to the map.
    */
   AddToMap(object) {
     if (object.otherDirection) {
@@ -391,14 +355,14 @@ class World {
 
   /**
    * Flips the image of the object horizontally.
-   *  If the object's 'otherDirection' property is true, flips the image
+   * If the object's 'otherDirection' property is true, flips the image
    * If 'otherDirection' is true, flips the image back to its original
    */
   flipImage(object) {
-    this.ctx.save(); /* save properties of context */
-    this.ctx.translate(object.width, 0); /* move context; mirrored */
-    this.ctx.scale(-1, 1); /* move by the width of the element */
-    object.x = object.x * -1; /* x-axis also mirrored */
+    this.ctx.save();
+    this.ctx.translate(object.width, 0);
+    this.ctx.scale(-1, 1);
+    object.x = object.x * -1;
   }
 
   /**
