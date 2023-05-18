@@ -148,28 +148,48 @@ class World {
     this.deleteDeadChicken();
   }
 
-  deleteDeadBabyChicken() {
-    const deadChickenIndexes = [];
-    this.level.babyChickens.forEach((babyChicken, index) => {
-      if (babyChicken.chickenDead) {
-        deadChickenIndexes.push(index);
+  // deleteDeadBabyChicken() {
+  //   const deadChickenIndexes = [];
+  //   this.level.babyChickens.forEach((babyChicken, index) => {
+  //     if (babyChicken.chickenDead) {
+  //       deadChickenIndexes.push(index);
+  //     }
+  //   });
+  //   for (let i = deadChickenIndexes.length - 1; i >= 0; i--) {
+  //     this.level.babyChickens.splice(deadChickenIndexes[i], 1);
+  //   }
+  // }
+
+  // deleteDeadChicken() {
+  //   const deadChickenIndexes = [];
+  //   this.level.chickens.forEach((chicken, index) => {
+  //     if (chicken.chickenDead) {
+  //       deadChickenIndexes.push(index);
+  //     }
+  //   });
+  //   for (let i = deadChickenIndexes.length - 1; i >= 0; i--) {
+  //     this.level.chickens.splice(deadChickenIndexes[i], 1);
+  //   }
+  // }
+
+  deleteDeadEntities(entities) {
+    const deadEntityIndexes = [];
+    entities.forEach((entity, index) => {
+      if (entity.chickenDead) {
+        deadEntityIndexes.push(index);
       }
     });
-    for (let i = deadChickenIndexes.length - 1; i >= 0; i--) {
-      this.level.babyChickens.splice(deadChickenIndexes[i], 1);
+    for (let i = deadEntityIndexes.length - 1; i >= 0; i--) {
+      entities.splice(deadEntityIndexes[i], 1);
     }
   }
 
+  deleteDeadBabyChicken() {
+    this.deleteDeadEntities(this.level.babyChickens);
+  }
+
   deleteDeadChicken() {
-    const deadChickenIndexes = [];
-    this.level.chickens.forEach((chicken, index) => {
-      if (chicken.chickenDead) {
-        deadChickenIndexes.push(index);
-      }
-    });
-    for (let i = deadChickenIndexes.length - 1; i >= 0; i--) {
-      this.level.chickens.splice(deadChickenIndexes[i], 1);
-    }
+    this.deleteDeadEntities(this.level.chickens);
   }
 
   /**
