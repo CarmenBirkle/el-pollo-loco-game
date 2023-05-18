@@ -209,15 +209,28 @@ class World {
   }
 
   /**
-   * Iterates over all the chickens in this level and all throwable objects, checks if a throwable object collides with a chicken, and removes the chicken if so.
-   * Plays a chicken sound effect when a chicken is hit by a throwable object.
+   * Iterates over all the chickens and baby chickens in this level and all throwable objects, checks if a throwable object collides with this enemy.
+   * Plays a chicken sound effect when a chicken is hit by a throwable object and sets the 'chickenDead' flag to true.
    */
+  // checkCollisionsHit() {
+  //   this.level.chickens.forEach((enemy, index) => {
+  //     this.throwableObjects.forEach((throwObject) => {
+  //       if (throwObject.isColliding(enemy) && !enemy.chickenDead) {
+  //         this.chickenSound.play();
+  //         enemy.chickenDead = true;
+  //       }
+  //     });
+  //   });
+  // }
+
   checkCollisionsHit() {
-    this.level.chickens.forEach((enemy, index) => {
+    const entities = this.level.chickens.concat(this.level.babyChickens);
+
+    entities.forEach((entity, index) => {
       this.throwableObjects.forEach((throwObject) => {
-        if (throwObject.isColliding(enemy) && !enemy.chickenDead) {
+        if (throwObject.isColliding(entity) && !entity.chickenDead) {
           this.chickenSound.play();
-          enemy.chickenDead = true;
+          entity.chickenDead = true;
         }
       });
     });
