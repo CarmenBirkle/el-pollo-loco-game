@@ -259,7 +259,7 @@ class World {
   checkCollisionsEndbossHit() {
     this.throwableObjects.forEach((throwBottle) => {
       if (throwBottle.isColliding(this.endboss)) {
-        console.log('endboss hit', this.endboss.energy);
+        // console.log('endboss hit', this.endboss.energy);
         this.endboss.hit(20);
         console.log(this.endboss.energy);
         throwBottle.bottleHit = true;
