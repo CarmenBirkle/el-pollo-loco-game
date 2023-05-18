@@ -51,6 +51,34 @@ function setRunningIntervals(fn, time) {
 //   startGame();
 // }
 
+// function restart() {
+//   clearAllIntervals();
+//   gameAudio.pause();
+//   removeOpacity('pause');
+//   hideContainer('win');
+//   hideContainer('gameOver');
+//   showContainer('countdown');
+//   let countdownElement = document.getElementById('countdown');
+//   let count = 3;
+//   let countdownInterval = setInterval(updateCountdown, 500);
+//   function updateCountdown() {
+//     countdownElement.innerHTML = count;
+//     count--;
+//     if (count < 0) {
+//       clearInterval(countdownInterval);
+//       countdownElement.innerHTML = 'Go!';
+//       setTimeout(startGameAfterDelay, 500);
+//     }
+//   }
+// }
+
+// function startGameAfterDelay() {
+//   let countdownElement = document.getElementById('countdown');
+//   hideContainer('countdown');
+//   startGame();
+//   countdownElement.innerHTML = '';
+// }
+
 function restart() {
   clearAllIntervals();
   gameAudio.pause();
@@ -58,24 +86,31 @@ function restart() {
   hideContainer('win');
   hideContainer('gameOver');
   showContainer('countdown');
+  startCountdown();
+}
 
+function startCountdown() {
   let countdownElement = document.getElementById('countdown');
   let count = 3;
+  let countdownInterval = setInterval(updateCountdown, 500);
 
-  let countdownInterval = setInterval(() => {
+  function updateCountdown() {
     countdownElement.innerHTML = count;
     count--;
 
     if (count < 0) {
       clearInterval(countdownInterval);
       countdownElement.innerHTML = 'Go!';
-      setTimeout(() => {
-        hideContainer('countdown');
-        startGame();
-        countdownElement.innerHTML = '';
-      }, 500);
+      setTimeout(startGameAfterDelay, 500);
     }
-  }, 500);
+  }
+}
+
+function startGameAfterDelay() {
+  let countdownElement = document.getElementById('countdown');
+  hideContainer('countdown');
+  startGame();
+  countdownElement.innerHTML = '';
 }
 
 /**
