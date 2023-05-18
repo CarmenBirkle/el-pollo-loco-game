@@ -90,8 +90,6 @@ class World {
   }
 
   checkAllCollisions() {
-    // this.checkCollisionsCoin();
-    // this.checkCollisionsBottle();
     this.checkCollisionsItem('coin', this.coinBar, this.coinSound);
     this.checkCollisionsItem('bottle', this.bottleBar, this.bottleSound);
     this.checkCollisionsChicken(this.level.chickens);
@@ -101,107 +99,52 @@ class World {
     this.checkCollisionsEndboss();
   }
 
-  /**
-   * Iterates over all the coins in this level, checks if the character is colliding with a coin, and collects it if so.
-   * Removes the collected coin from the level's list of coins, updates the number of collected coins and the coin bar display.
-   * Plays a coin sound effect.
-   */
-  // checkCollisionsCoin() {
-  //   this.level.coins.forEach((coin, index) => {
-  //     if (this.character.isColliding(coin)) {
-  //       this.increasePercentage(this.coinBar);
-  //       this.level.coins.splice(index, 1);
-  //       this.coinBar.setPercentage(this.coinBar.percentage);
-  //       this.coinSound.play();
-  //     }
-  //   });
-  // }
-
-  /**
-   * Iterates over all the bottles in this level, checks if the character is colliding with a bottle, and collects it if so, but only if the character has less than 5 bottles.
-   * Removes the collected bottle from the level's list of bottles, updates the bottle bar display and plays a bottle sound effect.
-   */
-  // checkCollisionsBottle() {
-  //   this.level.bottles.forEach((bottleX, index) => {
-  //     if (
-  //       this.character.isColliding(bottleX) &&
-  //       this.bottleBar.percentage < 100
-  //     ) {
-  //       this.increasePercentage(this.bottleBar);
-  //       this.bottleBar.setPercentage(this.bottleBar.percentage);
-  //       this.level.bottles.splice(index, 1);
-  //       this.bottleSound.play();
-  //     }
-  //   });
-  // }
-
   // checkCollisionsItem(collectionType, progressBar, sound) {
-  //   let collectionArray;
-  //   if (collectionType === 'coin') {
-  //     collectionArray = this.level.coins;
-  //   } else if (collectionType === 'bottle') {
-  //     collectionArray = this.level.bottles;
-  //   }
-  //   this.handleCollision(collectionType, progressBar, sound, collectionArray);
-  // }
-
-  // handleCollision(collectionType, progressBar, sound, collectionArray) {
+  //   let collectionArray = this.handleCollectionType(collectionType);
   //   collectionArray.forEach((item, index) => {
-  //     if (collectionType === 'bottle') {
-  //       this.handleBottleCollision(progressBar, sound, item, index);
-  //     } else {
-  //       this.handleDefaultCollision(progressBar, sound, item, index);
+  //     if (this.bottlePercentUnder100(collectionType, progressBar, item)) {
+  //       this.increasePercentage(progressBar);
+  //       progressBar.setPercentage(progressBar.percentage);
+  //       collectionArray.splice(index, 1);
+  //       sound.play();
+  //     } else if (this.colletOtherItems(collectionType, progressBar, item)) {
+  //       this.increasePercentage(progressBar);
+  //       progressBar.setPercentage(progressBar.percentage);
+  //       collectionArray.splice(index, 1);
+  //       sound.play();
   //     }
   //   });
-  // }
-
-  // handleBottleCollision(progressBar, sound, item, index) {
-  //   if (progressBar.percentage < 100 && this.character.isColliding(item)) {
-  //     this.increasePercentage(progressBar);
-  //     progressBar.setPercentage(progressBar.percentage);
-  //     collectionArray.splice(index, 1);
-  //     sound.play();
-  //   }
-  // }
-
-  // handleDefaultCollision(progressBar, sound, item, index) {
-  //   if (this.character.isColliding(item)) {
-  //     this.increasePercentage(progressBar);
-  //     progressBar.setPercentage(progressBar.percentage);
-  //     collectionArray.splice(index, 1);
-  //     sound.play();
-  //   }
   // }
 
   checkCollisionsItem(collectionType, progressBar, sound) {
     let collectionArray = this.handleCollectionType(collectionType);
-
-    // if (collectionType === 'coin') {
-    //   collectionArray = this.level.coins;
-    // } else if (collectionType === 'bottle') {
-    //   collectionArray = this.level.bottles;
-    // }
-
     collectionArray.forEach((item, index) => {
       if (
-        collectionType === 'bottle' &&
-        progressBar.percentage < 100 &&
-        this.character.isColliding(item)
+        this.bottlePercentUnder100(collectionType, progressBar, item) ||
+        this.colletOtherItems(collectionType, progressBar, item)
       ) {
-        this.increasePercentage(progressBar);
-        progressBar.setPercentage(progressBar.percentage);
-        collectionArray.splice(index, 1);
-        sound.play();
-      } else if (
-        collectionType !== 'bottle' &&
-        this.character.isColliding(item)
-      ) {
-        this.increasePercentage(progressBar);
-        progressBar.setPercentage(progressBar.percentage);
-        collectionArray.splice(index, 1);
-        sound.play();
+        this.processCollision(progressBar, collectionArray, index, sound);
       }
     });
+  }
+
+  processCollision(progressBar, collectionArray, index, sound) {
+    this.increasePercentage(progressBar);
+    progressBar.setPercentage(progressBar.percentage);
+    collectionArray.splice(index, 1);
+    sound.play();
+  }
+
+  bottlePercentUnder100(collectionType, progressBar, item) {
+    return (
+      collectionType === 'bottle' &&
+      progressBar.percentage < 100 &&
+      this.character.isColliding(item)
+    );
+  }
+
+  colletOtherItems(collectionType, progressBar, item) {
+    return collectionType !== 'bottle' && this.character.isColliding(item);
   }
 
   handleCollectionType(collectionType) {
@@ -214,6 +157,14 @@ class World {
     }
     return collectionArray;
   }
+
+  // handleUpdatePercentage(collectionArray, progressBar) {
+  //   return(
+  //       this.increasePercentage(progressBar);
+  //       progressBar.setPercentage(progressBar.percentage);
+  //       collectionArray.splice(index, 1);
+  //       sound.play(););
+  // }
 
   deleteAllChickens() {
     this.deleteDeadBabyChicken();
