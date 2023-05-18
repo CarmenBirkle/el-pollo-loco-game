@@ -16,7 +16,6 @@ class Endboss extends MovableObject {
   y = 50;
   x = 2500;
   world;
-  // energy = 25;
   endboss_dead = false;
   speed = 8;
 
@@ -89,22 +88,6 @@ class Endboss extends MovableObject {
       }
     }, 1000 / 5);
   }
-
-  // startWalkAngryAnimation() {
-  //   this.move();
-  //   this.speed = 7;
-  //   setTimeout(() => {
-  //     // Animation 2: playAnimation(this.IMAGES_ANGRY)
-  //     this.playAnimation(this.IMAGES_ANGRY);
-  //     this.speed = 0;
-
-  //     // Setzen einer Zeitverzögerung für die erneute Anzeige der Animationen
-  //     setTimeout(() => {
-  //       // Wiederholen der Animationen
-  //       this.startWalkAngryAnimation();
-  //     }, 5000); // Warten Sie 2 Sekunden, bevor Sie die Animationen wiederholen
-  //   }, 5000); // Warten Sie 2 Sekunden, bevor Sie zur nächsten Animation wechseln
-  // }
 
   move() {
     this.playAnimation(this.IMAGES_WALKING);

@@ -1,36 +1,13 @@
 /**
- * @class StatusBar represent the health status of the player and displays it
+ * @class StatusBar represent als functions for all Statusbars and displays it
+ * @extends DrawableObject
+ * bottle-bar.class.js, health-bar.class.js, endboss-health-bar.class.js, coin-bar.class.js
+ * inherits from this class
  */
 class StatusBar extends DrawableObject {
   height = 50;
   width = 180;
   percentage;
-  // percentage = 100;
-  // IMAGES = [
-  //   'img/7_statusbars/1_statusbar/2_statusbar_health/green/0.png',
-  //   'img/7_statusbars/1_statusbar/2_statusbar_health/green/20.png',
-  //   'img/7_statusbars/1_statusbar/2_statusbar_health/green/40.png',
-  //   'img/7_statusbars/1_statusbar/2_statusbar_health/green/60.png',
-  //   'img/7_statusbars/1_statusbar/2_statusbar_health/green/80.png',
-  //   'img/7_statusbars/1_statusbar/2_statusbar_health/green/100.png',
-  // ];
-
-  // constructor() {
-  //   super();
-  //   this.loadImages(this.IMAGES);
-  //   this.x = 40;
-  //   this.y = 0;
-  //   this.width = 180;
-  //   this.height = 50;
-  //   this.setPercentage(100);
-  // }
-
-  // collectCoins() {
-  //   this.percentage += 20;
-  //   if (this.percentage > 100) {
-  //     this.percentage = 100;
-  //   }
-  // }
 
   /**
    * update the status bar image based on the percentage with health status
