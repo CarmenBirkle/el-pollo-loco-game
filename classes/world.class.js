@@ -90,11 +90,12 @@ class World {
   }
 
   checkAllCollisions() {
-    this.checkCollisionsCoin();
-    this.checkCollisionsBottle();
+    // this.checkCollisionsCoin();
+    // this.checkCollisionsBottle();
+    this.checkCollisionsItem('coin', this.coinBar, this.coinSound);
+    this.checkCollisionsItem('bottle', this.bottleBar, this.bottleSound);
     this.checkCollisionsChicken(this.level.chickens);
     this.checkCollisionsChicken(this.level.babyChickens);
-    // this.checkCollisionsBabyChicken();
     this.checkCollisionsHit();
     this.checkCollisionsEndbossHit();
     this.checkCollisionsEndboss();
@@ -105,45 +106,113 @@ class World {
    * Removes the collected coin from the level's list of coins, updates the number of collected coins and the coin bar display.
    * Plays a coin sound effect.
    */
-  checkCollisionsCoin() {
-    this.level.coins.forEach((coin, index) => {
-      if (this.character.isColliding(coin)) {
-        // this.collectCoins();
-        this.increasePercentage(this.coinBar);
-        this.level.coins.splice(index, 1);
-        // this.coinBar.updateCoinBar();
-        this.coinBar.setPercentage(this.coinBar.percentage);
-        this.coinSound.play();
-      }
-    });
-  }
-
-  // increasePercentage() {
-  //   this.percentage +=20;
-  //      if (this.percentage > 100) {
-  //        this.percentage = 100;
-  //      }
+  // checkCollisionsCoin() {
+  //   this.level.coins.forEach((coin, index) => {
+  //     if (this.character.isColliding(coin)) {
+  //       this.increasePercentage(this.coinBar);
+  //       this.level.coins.splice(index, 1);
+  //       this.coinBar.setPercentage(this.coinBar.percentage);
+  //       this.coinSound.play();
+  //     }
+  //   });
   // }
 
   /**
    * Iterates over all the bottles in this level, checks if the character is colliding with a bottle, and collects it if so, but only if the character has less than 5 bottles.
    * Removes the collected bottle from the level's list of bottles, updates the bottle bar display and plays a bottle sound effect.
    */
-  checkCollisionsBottle() {
-    this.level.bottles.forEach((bottleX, index) => {
+  // checkCollisionsBottle() {
+  //   this.level.bottles.forEach((bottleX, index) => {
+  //     if (
+  //       this.character.isColliding(bottleX) &&
+  //       this.bottleBar.percentage < 100
+  //     ) {
+  //       this.increasePercentage(this.bottleBar);
+  //       this.bottleBar.setPercentage(this.bottleBar.percentage);
+  //       this.level.bottles.splice(index, 1);
+  //       this.bottleSound.play();
+  //     }
+  //   });
+  // }
+
+  // checkCollisionsItem(collectionType, progressBar, sound) {
+  //   let collectionArray;
+  //   if (collectionType === 'coin') {
+  //     collectionArray = this.level.coins;
+  //   } else if (collectionType === 'bottle') {
+  //     collectionArray = this.level.bottles;
+  //   }
+  //   this.handleCollision(collectionType, progressBar, sound, collectionArray);
+  // }
+
+  // handleCollision(collectionType, progressBar, sound, collectionArray) {
+  //   collectionArray.forEach((item, index) => {
+  //     if (collectionType === 'bottle') {
+  //       this.handleBottleCollision(progressBar, sound, item, index);
+  //     } else {
+  //       this.handleDefaultCollision(progressBar, sound, item, index);
+  //     }
+  //   });
+  // }
+
+  // handleBottleCollision(progressBar, sound, item, index) {
+  //   if (progressBar.percentage < 100 && this.character.isColliding(item)) {
+  //     this.increasePercentage(progressBar);
+  //     progressBar.setPercentage(progressBar.percentage);
+  //     collectionArray.splice(index, 1);
+  //     sound.play();
+  //   }
+  // }
+
+  // handleDefaultCollision(progressBar, sound, item, index) {
+  //   if (this.character.isColliding(item)) {
+  //     this.increasePercentage(progressBar);
+  //     progressBar.setPercentage(progressBar.percentage);
+  //     collectionArray.splice(index, 1);
+  //     sound.play();
+  //   }
+  // }
+
+  checkCollisionsItem(collectionType, progressBar, sound) {
+    let collectionArray = this.handleCollectionType(collectionType);
+
+    // if (collectionType === 'coin') {
+    //   collectionArray = this.level.coins;
+    // } else if (collectionType === 'bottle') {
+    //   collectionArray = this.level.bottles;
+    // }
+
+    collectionArray.forEach((item, index) => {
       if (
-        this.character.isColliding(bottleX) &&
-        this.bottleBar.percentage < 100
+        collectionType === 'bottle' &&
+        progressBar.percentage < 100 &&
+        this.character.isColliding(item)
       ) {
-        // this.collectBottles();
-        // this.bottleBar.updateBottleBar();
-        this.increasePercentage(this.bottleBar);
-        this.bottleBar.setPercentage(this.bottleBar.percentage);
-        this.level.bottles.splice(index, 1);
-        this.bottleSound.play();
-        // console.log('amountOfBottles ', this.bottleBar.amountOfBottles);
+        this.increasePercentage(progressBar);
+        progressBar.setPercentage(progressBar.percentage);
+        collectionArray.splice(index, 1);
+        sound.play();
+      } else if (
+        collectionType !== 'bottle' &&
+        this.character.isColliding(item)
+      ) {
+        this.increasePercentage(progressBar);
+        progressBar.setPercentage(progressBar.percentage);
+        collectionArray.splice(index, 1);
+        sound.play();
       }
     });
+  }
+
+  handleCollectionType(collectionType) {
+    let collectionArray;
+
+    if (collectionType === 'coin') {
+      collectionArray = this.level.coins;
+    } else if (collectionType === 'bottle') {
+      collectionArray = this.level.bottles;
+    }
+    return collectionArray;
   }
 
   deleteAllChickens() {
@@ -219,25 +288,6 @@ class World {
   }
 
   /**
-   * Iterates over all the baby chickens in this level, checks if the character is colliding with a baby chicken, and damages the character if so.
-   * If the baby chicken is already dead or the character is above the ground, no damage is dealt.
-   * Updates the character's energy level and plays a hurt sound effect.
-   */
-  // checkCollisionsBabyChicken() {
-  //   this.level.babyChickens.forEach((enemy) => {
-  //     if (
-  //       this.character.isColliding(enemy) &&
-  //       !enemy.babyChickenDead &&
-  //       !this.character.isAboveGround()
-  //     ) {
-  //       this.character.hit();
-  //       this.statusBar.setPercentage(this.character.energy);
-  //       this.hurtSound.play();
-  //     }
-  //   });
-  // }
-
-  /**
    * Iterates over all the chickens in this level and all throwable objects, checks if a throwable object collides with a chicken, and removes the chicken if so.
    * Plays a chicken sound effect when a chicken is hit by a throwable object.
    */
@@ -283,18 +333,6 @@ class World {
    * If so, creates a new throwable object at the character's position and adds it to the list of throwable objects.
    * Decrements the amount of bottles in the bottle bar and updates the bottle bar display.
    */
-  // checkThrowObject() {
-  //   if (this.keyboard.D && this.bottleBar.amountOfBottles > 0) {
-  //     let bottle = new ThrowableOject(
-  //       this.character.x + 20,
-  //       this.character.y + 100,
-  //       this.character.otherDirection
-  //     );
-  //     this.throwableObjects.push(bottle);
-  //     this.bottleBar.amountOfBottles -= 1;
-  //     this.bottleBar.updateBottleBar();
-  //   }
-  // }
 
   checkThrowObject() {
     if (this.keyboard.D && this.bottleBar.percentage > 0) {
