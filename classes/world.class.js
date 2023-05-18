@@ -144,33 +144,11 @@ class World {
   //<------- Delete Dead Enemys Functions  ------->
 
   deleteAllChickens() {
-    this.deleteDeadBabyChicken();
-    this.deleteDeadChicken();
+    this.deleteDeadEntities(this.level.babyChickens);
+    this.deleteDeadEntities(this.level.chickens);
+    // this.deleteDeadBabyChicken();
+    // this.deleteDeadChicken();
   }
-
-  // deleteDeadBabyChicken() {
-  //   const deadChickenIndexes = [];
-  //   this.level.babyChickens.forEach((babyChicken, index) => {
-  //     if (babyChicken.chickenDead) {
-  //       deadChickenIndexes.push(index);
-  //     }
-  //   });
-  //   for (let i = deadChickenIndexes.length - 1; i >= 0; i--) {
-  //     this.level.babyChickens.splice(deadChickenIndexes[i], 1);
-  //   }
-  // }
-
-  // deleteDeadChicken() {
-  //   const deadChickenIndexes = [];
-  //   this.level.chickens.forEach((chicken, index) => {
-  //     if (chicken.chickenDead) {
-  //       deadChickenIndexes.push(index);
-  //     }
-  //   });
-  //   for (let i = deadChickenIndexes.length - 1; i >= 0; i--) {
-  //     this.level.chickens.splice(deadChickenIndexes[i], 1);
-  //   }
-  // }
 
   deleteDeadEntities(entities) {
     const deadEntityIndexes = [];
