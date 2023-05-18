@@ -98,24 +98,7 @@ class World {
     this.checkCollisionsEndbossHit();
     this.checkCollisionsEndboss();
   }
-
-  // checkCollisionsItem(collectionType, progressBar, sound) {
-  //   let collectionArray = this.handleCollectionType(collectionType);
-  //   collectionArray.forEach((item, index) => {
-  //     if (this.bottlePercentUnder100(collectionType, progressBar, item)) {
-  //       this.increasePercentage(progressBar);
-  //       progressBar.setPercentage(progressBar.percentage);
-  //       collectionArray.splice(index, 1);
-  //       sound.play();
-  //     } else if (this.colletOtherItems(collectionType, progressBar, item)) {
-  //       this.increasePercentage(progressBar);
-  //       progressBar.setPercentage(progressBar.percentage);
-  //       collectionArray.splice(index, 1);
-  //       sound.play();
-  //     }
-  //   });
-  // }
-
+  //<------- Collision Functions with Items (coins and bottles) ------->
   checkCollisionsItem(collectionType, progressBar, sound) {
     let collectionArray = this.handleCollectionType(collectionType);
     collectionArray.forEach((item, index) => {
@@ -123,12 +106,12 @@ class World {
         this.bottlePercentUnder100(collectionType, progressBar, item) ||
         this.colletOtherItems(collectionType, progressBar, item)
       ) {
-        this.processCollision(progressBar, collectionArray, index, sound);
+        this.handleItemCollision(progressBar, collectionArray, index, sound);
       }
     });
   }
 
-  processCollision(progressBar, collectionArray, index, sound) {
+  handleItemCollision(progressBar, collectionArray, index, sound) {
     this.increasePercentage(progressBar);
     progressBar.setPercentage(progressBar.percentage);
     collectionArray.splice(index, 1);
@@ -158,13 +141,7 @@ class World {
     return collectionArray;
   }
 
-  // handleUpdatePercentage(collectionArray, progressBar) {
-  //   return(
-  //       this.increasePercentage(progressBar);
-  //       progressBar.setPercentage(progressBar.percentage);
-  //       collectionArray.splice(index, 1);
-  //       sound.play(););
-  // }
+  //<------- Delete Dead Enemys Functions  ------->
 
   deleteAllChickens() {
     this.deleteDeadBabyChicken();
@@ -174,7 +151,7 @@ class World {
   deleteDeadBabyChicken() {
     const deadChickenIndexes = [];
     this.level.babyChickens.forEach((babyChicken, index) => {
-      if (babyChicken.babyChickenDead) {
+      if (babyChicken.chickenDead) {
         deadChickenIndexes.push(index);
       }
     });
@@ -325,11 +302,11 @@ class World {
       if (
         this.character.isColliding(enemy) &&
         this.character.isAboveGround() &&
-        !enemy.babyChickenDead
+        !enemy.chickenDead
       ) {
         this.character.jump();
         this.chickenSound.play();
-        enemy.babyChickenDead = true;
+        enemy.chickenDead = true;
       }
     });
   }

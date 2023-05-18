@@ -5,7 +5,7 @@ class BabyChicken extends MovableObject {
   y = 380;
   height = 50;
   width = 50;
-  babyChickenDead = false;
+  chickenDead = false;
 
   IMAGES_WALKING = [
     'img/3_enemies_chicken/chicken_small/1_walk/1_w.png',
@@ -48,7 +48,7 @@ class BabyChicken extends MovableObject {
     }, 1000 / 60);
 
     setRunningIntervals(() => {
-      if (this.babyChickenDead) {
+      if (this.chickenDead) {
         this.loadImage(this.IMAGES_DEAD);
         this.speed = 0;
       } else {
