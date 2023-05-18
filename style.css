@@ -227,6 +227,11 @@ h1 {
 }
 
 .refresh-btn {
+  height: 35px;
+  cursor: pointer;
+}
+
+.pause {
   height: 45px;
   cursor: pointer;
 }
@@ -237,7 +242,7 @@ h1 {
 }
 
 .fullscreen {
-  height: 40px;
+  height: 35px;
   cursor: pointer;
 }
 
@@ -340,6 +345,10 @@ button {
     height: 30px;
   }
 
+  .pause {
+    height: 30px;
+  }
+
   .mute {
     height: 30px;
   }
@@ -377,6 +386,10 @@ button {
   }
 
   .refresh-btn {
+    height: 20px;
+  }
+
+  .pause {
     height: 20px;
   }
 
@@ -418,18 +431,18 @@ button {
   .mobile-hide {
     display: unset;
   }
-  .fullscreen {
+  /* .fullscreen {
     display: none;
-  }
+  } */
 }
 
 @media (max-height: 600px) {
   .mobile-hide {
     display: unset;
   }
-  .fullscreen {
+  /* .fullscreen {
     display: none;
-  }
+  } */
 }
 
 /* ab hier neue mobile klassen */
@@ -454,9 +467,9 @@ button {
     top: 100%;
     left: 75px;
   }
-  .fullscreen {
+  /* .fullscreen {
     display: none;
-  }
+  } */
 }
 
 /* Regel für Smartphones im Portrait Modus */
@@ -502,9 +515,9 @@ button {
     top: 43%;
     left: -4px;
   }
-  .fullscreen {
+  /* .fullscreen {
     display: none;
-  }
+  } */
 }
 
 /* Regel für größere Geräte im Landscape-Modus  ua. ipad air and mini*/
