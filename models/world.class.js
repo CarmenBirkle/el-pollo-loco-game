@@ -212,17 +212,6 @@ class World {
    * Iterates over all the chickens and baby chickens in this level and all throwable objects, checks if a throwable object collides with this enemy.
    * Plays a chicken sound effect when a chicken is hit by a throwable object and sets the 'chickenDead' flag to true.
    */
-  // checkCollisionsHit() {
-  //   this.level.chickens.forEach((enemy, index) => {
-  //     this.throwableObjects.forEach((throwObject) => {
-  //       if (throwObject.isColliding(enemy) && !enemy.chickenDead) {
-  //         this.chickenSound.play();
-  //         enemy.chickenDead = true;
-  //       }
-  //     });
-  //   });
-  // }
-
   checkCollisionsHit() {
     const entities = this.level.chickens.concat(this.level.babyChickens);
 
@@ -309,29 +298,21 @@ class World {
     this.AddObjectsToMap(this.level.backgroundObjects);
     this.AddToMap(this.character);
     this.AddObjectsToMap(this.level.clouds);
-
-    this.ctx.translate(-this.camera_x, 0); /* move back after drawing */
-    /* ------ Space for fixed objects ------ */
+    this.ctx.translate(-this.camera_x, 0);
     this.AddToMap(this.healthBar);
     this.AddToMap(this.bottleBar);
     this.AddToMap(this.coinBar);
-
     if (this.character.x > 1900) {
       this.AddToMap(this.endbossBar);
     }
-
     this.ctx.translate(this.camera_x, 0);
-
     this.AddObjectsToMap(this.level.bottles);
     this.AddObjectsToMap(this.level.coins);
     this.AddObjectsToMap(this.level.chickens);
     this.AddObjectsToMap(this.level.babyChickens);
     this.AddObjectsToMap(this.level.endboss);
     this.AddObjectsToMap(this.throwableObjects);
-
     this.ctx.translate(-this.camera_x, 0);
-
-    /* draw function executed continuously */
     let self = this;
     if (!this.paused) {
       requestAnimationFrame(function () {

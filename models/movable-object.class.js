@@ -1,14 +1,12 @@
 class MovableObject extends DrawableObject {
   speed = 0.15;
-
   speedY = 0;
-  acceleration = 1.5; /* jump height  */
+  acceleration = 1.5;
   energy = 100;
   lastHit = 0;
 
   /**
-   * makes object jump/fall down
-   *
+   * makes object jump/fall down with gravity and acceleration (speed of falling)
    */
   applyGravity() {
     setInterval(() => {
@@ -21,7 +19,6 @@ class MovableObject extends DrawableObject {
 
   /**
    * check collision in all four frame corners (square)
-   *
    */
   isColliding(object) {
     return (
@@ -33,8 +30,7 @@ class MovableObject extends DrawableObject {
   }
 
   /**
-   * check is object is falling
-   *
+   * check is object is falling down
    */
   isAboveGround() {
     if (this instanceof ThrowableOject) {
@@ -45,56 +41,40 @@ class MovableObject extends DrawableObject {
   }
 
   /**
-   * calls each image in array
-   *
+   * calls each image in array to play animation with modulo oparator
    */
   playAnimation(images) {
-    let i =
-      this.currentImage %
-      images.length; /* e.g. i = 0 % 6; --> 0, Rest 0  ==>  1 % 6; --> 0, Rest 1
-            i = 0, 1, 2, 3, 4, 5, 0, 1, 2, 3, 4, 5, 0, 1, 2, 3, 4, 5, 0, 1, 2, 3, 4, 5,... */
+    let i = this.currentImage % images.length;
     let path = images[i];
     this.img = this.imageCache[path];
     this.currentImage++;
   }
 
   /**
-   * object moves to the right according to speed set
-   *
+   * object moves to the right according to speed settings (speed of movement)
    */
   moveRight() {
     this.x += this.speed;
   }
 
   /**
-   * object moves to the left according to speed set
-   *
+   * object moves to the left according to speed settings (speed of movement)
    */
   moveLeft() {
     this.x -= this.speed;
   }
 
   /**
-   * object jumps changing y-axis
-   *
+   * object jumps changing y-axis position
    */
   jump() {
     this.speedY = 20;
   }
 
   /**
-   * deduct energy when object collision
-   *
+   * Applies the specified damage to the object.
+   * @param {number} damage - The amount of damage to apply.
    */
-  // hit() {
-  //   this.energy -= 5;
-  //   if (this.energy < 0) {
-  //     this.energy = 0;
-  //   } else {
-  //     this.lastHit = new Date().getTime();
-  //   }
-  // }
-
   hit(damage) {
     this.energy -= damage;
     if (this.energy < 0) {
@@ -105,8 +85,8 @@ class MovableObject extends DrawableObject {
   }
 
   /**
-   * object is hurt after hit/collision
-   *
+   * Checks if the object is still considered "hurt" based on the time since the last hit.
+   * @returns {boolean} - Indicates whether the object is still hurt.
    */
   isHurt() {
     let timepassed = new Date().getTime() - this.lastHit; /* Difference in ms */
@@ -115,8 +95,8 @@ class MovableObject extends DrawableObject {
   }
 
   /**
-   * object dead when it has no energy left
-   *
+   * Checks if the object is dead based on its energy level.
+   * @returns {boolean} - Indicates whether the object is dead.
    */
   isDead() {
     return this.energy == 0;
