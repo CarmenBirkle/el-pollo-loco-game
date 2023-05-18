@@ -71,6 +71,11 @@ h1 {
   cursor: pointer;
 }
 
+.info-duringGame:hover {
+  background-color: rgba(250, 201, 30, 0.6);
+  cursor: pointer;
+}
+
 .information-overlay {
   margin: 10px;
 }
@@ -240,6 +245,14 @@ h1 {
   border-radius: 25%;
 }
 
+.info-duringGame {
+  box-sizing: border-box;
+  height: 40px;
+  width: 40px;
+  padding: 5px;
+  border-radius: 25%;
+}
+
 .opacity {
   opacity: 0.5;
 }
@@ -306,6 +319,11 @@ button {
     height: 30px;
   }
 
+  .info-duringGame {
+    height: 40px;
+    width: 40px;
+  }
+
   .pause {
     height: 30px;
   }
@@ -344,6 +362,10 @@ button {
 
   .refresh-btn {
     height: 20px;
+  }
+  .info-duringGame {
+    height: 30px;
+    width: 30px;
   }
 
   .pause {

@@ -331,12 +331,33 @@ function showPlayInfo() {
   hideContainer('gameOver');
 }
 
+function showPlayInfoDuringGame() {
+  showContainer('start');
+  showContainer('information');
+  hideContainer('game');
+  toggleGame();
+  hideContainer('win');
+  hideContainer('gameOver');
+}
+function closeInformationDuringGame() {
+  hideContainer('start');
+  hideContainer('information');
+  showContainer('game');
+  toggleGame();
+  hideContainer('win');
+  hideContainer('gameOver');
+}
+
 /**
  * Shows the information on the welcome screen.
  */
 function closeInformation() {
-  hideContainer('information');
-  showContainer('welcome-screen');
+  if (!pause) {
+    hideContainer('information');
+    showContainer('welcome-screen');
+  } else {
+    closeInformationDuringGame();
+  }
 }
 
 /**
