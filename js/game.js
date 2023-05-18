@@ -165,6 +165,7 @@ function playMusic() {
   gameAudio.loop = true;
   gameAudio.play();
   world.character.volumeOfSoundsCharacter();
+  world.volumeOfSounds();
   gameAudio.volume = 0.1;
   audioOn = true;
   removeOpacity('mute');
