@@ -81,8 +81,10 @@ class World {
     setRunningIntervals(() => {
       this.checkAllCollisions();
       this.checkThrowObject();
-      this.collisionCharacterAboveChickens();
-      this.collisionCharacterAboveBabyChickens();
+      // this.collisionCharacterAboveChickens();
+      // this.collisionCharacterAboveBabyChickens();
+      this.collisionCharacterAboveEnemies(this.level.chickens);
+      this.collisionCharacterAboveEnemies(this.level.babyChickens);
     }, 100);
     setRunningIntervals(() => {
       this.deleteAllChickens();
@@ -146,8 +148,6 @@ class World {
   deleteAllChickens() {
     this.deleteDeadEntities(this.level.babyChickens);
     this.deleteDeadEntities(this.level.chickens);
-    // this.deleteDeadBabyChicken();
-    // this.deleteDeadChicken();
   }
 
   deleteDeadEntities(entities) {
@@ -162,30 +162,22 @@ class World {
     }
   }
 
-  deleteDeadBabyChicken() {
-    this.deleteDeadEntities(this.level.babyChickens);
-  }
-
-  deleteDeadChicken() {
-    this.deleteDeadEntities(this.level.chickens);
-  }
-
   /**
    *Increases the number of collected bottles by 1, but limits the number of bottles to a maximum of 5.
    */
-  collectBottles() {
-    this.bottleBar.percentage += 20;
-    if (this.bottleBar.percentage > 100) {
-      this.bottleBar.percentage = 100;
-    }
-  }
+  // collectBottles() {
+  //   this.bottleBar.percentage += 20;
+  //   if (this.bottleBar.percentage > 100) {
+  //     this.bottleBar.percentage = 100;
+  //   }
+  // }
 
-  collectCoins() {
-    this.coinBar.percentage += 20;
-    if (this.coinBar.percentage > 100) {
-      this.coinBar.percentage = 100;
-    }
-  }
+  // collectCoins() {
+  //   this.coinBar.percentage += 20;
+  //   if (this.coinBar.percentage > 100) {
+  //     this.coinBar.percentage = 100;
+  //   }
+  // }
 
   increasePercentage(objectType) {
     objectType.percentage += 20;
@@ -278,25 +270,39 @@ class World {
    * If so, makes the character perform a jump and sets the chicken's 'chickenDead' flag to true.
    * Also plays a chicken sound effect.
    */
-  collisionCharacterAboveChickens() {
-    this.level.chickens.forEach((enemy) => {
-      if (
-        this.character.isColliding(enemy) &&
-        this.character.isAboveGround() &&
-        !enemy.chickenDead
-      ) {
-        this.character.jump();
-        this.chickenSound.play();
-        enemy.chickenDead = true;
-      }
-    });
-  }
+  // collisionCharacterAboveChickens() {
+  //   this.level.chickens.forEach((enemy) => {
+  //     if (
+  //       this.character.isColliding(enemy) &&
+  //       this.character.isAboveGround() &&
+  //       !enemy.chickenDead
+  //     ) {
+  //       this.character.jump();
+  //       this.chickenSound.play();
+  //       enemy.chickenDead = true;
+  //     }
+  //   });
+  // }
   /**
    * Checks if the character collides with any baby chickens while being above them, and triggers the character to jump and the chicken sound to play if so.
    * Also marks the baby chicken as dead to prevent further collisions.
    */
-  collisionCharacterAboveBabyChickens() {
-    this.level.babyChickens.forEach((enemy) => {
+  // collisionCharacterAboveBabyChickens() {
+  //   this.level.babyChickens.forEach((enemy) => {
+  //     if (
+  //       this.character.isColliding(enemy) &&
+  //       this.character.isAboveGround() &&
+  //       !enemy.chickenDead
+  //     ) {
+  //       this.character.jump();
+  //       this.chickenSound.play();
+  //       enemy.chickenDead = true;
+  //     }
+  //   });
+  // }
+
+  collisionCharacterAboveEnemies(enemies) {
+    enemies.forEach((enemy) => {
       if (
         this.character.isColliding(enemy) &&
         this.character.isAboveGround() &&
@@ -308,6 +314,14 @@ class World {
       }
     });
   }
+
+  // collisionCharacterAboveChickens() {
+  //   this.collisionCharacterAboveEnemies(this.level.chickens);
+  // }
+
+  // collisionCharacterAboveBabyChickens() {
+  //   this.collisionCharacterAboveEnemies(this.level.babyChickens);
+  // }
 
   /**
    * creates drawings; move entire world (translate, x-axis) and back after drawing to avoid continuous shifting; Camera and Character move in opposite directions

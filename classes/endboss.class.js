@@ -80,9 +80,9 @@ class Endboss extends MovableObject {
       } else if (this.isDead()) {
         this.letEndbossDie();
       } else {
-        if (this.energy > 20) {
+        if (this.energy >= 100) {
           this.playAnimation(this.IMAGES_ANGRY);
-        } else if (this.energy <= 20) {
+        } else if (this.energy <= 80) {
           this.move();
         }
       }
