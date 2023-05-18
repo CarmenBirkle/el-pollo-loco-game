@@ -5,6 +5,7 @@ let audioOn = false;
 let keyboardInfo = false;
 let pause = false;
 let runningIntervals = [];
+let restartButtonActive = false;
 
 gameAudio = new Audio('audio/music.mp3');
 gameLost = new Audio('audio/lost.mp3');
@@ -39,45 +40,8 @@ function setRunningIntervals(fn, time) {
 /**
  * Clears all active intervals, pauses the game audio, hides the win and game over messages, and
  * removes the opacity from the pause button. Then starts the game again by calling the startGame function.
+ * Display the countdown and start the game after the countdown
  */
-// function restart() {
-//   clearAllIntervals();
-//   gameAudio.pause();
-//   removeOpacity('pause');
-//   hideContainer('win');
-//   hideContainer('gameOver');
-//   showContainer('countdown');
-//   document.getElementById('countdown').innerHTML = '3';
-//   startGame();
-// }
-
-// function restart() {
-//   clearAllIntervals();
-//   gameAudio.pause();
-//   removeOpacity('pause');
-//   hideContainer('win');
-//   hideContainer('gameOver');
-//   showContainer('countdown');
-//   let countdownElement = document.getElementById('countdown');
-//   let count = 3;
-//   let countdownInterval = setInterval(updateCountdown, 500);
-//   function updateCountdown() {
-//     countdownElement.innerHTML = count;
-//     count--;
-//     if (count < 0) {
-//       clearInterval(countdownInterval);
-//       countdownElement.innerHTML = 'Go!';
-//       setTimeout(startGameAfterDelay, 500);
-//     }
-//   }
-// }
-
-// function startGameAfterDelay() {
-//   let countdownElement = document.getElementById('countdown');
-//   hideContainer('countdown');
-//   startGame();
-//   countdownElement.innerHTML = '';
-// }
 
 function restart() {
   clearAllIntervals();
@@ -85,8 +49,13 @@ function restart() {
   removeOpacity('pause');
   hideContainer('win');
   hideContainer('gameOver');
-  showContainer('countdown');
-  startCountdown();
+  if (restartButtonActive) {
+    showContainer('countdown');
+    startCountdown();
+    restartButtonActive = false;
+  } else {
+    startGame();
+  }
 }
 
 function startCountdown() {
@@ -121,6 +90,10 @@ function pauseGame() {
   addOpacity('pause');
   pauseIntervals();
   stopMusic();
+}
+
+function checkRestartButtonActive() {
+  restartButtonActive = true;
 }
 
 /**
