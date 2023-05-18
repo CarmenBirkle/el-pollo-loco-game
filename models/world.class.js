@@ -278,7 +278,7 @@ class World {
     enemies.forEach((enemy) => {
       if (
         this.character.isColliding(enemy) &&
-        this.character.isAboveGround() &&
+        this.character.isFalling() &&
         !enemy.chickenDead
       ) {
         this.character.jump();

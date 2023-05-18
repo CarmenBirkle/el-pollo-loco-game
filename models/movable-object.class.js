@@ -41,6 +41,14 @@ class MovableObject extends DrawableObject {
   }
 
   /**
+   * Calculates when an object falls.
+   * @returns {boolean} - Returns true if the object is falling.
+   */
+  isFalling() {
+    return this.speedY < 0 && this.isAboveGround();
+  }
+
+  /**
    * calls each image in array to play animation with modulo oparator
    */
   playAnimation(images) {
