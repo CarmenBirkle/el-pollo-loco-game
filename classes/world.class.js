@@ -108,7 +108,8 @@ class World {
   checkCollisionsCoin() {
     this.level.coins.forEach((coin, index) => {
       if (this.character.isColliding(coin)) {
-        this.collectCoins();
+        // this.collectCoins();
+        this.increasePercentage(this.coinBar);
         this.level.coins.splice(index, 1);
         // this.coinBar.updateCoinBar();
         this.coinBar.setPercentage(this.coinBar.percentage);
@@ -134,8 +135,9 @@ class World {
         this.character.isColliding(bottleX) &&
         this.bottleBar.percentage < 100
       ) {
-        this.collectBottles();
+        // this.collectBottles();
         // this.bottleBar.updateBottleBar();
+        this.increasePercentage(this.bottleBar);
         this.bottleBar.setPercentage(this.bottleBar.percentage);
         this.level.bottles.splice(index, 1);
         this.bottleSound.play();
@@ -190,6 +192,13 @@ class World {
     }
   }
 
+  increasePercentage(objectType) {
+    objectType.percentage += 20;
+    if (objectType.percentage > 100) {
+      objectType.percentage = 100;
+    }
+  }
+
   /**
    * Iterates over all the chickens in this level, checks if the character is colliding with a chicken, and damages the character if so.
    * If the chicken is already dead or the character is above the ground, no damage is dealt.
@@ -202,7 +211,7 @@ class World {
         !enemy.chickenDead &&
         !this.character.isAboveGround()
       ) {
-        this.character.hit();
+        this.character.hit(5);
         this.healthBar.setPercentage(this.character.energy);
         this.hurtSound.play();
       }
@@ -250,9 +259,12 @@ class World {
   checkCollisionsEndbossHit() {
     this.throwableObjects.forEach((throwBottle) => {
       if (throwBottle.isColliding(this.endboss)) {
-        this.endboss.hit();
+        console.log('endboss hit', this.endboss.energy);
+        this.endboss.hit(20);
+        console.log(this.endboss.energy);
         throwBottle.bottleHit = true;
-        this.endbossBar.updateEndbossBar(this.endboss.energy);
+        // this.endbossBar.updateEndbossBar(this.endboss.energy);
+        this.endbossBar.setPercentage(this.endboss.energy);
       }
     });
   }
@@ -263,7 +275,7 @@ class World {
    */
   checkCollisionsEndboss() {
     if (this.character.isColliding(this.endboss)) {
-      this.character.hit();
+      this.character.hit(5);
       this.healthBar.setPercentage(this.character.energy);
       this.hurtSound.play();
     }

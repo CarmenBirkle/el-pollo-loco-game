@@ -25,6 +25,13 @@ class StatusBar extends DrawableObject {
   //   this.setPercentage(100);
   // }
 
+  // collectCoins() {
+  //   this.percentage += 20;
+  //   if (this.percentage > 100) {
+  //     this.percentage = 100;
+  //   }
+  // }
+
   /**
    * update the status bar image based on the percentage with health status
    * @param {integer} percentage - represent the health percentage

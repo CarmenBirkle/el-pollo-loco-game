@@ -16,7 +16,7 @@ class Endboss extends MovableObject {
   y = 50;
   x = 2500;
   world;
-  energy = 25;
+  // energy = 25;
   endboss_dead = false;
   speed = 8;
 

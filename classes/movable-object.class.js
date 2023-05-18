@@ -86,8 +86,17 @@ class MovableObject extends DrawableObject {
    * deduct energy when object collision
    *
    */
-  hit() {
-    this.energy -= 5;
+  // hit() {
+  //   this.energy -= 5;
+  //   if (this.energy < 0) {
+  //     this.energy = 0;
+  //   } else {
+  //     this.lastHit = new Date().getTime();
+  //   }
+  // }
+
+  hit(damage) {
+    this.energy -= damage;
     if (this.energy < 0) {
       this.energy = 0;
     } else {
