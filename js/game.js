@@ -184,6 +184,7 @@ function clearAllIntervals() {
  * @function init() - creates world with canvas
  */
 function startGame() {
+  if(!keyboardInfo){
   initLevel();
   init();
   playMusic();
@@ -191,6 +192,7 @@ function startGame() {
   hideContainer('start');
   hideContainer('win');
   showContainer('game');
+  }
 }
 
 /**
@@ -363,23 +365,18 @@ function rightButton() {
 function showPlayInfo() {
   showContainer('start');
   showContainer('information');
-  hideContainer('welcome-screen');
+  addStrongOpacity('welcome-screen');
   hideContainer('win');
   hideContainer('gameOver');
+  keyboardInfo = true;
 }
 
 function showPlayInfoDuringGame() {
-  // showContainer('start');
   showContainer('informationDuringGame');
-  // hideContainer('game');
-  // addOpacity('canvas');
-  // addOpacity('mobile-btn-right');
-  // addOpacity('mobile-btn-left');
-  // addOpacity('controls');
-  document.getElementById('canvas').classList.add('opacity-duringGame');
-  document.getElementById('mobile-btn-right').classList.add('opacity-duringGame');
-  document.getElementById('mobile-btn-left').classList.add('opacity-duringGame');
-  document.getElementById('controls').classList.add('opacity-duringGame');
+  addStrongOpacity('canvas');
+  addStrongOpacity('mobile-btn-right');
+  addStrongOpacity('mobile-btn-left');
+  addStrongOpacity('controls');
   hideContainer('win');
   hideContainer('gameOver');
   if (!pause) {
@@ -387,18 +384,11 @@ function showPlayInfoDuringGame() {
   }
 }
 function closeInformationDuringGame() {
-  // hideContainer('start');
   hideContainer('informationDuringGame');
-  document.getElementById('canvas').classList.remove('opacity-duringGame');
-  document.getElementById('mobile-btn-right').classList.remove('opacity-duringGame');
-  document.getElementById('mobile-btn-left').classList.remove('opacity-duringGame');
-  document.getElementById('controls').classList.remove('opacity-duringGame');
-  // removeOpacity('canvas');
-  // removeOpacity('mobile-btn-right');
-  // removeOpacity('mobile-btn-left');
-  // removeOpacity('controls');
-
-  // showContainer('game');
+  removeStrongOpacity('canvas');
+  removeStrongOpacity('mobile-btn-right');;
+  removeStrongOpacity('mobile-btn-left');
+  removeStrongOpacity('controls');
   hideContainer('win');
   hideContainer('gameOver');
   if(pause){
@@ -412,7 +402,8 @@ function closeInformationDuringGame() {
 function closeInformation() {
   if (!pause) {
     hideContainer('information');
-    showContainer('welcome-screen');
+    removeStrongOpacity('welcome-screen');
+    keyboardInfo = false;
   } else {
     closeInformationDuringGame();
   }
@@ -511,4 +502,11 @@ function addOpacity(id) {
 }
 function removeOpacity(id) {
   document.getElementById(`${id}`).classList.remove('opacity');
+}
+
+function addStrongOpacity(id) {
+  document.getElementById(`${id}`).classList.add('opacity-duringGame');
+}
+function removeStrongOpacity(id) {
+  document.getElementById(`${id}`).classList.remove('opacity-duringGame');
 }
