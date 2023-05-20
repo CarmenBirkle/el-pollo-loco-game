@@ -467,7 +467,8 @@ button {
 
   .won {
     z-index: 5;
-    left: 25%;
+    left: 7%;
+     top:-20px;
   }
   .btn-restart {
     top: 100%;
@@ -522,7 +523,8 @@ button {
     height: 0px;
     z-index: 5;
     /* position: absolute; */
-    left: 25%;
+    left: 7%;
+     top:-20px;
   }
 
   .btn-restart {
@@ -572,7 +574,8 @@ button {
     height: 0px;
     z-index: 5;
     position: absolute;
-    left: 25%;
+    left: 7%;
+     top:-20px;
   }
   .btn-restart {
     top: 110px;
@@ -596,7 +599,8 @@ button {
     top: 40px;
     z-index: 5;
     /* position: absolute; */
-    left: 25%;
+    left: 7%;
+     top:-20px;
   }
   .btn-restart {
     top: 110px;
@@ -610,7 +614,7 @@ button {
 /* iPad Air */
 @media only screen and ((min-device-width: 820px) and (max-device-width: 1180px)) and (orientation: landscape) {
   .won {
-    left: 32%;
+    left: 7%;
   }
   .btn-restart {
     top: 110px;
@@ -636,7 +640,8 @@ button {
     height: 0px;
     z-index: 5;
     position: absolute;
-    left: 25%;
+    left: 7%;
+     top:-20px;
   }
   .btn-restart {
     top: 110px;
@@ -662,7 +667,8 @@ button {
   }
   .won {
     z-index: 5;
-    left: 25%;
+    left: 7%;
+     top:-20px;
   }
   .btn-restart {
     top: 100%;
@@ -711,7 +717,8 @@ button {
     height: 0px;
     z-index: 5;
     position: absolute;
-    left: 25%;
+    left: 7%;
+    top:-20px;
   }
   .btn-restart {
     top: 43%;
@@ -746,7 +753,8 @@ button {
     height: 0px;
     z-index: 5;
     position: absolute;
-    left: 25%;
+    left: 7%;
+     top:-20px;
   }
   .btn-restart {
     top: 110px;
@@ -770,7 +778,8 @@ button {
     top: 40px;
     z-index: 5;
     position: absolute;
-    left: 25%;
+    left: 7%;
+     top:-20px;
   }
   .btn-restart {
     top: 110px;
@@ -781,7 +790,7 @@ button {
 /* iPad Air */
 @media only screen and ((min-device-width: 820px) and (max-device-width: 1180px)) and (orientation: landscape) {
   .won {
-    left: 32%;
+    left:7%;
   }
   .btn-restart {
     top: 110px;
@@ -804,7 +813,8 @@ button {
     height: 0px;
     z-index: 5;
     position: absolute;
-    left: 25%;
+    left: 7%;
+     top:-20px;
   }
   .btn-restart {
     top: 110px;
@@ -836,7 +846,8 @@ button {
     top: 10px;
     z-index: 5;
     position: absolute;
-    left: 25%;
+    left: 7%;
+     top:-20px;
   }
   .btn-restart {
     top: 156px;
@@ -860,8 +871,9 @@ button {
   .won {
     z-index: 5;
     position: absolute;
-    left: 25%;
-    top: 25px;
+    left: 7%;
+    
+     top:-20px;
   }
   .btn-restart {
     top: 110px;
