@@ -209,6 +209,9 @@ h1 {
   width: 30%;
 }
 
+.mobile-img{
+  width:160px;
+}
 .refresh-btn {
   height: 35px;
   cursor: pointer;
@@ -458,6 +461,9 @@ button {
   .mobile-portrait {
     display: block;
   }
+    #canvas{
+    opacity: 0.2;
+  }
 
   .won {
     z-index: 5;
@@ -481,11 +487,18 @@ button {
   .fullscreen {
     display: none;
   }
+    #canvas{
+    opacity: 0.2;
+  }
 }
 
 @media only screen and (max-width: 820px) and (orientation: portrait) {
   .mobile-portrait {
     display: block;
+  }
+
+  #canvas{
+    opacity: 0.2;
   }
   .fullscreen {
     display: none;
@@ -508,7 +521,7 @@ button {
   .won {
     height: 0px;
     z-index: 5;
-    position: absolute;
+    /* position: absolute; */
     left: 25%;
   }
 
@@ -582,7 +595,7 @@ button {
     height: 0px;
     top: 40px;
     z-index: 5;
-    position: absolute;
+    /* position: absolute; */
     left: 25%;
   }
   .btn-restart {
@@ -643,6 +656,10 @@ button {
   .mobile-portrait {
     display: block;
   }
+
+  #canvas{
+    opacity: 0.2;
+  }
   .won {
     z-index: 5;
     left: 25%;
@@ -662,11 +679,18 @@ button {
   .mobile-portrait {
     display: block;
   }
+    #canvas{
+    opacity: 0.2;
+  }
 }
 
 @media only screen and (max-width: 820px) and (orientation: portrait) {
   .mobile-portrait {
     display: block;
+  }
+
+  #canvas{
+    opacity: 0.2;
   }
 }
 
