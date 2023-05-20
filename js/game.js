@@ -408,7 +408,6 @@ function closeInformation() {
   if (!pause) {
     hideContainer('information');
     removeStrongOpacity('welcome-screen');
-    // showContainer('welcome-screen');
     keyboardInfo = false;
   } else {
     closeInformationDuringGame();

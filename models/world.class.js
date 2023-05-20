@@ -30,6 +30,7 @@ class World {
   coin = new Coin();
   throwableObjects = [];
   endboss = this.level.endboss[0];
+  throwBottleAfterDelay = true;
 
   coinSound = new Audio('audio/coin.mp3');
   bottleSound = new Audio('audio/bottle.mp3');
@@ -189,6 +190,13 @@ class World {
     }
   }
 
+  throwBottleTimeout() {
+    this.throwBottleAfterDelay = false;
+    setTimeout(() => {
+      this.throwBottleAfterDelay = true; // Reset the flag after the delay
+    }, 250);
+  }
+
   /**
    * Iterates over all the chickens in this level, checks if the character is colliding with a chicken, and damages the character if so.
    * If the chicken is already dead or the character is above the ground, no damage is dealt.
@@ -257,7 +265,7 @@ class World {
    * Decrements the amount of bottles in the bottle bar and updates the bottle bar display.
    */
   checkThrowObject() {
-    if (this.keyboard.D && this.bottleBar.percentage > 0) {
+    if (this.keyboard.D && this.bottleBar.percentage > 0 && this.throwBottleAfterDelay) {
       let bottle = new ThrowableOject(
         this.character.x + 20,
         this.character.y + 100,
@@ -266,6 +274,7 @@ class World {
       this.throwableObjects.push(bottle);
       this.bottleBar.percentage -= 20;
       this.bottleBar.setPercentage(this.bottleBar.percentage);
+      this.throwBottleTimeout();
     }
   }
 
