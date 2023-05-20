@@ -1,7 +1,7 @@
 let canvas;
 let world;
 let keyboard = new Keyboard();
-let audioOn = false;
+let audioOn = true;
 let keyboardInfo = false;
 let pause = false;
 let runningIntervals = [];
@@ -187,7 +187,7 @@ function startGame() {
   if(!keyboardInfo){
   initLevel();
   init();
-  playMusic();
+audioOn ? playMusic() : stopMusic();
   hideContainer('welcome-screen');
   hideContainer('start');
   hideContainer('win');
