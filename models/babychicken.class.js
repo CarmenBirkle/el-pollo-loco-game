@@ -6,7 +6,12 @@ class BabyChicken extends MovableObject {
   height = 50;
   width = 50;
   chickenDead = false;
-
+  offset = {
+    top: 3,
+    right: 3,
+    bottom: 3,
+    left: 3,
+  };
   IMAGES_WALKING = [
     'img/3_enemies_chicken/chicken_small/1_walk/1_w.png',
     'img/3_enemies_chicken/chicken_small/1_walk/2_w.png',

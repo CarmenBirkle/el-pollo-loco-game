@@ -20,12 +20,22 @@ class MovableObject extends DrawableObject {
   /**
    * check collision in all four frame corners (square)
    */
-  isColliding(object) {
+  // isColliding(object) {
+  //   return (
+  //     this.x + this.width > object.x &&
+  //     this.y + this.height > object.y &&
+  //     this.x < object.x &&
+  //     this.y < object.y + object.height
+  //   );
+  // }
+
+  isColliding(obj) {
     return (
-      this.x + this.width > object.x &&
-      this.y + this.height > object.y &&
-      this.x < object.x &&
-      this.y < object.y + object.height
+      this.x + this.width - this.offset.right > obj.x + obj.offset.left &&
+      this.y + this.height - this.offset.bottom >
+        obj.y + obj.offset.top &&
+      this.x + this.offset.left < obj.x + obj.width - obj.offset.right &&
+      this.y + this.offset.top < obj.y + obj.height - obj.offset.bottom
     );
   }
 

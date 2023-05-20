@@ -55,7 +55,7 @@ class DrawableObject {
     if (this.selectedMovableObjects()) {
       ctx.beginPath();
       ctx.lineWidth = '4';
-      ctx.strokeStyle = 'transparent';
+      ctx.strokeStyle = 'blue';
 
       ctx.strokeRect(
         this.x + this.offset.left,

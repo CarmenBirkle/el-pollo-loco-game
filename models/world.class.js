@@ -82,6 +82,9 @@ class World {
       this.collisionCharacterAboveEnemies(this.level.babyChickens);
     }, 100);
     setRunningIntervals(() => {
+       this.checkCollisionsEndbossHit();
+    },500)
+    setRunningIntervals(() => {
       this.deleteAllChickens();
     }, 2000);
   }
@@ -92,7 +95,7 @@ class World {
     this.checkCollisionsChicken(this.level.chickens);
     this.checkCollisionsChicken(this.level.babyChickens);
     this.checkCollisionsHit();
-    this.checkCollisionsEndbossHit();
+    
     this.checkCollisionsEndboss();
   }
 
