@@ -267,7 +267,7 @@ class World {
    * Decrements the amount of bottles in the bottle bar and updates the bottle bar display.
    */
   checkThrowObject() {
-    if (this.keyboard.D && this.bottleBar.percentage > 0 && this.throwBottleAfterDelay) {
+    if (this.keyboard.D && this.bottleBar.percentage > 0 && !this.character.isDead() && this.throwBottleAfterDelay) {
       let bottle = new ThrowableOject(
         this.character.x + 20,
         this.character.y + 100,
