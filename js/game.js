@@ -150,7 +150,7 @@ function win() {
     clearAllIntervals();
     hideContainer('game');
     showContainer('win');
-    stopMusic();
+    muteSounds();
   }, 2000);
 }
 
@@ -159,7 +159,7 @@ function win() {
  * Clears all Intervalls and stop the game audio
  */
 function gameOver() {
-  stopMusic();
+  muteSounds();
   audioOnDuringGame ? gameLost.play() : gameLost.pause();
   setTimeout(() => {
     clearAllIntervals();
@@ -189,7 +189,7 @@ function startGame() {
   if(!keyboardInfo){
   initLevel();
   init();
-  audioOn ? playMusic() : stopMusic();
+  audioOnDuringGame ? playMusic() : stopMusic();
   hideContainer('welcome-screen');
   hideContainer('start');
   hideContainer('win');
@@ -222,6 +222,12 @@ function stopMusic() {
   world.muteSounds();
   world.character.muteVolumeOfSoundsCharacter();
   audioOn = false;
+}
+
+function muteSounds() {
+  world.muteSounds();
+  world.character.muteVolumeOfSoundsCharacter();
+  gameAudio.pause();
 }
 
 /**

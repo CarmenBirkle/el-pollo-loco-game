@@ -95,7 +95,6 @@ class World {
     this.checkCollisionsChicken(this.level.chickens);
     this.checkCollisionsChicken(this.level.babyChickens);
     this.checkCollisionsHit();
-    
     this.checkCollisionsEndboss();
   }
 
