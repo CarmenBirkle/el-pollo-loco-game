@@ -160,7 +160,7 @@ function win() {
  */
 function gameOver() {
   muteSounds();
-  audioOnDuringGame ? gameLost.play() : gameLost.pause();
+  // audioOnDuringGame ? gameLost.play() : gameLost.pause();
   setTimeout(() => {
     clearAllIntervals();
     hideContainer('game');
@@ -469,39 +469,6 @@ function phoneRotateMessage() {
     showContainer('hide-mobile-portrait');
   }
 }
-
-
-
-// const checkProperty = () => {
-//   const element = document.getElementById('canvas');
-//   const overlay = document.getElementById('changeDirection');
-//   if (element && overlay) {
-//     const styleElement = window.getComputedStyle(element);
-//     const styleOverlay = window.getComputedStyle(overlay);
-//     if (
-//       parseFloat(styleElement.getPropertyValue('opacity')) < 1 &&
-//       styleOverlay.getPropertyValue('display') === 'block' && !pause && !autoPause
-//     ) {
-//       console.log('Opacity und Sichtbarkeit gesetzt und war nicht pausiert');
-//       autoPause = true;
-//       pauseGame();
-//       // Führen Sie hier Ihren gewünschten Code aus
-//     } else if (
-//       parseFloat(styleElement.getPropertyValue('opacity')) = 1 &&
-//       autoPause
-//     ) {
-//       // console.log('Opacity und Sichtbarkeit nicht gesetzt');
-//       console.log('pausiert');
-//       //   if(autoPause){
-//          continueGame();
-//        autoPause = false;
-//       // }
-//     }
-//   }
-// };
-
-// setInterval(checkProperty, 500);
-
 
 
 /**
