@@ -369,20 +369,41 @@ function showPlayInfo() {
 }
 
 function showPlayInfoDuringGame() {
-  showContainer('start');
-  showContainer('information');
-  hideContainer('game');
-  toggleGame();
+  // showContainer('start');
+  showContainer('informationDuringGame');
+  // hideContainer('game');
+  // addOpacity('canvas');
+  // addOpacity('mobile-btn-right');
+  // addOpacity('mobile-btn-left');
+  // addOpacity('controls');
+  document.getElementById('canvas').classList.add('opacity-duringGame');
+  document.getElementById('mobile-btn-right').classList.add('opacity-duringGame');
+  document.getElementById('mobile-btn-left').classList.add('opacity-duringGame');
+  document.getElementById('controls').classList.add('opacity-duringGame');
   hideContainer('win');
   hideContainer('gameOver');
+  if (!pause) {
+    toggleGame();
+  }
 }
 function closeInformationDuringGame() {
-  hideContainer('start');
-  hideContainer('information');
-  showContainer('game');
-  toggleGame();
+  // hideContainer('start');
+  hideContainer('informationDuringGame');
+  document.getElementById('canvas').classList.remove('opacity-duringGame');
+  document.getElementById('mobile-btn-right').classList.remove('opacity-duringGame');
+  document.getElementById('mobile-btn-left').classList.remove('opacity-duringGame');
+  document.getElementById('controls').classList.remove('opacity-duringGame');
+  // removeOpacity('canvas');
+  // removeOpacity('mobile-btn-right');
+  // removeOpacity('mobile-btn-left');
+  // removeOpacity('controls');
+
+  // showContainer('game');
   hideContainer('win');
   hideContainer('gameOver');
+  if(pause){
+    toggleGame();
+  }
 }
 
 /**
@@ -440,8 +461,10 @@ function hideMobileButton() {
 function phoneRotateMessage() {
   if (screen.orientation.type === 'portrait-primary') {
     showContainer('rotate-screen');
+    hideContainer('hide-mobile-portrait');
   } else {
     hideContainer('rotate-screen');
+    showContainer('hide-mobile-portrait');
   }
 }
 
