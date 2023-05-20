@@ -2,6 +2,7 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 let audioOn = true;
+let audioOnDuringGame = true;
 let keyboardInfo = false;
 let pause = false;
 let runningIntervals = [];
@@ -111,7 +112,7 @@ function pauseIntervals() {
 function continueGame() {
   removeOpacity('pause');
   playIntervals();
-  playMusic();
+  audioOnDuringGame ? playMusic() : stopMusic();
 }
 
 /**
@@ -141,7 +142,7 @@ function toggleGame() {
  * Displays the winning screen, stops all running intervals, and pauses the game audio.
  */
 function win() {
-  gameWon.play();
+  audioOnDuringGame ? gameWon.play() : gameWon.pause();
   setTimeout(() => {
     pauseGame();
     runningIntervals = [];
@@ -158,7 +159,7 @@ function win() {
  */
 function gameOver() {
   stopMusic();
-  gameLost.play();
+  audioOnDuringGame ? gameLost.play() : gameLost.pause();
   setTimeout(() => {
     clearAllIntervals();
     hideContainer('game');
@@ -187,7 +188,7 @@ function startGame() {
   if(!keyboardInfo){
   initLevel();
   init();
-audioOn ? playMusic() : stopMusic();
+  audioOn ? playMusic() : stopMusic();
   hideContainer('welcome-screen');
   hideContainer('start');
   hideContainer('win');
@@ -226,10 +227,13 @@ function stopMusic() {
  * toggles the game music on and off by checking the audioOn variable
  */
 function toggleMusic() {
+  // audioOn ? stopMusic() : playMusic();
   if (audioOn) {
     stopMusic();
+    audioOnDuringGame= false;
   } else {
     playMusic();
+    audioOnDuringGame = true;
   }
 }
 
